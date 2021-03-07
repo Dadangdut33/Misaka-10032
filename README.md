@@ -20,7 +20,7 @@ If you want to clone it and modify it yourself, you gonna have to change some st
      4. The bot have activity that changes every 15 minutes, you can change the settting in start. For the activity you can change it [here](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/bot-activity.js)
      
 ## Questions?
-Feel free to ask me if you have any questions
+Feel free to ask me in discussions if you have any questions
 
 ## Disclaimer
 You can use this however you want, but please don't use it for evil lol.\
