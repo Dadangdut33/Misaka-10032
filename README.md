@@ -1,7 +1,7 @@
 # Misaka-10032
 A Personal discord bot made by [me](https://github.com/Dadangdut33)
 This is the repository of Misaka-10032 Discord bot that i use in PPW (Para Pencari Waifu) Server 
-Originally it was private but I opened it to public now cause why not
+\nOriginally it was private but I opened it to public now cause why not
 
 ## Getting Started
 If you want to clone it and modify it yourself, you gonna have to change some stuff.
@@ -20,7 +20,7 @@ If you want to clone it and modify it yourself, you gonna have to change some st
      
 
 ## Disclaimer
-You can use this however you want, but please don't use it for evil lol. 
+You can use this however you want, but please don't use it for evil lol.\n
 P.S.
-The code is not really that great, i'm just gonna give an early warning xD
-Also special thanks to [@dameeraf](https://github.com/dameeraf) for the help on genshin commands
+\nThe code is not really that great, i'm just gonna give an early warning xD
+\nAlso special thanks to [@dameeraf](https://github.com/dameeraf) for the help on genshin commands
