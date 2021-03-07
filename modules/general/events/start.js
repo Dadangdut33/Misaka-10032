@@ -43,7 +43,7 @@ module.exports = class extends Event {
         auditlog: "mod-log",	
         movement: false,
         auditmsg: "vc-log",
-        voice: false, // Set a Channel name if you want it
+        voice: false, // Set a Channel name if you want to use it
         trackroles: false, // Default is False
       }
     });

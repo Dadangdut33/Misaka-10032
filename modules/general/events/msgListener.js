@@ -8,7 +8,7 @@ const { capitalizeFirstLetter } = require('../../../local_dependencies/functions
 module.exports = client => {
   const listenToMessage = message => { // The function 
     const gehFilter = /\bgay\b|\bgayy\b|\bgayyy\b|\bgeh\b|\bgehh\b|\bgei\b|\bgeii\b|\bgeiii\b|\bgey\b|\bgeyy\b|\bgeyyy\b/i;
-    // const regexTagHaiku = /([<@0-9>])/gi; // Optional bisa bawa bisa ga karena sudah pakai message.mentions.members.first() 
+    // const regexTagHaiku = /([<@0-9>])/gi; // Not used cause no need, message.mentions.members.first() is the same
     const regexEmojiHaiku = /(:[^:\s]+:|<:[^:\s]+:[0-9]+>|<a:[^:\s]+:[0-9]+>)/g;
     
     // console.log(message.mentions.channels.first())
