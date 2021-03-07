@@ -1,0 +1,6 @@
+**[24/2/2021]**
+Added options to choose the results now on animekitsu, mangakitsu, and mangamal. No options is added for animemal because the details would be reduced if I change the search method on malscraper
+**[25/2/2021]**
+Improved the detection on haiku (still need more calibration tho), added smallifys, added wikipediaid for id article, changed wikipedia to wikipediaeng (for english article obv),
+**[26/2/2021]**
+Added poll

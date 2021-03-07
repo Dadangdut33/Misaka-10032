@@ -1,0 +1,54 @@
+**[18/4/2020]** 
+Initial commit with commands : meme, rps, help, ping, spoiler, and say. The initial name was *Da-Dang*
+**[24/7/2020]**
+Switched hosting server from Heroku to glitch.com. After several tweaks, the bot is now up 24/7 using script from pipedream.com
+**[26/7/2020]**
+Added profile commands and tweak some stuff in spoiler and say
+**[27/7/2020]**
+Added weather, anime, and manga commands
+**[28/7/2020]**
+Added advice and joke commands
+**[29/7/2020]**
+Added music, lyrics, about, animeme, cute, and reset status
+**[3/8/2020]**
+Deleted music and reset status commands
+**[5/8/2020]**
+Created new repository with new handler. Also removed unused dependencies
+**[24/12/2020]**
+Prefix changed from ! to =
+**[25/12/2020]**
+Prefix changed from = to d!, tweaked alias setting, and added genshin commands (gday)
+**[1/1/2021]**
+Added gbook commands
+**[2/1/2021]**
+Added today option in gday, added gchar, and cleaned up some code formatting
+**[3/1/2021]**
+Updated gchar (added character list to the newest ver and added guide image)
+**[4/1/2021]**
+Tweaked code on help commands, added praytime, updated timezone, updated embed on help and profile, also pp now in HD
+**[6/1/2021]**
+Added animequote and changed lots of embed style in some commands
+**[7/1/2021]**
+Fixed bug on gday, added randomimage, qr, tempconvert, dictionary, urban and wikipedia 
+**[8/1/2021]**
+Added serverinfo and fix some bugs
+**[9/1/2021]**
+Added neko and ship
+**[10/1/2021]**
+Added random bot activity
+**[11/1/2021]**
+Added slowmode, member count for ppw and fix some bugs
+**[13/1/2021]**
+Updated gchar (added ganyu) and added ghost commands
+**[17/1/2021]**
+Added ascii and purge commands
+**[19/1/2021]**
+Added airing command
+**[24/1/2021]**
+A-A-Added S-Stutterify
+**[25/1/2021]**
+Added rng command
+**[29/1/2021]**
+Added changelog, changed bot name to D-Bot
+**[2/2/2021]**
+Added text categories and more text commands, added citycoordinates along with their timezones, improved praytime and fixed bugs
