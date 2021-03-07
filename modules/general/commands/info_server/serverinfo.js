@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
-const { prefix, PPW_invite } = require("../../../../config");
+const { prefix } = require("../../../../config");
+const { PPW_invite } = require("../../../../invitelink.json")
 const Moment = require('moment-timezone');
 const prettyMS = require('pretty-ms')
 

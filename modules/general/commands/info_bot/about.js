@@ -1,8 +1,6 @@
 const { MessageEmbed } = require("discord.js")
-const { inviteURL } = require("../../../../config")
 const { Command } = require('../../../../handler');
-const { prefix } = require("../../../../config");
-const { build } = require("../../../../config");
+const { prefix, build, Repo_Link } = require("../../../../config");
 const prettyMS = require('pretty-ms')
 
 module.exports = class extends Command {
@@ -42,6 +40,7 @@ module.exports = class extends Command {
         }
 
       )
+      .addField('Bot\'s Public Repository', `[Click Here](${Repo_Link})`, false)
       .setFooter(`${message.guild.me.displayName} Version ${build}`, message.client.user.displayAvatarURL())
       .setTimestamp()
 
