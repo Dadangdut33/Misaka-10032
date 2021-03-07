@@ -23,4 +23,4 @@ If you want to clone it and modify it yourself, you gonna have to change some st
 You can use this however you want, but please don't use it for evil lol. 
 P.S.
 The code is not really that great, i'm just gonna give an early warning xD
-Also special thanks to @dameeraf for the help on genshin commands
+Also special thanks to [@dameeraf](https://github.com/dameeraf) for the help on genshin commands
