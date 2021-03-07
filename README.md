@@ -23,7 +23,7 @@ If you want to clone it and modify it yourself, you gonna have to change some st
 Feel free to ask me in discussions if you have any questions
 
 ## Disclaimer
-You can use this however you want, but please don't use it for evil lol.\
+PLease credit me if you take stuff from this repository. You can use this however you want, but please don't use it for evil lol.\
 Also, originally i used an open source template for this discord bot but i can't remember the link of the repository. I'm really sorry that i cannot link it. If you are the owner of that repo and you want me to link it please message me.<br/><br/>
 **P.S.**\
 The code is not really that great, i'm just gonna give an early warning xD\
