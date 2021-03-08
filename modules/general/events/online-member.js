@@ -13,7 +13,10 @@ module.exports = client => {
             var users = guild.members.cache.filter(m => m.user.presence.status === 'online').size
             users += guild.members.cache.filter(m => m.user.presence.status === 'idle').size
             users += guild.members.cache.filter(m => m.user.presence.status === 'dnd').size
-            return users;
+
+            var bots = guild.members.cache.filter(m => m.user.bot).size
+           
+            return users - bots;
         }
 
         channel.setName(`Online : ${OnlineUsers()}`)
