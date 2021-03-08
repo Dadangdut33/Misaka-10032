@@ -219,7 +219,7 @@ class Handler {
         await cmd.run(message, args);
       } catch (err) {
 
-        // Report Error to Self (Dadangdut33)
+        // Notify Error to Self (Dadangdut33)
         if(message.channel.type !== "dm"){ // If it's not a dm message
           var time = Moment.tz('Asia/Jakarta').format('dddd, D-M-YY (HH:mm:ss)');
           message.client.users.fetch('311740375716986881').then((user) => {
@@ -245,7 +245,11 @@ class Handler {
         }
 
         console.error(err);
-        message.channel.send(`BEEP BOOP Error └[∵┌]└[ ∵ ]┘[┐∵]┘ **${message.author.username}**`);
+        let embed = new MessageEmbed()
+        .setTitle(`BEEP BOOP Error └[∵┌]└[ ∵ ]┘[┐∵]┘`)
+        .setDescription(`**Error Details**\n${err}`)
+
+        message.channel.send(embed);
       }
     });
   }
