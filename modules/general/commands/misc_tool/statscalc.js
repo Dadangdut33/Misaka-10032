@@ -18,25 +18,33 @@ module.exports = class extends Command {
         info();
 
       } else {
-        //Sum Up the Number (TOTAL)
-        var dataSum;
-        dataSum = args.reduce(function(prev, curr){
+        //Replace new line bullshit
+        var newArgs = []
+        for(var i = 0; i < args.length; i++){
+          newArgs[i] = args[i].replace(/(\n)/g," ")
+        }
+
+        var splitted = []
+        for(var i = 0; i < newArgs.length; i++){
+          newArgs[i] = newArgs[i].split(" ") // Convert the \s to string newArgs
+        }
+        splitted = newArgs.join(" ") // Make it a string by joining
+        splitted = splitted.replace(/,/g, " ") // There is still a comma because it's a different array
+        splitted = splitted.split(" ") // Now it's new array without new line
+        // Now it's a new array no new line bullshit
+
+        var dataSum; // Sum up the number
+        dataSum = splitted.reduce(function(prev, curr){
           return (Number(prev) || 0) + (Number(curr) || 0);
         });
 
-        //Original args
-        let unsorted = [];
-        unsorted = args.toString();
-        let unsortedSpace;
-        unsortedSpace = unsorted.replace(/,/g, `, `);
-
         //Finding Average
         var avg;
-        avg = dataSum/args.length;
+        avg = dataSum/splitted.length;
 
         //Change number to float to process further data
         var floatData = [];
-        floatData = args.map(Number);
+        floatData = splitted.map(Number);
 
         //Median Function
         const median = arr => {
@@ -48,23 +56,22 @@ module.exports = class extends Command {
         const med = median(floatData);
 
         //Proses data
-        let i;
         var x = 0;
         var dataPow = 0, dataAbs = 0;
-        for(i = 0; i < args.length; i++){
+        for(var i = 0; i < splitted.length; i++){
           x = x + (floatData[i] - avg)
           dataPow += Math.pow(floatData[i] - avg, 2); //Kuadrat
           dataAbs += Math.abs(floatData[i] - avg); //Mutlak
         }
 
-        //Vary / Ragam
-        var vary = dataPow/args.length;
+        //Vary
+        var vary = dataPow/splitted.length;
 
-        //Standard deviation / Simpangan baku
+        //Standard deviation
         var SD = Math.sqrt(vary);
 
-        //Average deviation / Simpangan rata-rata
-        var AD = dataAbs/args.length;
+        //Average deviation
+        var AD = dataAbs/splitted.length;
 
         if(!SD || !AD || !vary){
           info();
@@ -72,9 +79,9 @@ module.exports = class extends Command {
           let embed = new MessageEmbed()
           .setColor("RANDOM")
           .setTitle(`Statistic Calculator`)
-          .addField(`Data Given`, `${unsortedSpace}`, false)
-          .addField(`Data Sorted `, `${args.sort().join(`, `)}`, false)
-          .addField(`Data Length`, `${args.length}`, true)
+          .addField(`Data Given`, `${splitted.join(`, `)}`, false)
+          .addField(`Data Sorted `, `${splitted.sort().join(`, `)}`, false)
+          .addField(`Data Length`, `${splitted.length}`, true)
           .addField(`Total`, `${dataSum.toFixed(2)}`, true)
           .addField(`Average`, `${avg.toFixed(2)}`, true)
           .addField(`Median`, `${med}`, true)

@@ -217,7 +217,7 @@ module.exports = class extends Command {
           value: `${genshin}`,
           inline: false
         }, {
-          name: `**Tool** [${toolCount.length}]`,
+          name: `**Tool/Utility** [${toolCount.length}]`,
           value: `${tool}`,
           inline: false
         }, {

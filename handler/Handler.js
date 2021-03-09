@@ -248,6 +248,7 @@ class Handler {
         let embed = new MessageEmbed()
         .setTitle(`BEEP BOOP Error └[∵┌]└[ ∵ ]┘[┐∵]┘`)
         .setDescription(`**Error Details**\n${err}`)
+        .setColor('#000000')
 
         message.channel.send(embed);
       }
