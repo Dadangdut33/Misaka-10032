@@ -5,6 +5,6 @@ Improved the detection on haiku (still need more calibration tho), added smallif
 **[26/2/2021]**
 Added poll
 **[08/3/2021]**
-Repository now in public,
+Repository now in public, added redditsave
 **[09/3/2021]**
-redditsave now provide directlink
+fixed bugs on statscalc, redditsave now provide directlink
