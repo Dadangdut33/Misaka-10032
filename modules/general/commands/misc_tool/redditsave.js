@@ -17,7 +17,7 @@ module.exports = class extends Command {
   
     async run(message, args) {
         if (!args[0]) {
-            return message.channel.send("Please enter a valid reddit url!");
+            return message.channel.send("Error! Please provide a valid reddit post url.");
         }
         
         let link = `https://redditsave.com/info?url=${args[0]}`;
@@ -32,16 +32,38 @@ module.exports = class extends Command {
         var errorMsg = await $('div[class = "alert alert-danger"]').text();
         
         if(errorMsg) {
-            return message.channel.send("Please enter a valid reddit url!");
+            return message.channel.send("Error! Please provide a valid reddit post url.");
+        }
+        // Get the downloadinfo
+        var downloadLink = await $('div[class = "download-info"]').html()
+        
+        // Match the link from href=
+        var takenlink = downloadLink.match(/href=(["'])(?:(?=(\\?))\2.)*?\1/);
+        
+        // Match the original link now
+        var linkOnly = takenlink.join("").match(/(["'])(?:(?=(\\?))\2.)*?\1/)
+
+        var directLink;
+        // Is there no media?
+        if(args[0] == linkOnly.join("").replace(/("|amp;)/g, "")){
+            directLink = `No media to download`
+        } else {
+            directLink = `[Click Here](${linkOnly.join("").replace(/("|amp;)/g, "")})`
         }
 
+        // Delete user sent message
+        message.delete();
         const embed = new MessageEmbed()
             .setColor('RANDOM')
-            .setTitle(`Direct link to Redditsave`)
-            .addField(`Click below`, `[RedditSave](https://redditsave.com/info?url=${args[0]})`)
-            .setFooter(message.author.username, message.author.displayAvatarURL())
-            .setTimestamp()
+            .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL())
+            .setTitle(`Original Reddit Link`)
+            .setDescription(args[0])
+            .addField(`Direct Download Link`, directLink, true) // Replace the thing in the way
+            .addField(`More Options`, `[RedditSave](https://redditsave.com/info?url=${args[0]})`, true)
+            .setFooter(`Via redditsave.com`)
+            .setColor('FF4500')
+            .setTimestamp();
             
-        message.channel.send(embed);
+        return message.channel.send(embed);
     }
 };

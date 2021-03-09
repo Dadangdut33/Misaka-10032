@@ -4,3 +4,7 @@ Added options to choose the results now on animekitsu, mangakitsu, and mangamal.
 Improved the detection on haiku (still need more calibration tho), added smallifys, added wikipediaid for id article, changed wikipedia to wikipediaeng (for english article obv),
 **[26/2/2021]**
 Added poll
+**[08/3/2021]**
+Repository now in public,
+**[09/3/2021]**
+redditsave now provide directlink
