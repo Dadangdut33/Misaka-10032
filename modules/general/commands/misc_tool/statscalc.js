@@ -36,6 +36,10 @@ module.exports = class extends Command {
       // Map the numbers
       var numbersToCalculate = [];
       numbersToCalculate = numbers(splitted);
+      if(numbersToCalculate == ""){
+        info();
+        return
+      }
 
       // Sum up the number
       var dataSum = sum(numbersToCalculate);
@@ -49,10 +53,16 @@ module.exports = class extends Command {
       // Mode
       var mod = [];
       var mod = mode(numbersToCalculate);
-      
       var daModes = [];
-      for (let item of mod) {
-        daModes.push(item)
+
+      if(mod.length !== undefined){
+        for (let item of mod) {
+          daModes.push(item)
+        }
+
+        daModes = daModes.join(`, `);
+      } else {
+        daModes = mod;
       }
 
       // Sample Variance
@@ -80,34 +90,31 @@ module.exports = class extends Command {
       // Kurtosis Scrapped from https://www.npmjs.com/package/compute-kurtosis
       var kurt = kurtosis(numbersToCalculate);
 
-      if (!AD || !Pvary) {
-        info();
-      } else {
-        let embed = new MessageEmbed()
-          .setColor("RANDOM")
-          .setTitle(`Statistic Calculator`)
-          .addField(`Data Given`, `${numbersToCalculate.join(`, `)}`, false)
-          .addField(`Data Sorted `, `${numbersToCalculate.sort().join(`, `)}`, false)
-          .addField(`Data Length`, `${numbersToCalculate.length}`, true)
-          .addField(`Total`, `${dataSum}`, true)
-          .addField(`Mean`, `${avg}`, true)
-          .addField(`Median`, `${med}`, true)
-          .addField(`Mode`, `${daModes.join(", ")}`, true)
-          .addField(`Sample Variance`, `${Svary.toFixed(4)}`, true)
-          .addField(`Population Variance`, `${Pvary.toFixed(4)}`, true)
-          .addField(`Sample Standard Deviation`, `${Ssd.toFixed(4)}`, true)
-          .addField(`Population Standard Deviation`, `${Psd.toFixed(4)}`, true)
-          .addField(`Average Deviation`, AD.toFixed(4), true)
-          .addField(`Skewness`, `${skew.toFixed(4)}`, true)
-          .addField(`Kurtosis`, `${kurt.toFixed(4)}`, true)
-          .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({
-            format: 'jpg',
-            size: 2048
-          }))
-          .setTimestamp();
+      let embed = new MessageEmbed()
+        .setColor("RANDOM")
+        .setTitle(`Statistic Calculator`)
+        .addField(`Data Given`, `${numbersToCalculate.join(`, `)}`, false)
+        .addField(`Data Sorted `, `${numbersToCalculate.sort().join(`, `)}`, false)
+        .addField(`Data Length`, `${numbersToCalculate.length}`, true)
+        .addField(`Total`, `${dataSum}`, true)
+        .addField(`Mean`, `${avg}`, true)
+        .addField(`Median`, `${med}`, true)
+        .addField(`Mode`, `${daModes}`, true)
+        .addField(`Sample Variance`, `${Svary.toFixed(4)}`, true)
+        .addField(`Population Variance`, `${Pvary.toFixed(4)}`, true)
+        .addField(`Sample Standard Deviation`, `${Ssd.toFixed(4)}`, true)
+        .addField(`Population Standard Deviation`, `${Psd.toFixed(4)}`, true)
+        .addField(`Average Deviation`, AD.toFixed(4), true)
+        .addField(`Skewness`, `${skew.toFixed(4)}`, true)
+        .addField(`Kurtosis`, `${kurt.toFixed(4)}`, true)
+        .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({
+          format: 'jpg',
+          size: 2048
+        }))
+        .setTimestamp();
 
-        message.channel.send(embed);
-      }
+      message.channel.send(embed);
+
       //Info
       function info() {
         let embed = new MessageEmbed()
@@ -116,12 +123,14 @@ module.exports = class extends Command {
           .setDescription(`For more detailed info please check using the help command. Usage example :arrow_down:\`\`\`css\n${prefix}command/alias 23 21 11 33 22 1\`\`\``)
           .setFooter(message.guild.me.displayName, message.client.user.displayAvatarURL())
           .setTimestamp();
-
+      
         message.channel.send(embed);
       }
     }
   }
 };
+
+
 
 /*Old Method
       var dataSum; // Sum up the number
