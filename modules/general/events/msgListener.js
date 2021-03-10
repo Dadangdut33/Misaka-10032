@@ -29,7 +29,9 @@ module.exports = client => {
           if(!message.content.startsWith("||") && !message.content.endsWith("||")){ // Make sure it's not a spoiler
             if(haiku.detect(message.content)){
               var haikuGet = [];
-              haikuGet = haiku.format(message.content);
+              var toHaikued = message.content.replace(/(\n)/g, ""); // Remove new line
+
+              haikuGet = haiku.format(toHaikued);
               for(var i = 0; i < haikuGet.length; i++){
                 haikuGet[i] = capitalizeFirstLetter(haikuGet[i])
               } 
