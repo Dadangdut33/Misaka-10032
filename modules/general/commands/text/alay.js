@@ -7,7 +7,7 @@ var chance = new Chance();
 module.exports = class extends Command {
     constructor() {
       super('alay', {
-        aliases: ['imdisabled'],
+        aliases: ['imdisabled', 'imretarded'],
         categories: 'text',
         info: '**Normal Ver**\nConvert a perfectly normal, safe, non authistic words into cursed "alay" words\n\n**Alay Ver**\nconvErt A pERfeCtLY nORMAL, SaFE, Non authiSTic wordS iNtO cUrSED "alay" WOrDS',
         usage: `${prefix}command/alias <text>`,
