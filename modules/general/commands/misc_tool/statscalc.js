@@ -54,16 +54,17 @@ module.exports = class extends Command {
       var mod = [];
       var mod = mode(numbersToCalculate);
       var daModes = [];
-
-      if(mod.length !== undefined){
+      var reg = /^\d+$/;
+    
+      if(!reg.test(mod)){ // Check if it's only 1 digit of number
         for (let item of mod) {
           daModes.push(item)
         }
-
-        daModes = daModes.join(`, `);
+        daModes = daModes.join(", ");
       } else {
         daModes = mod;
       }
+      
 
       // Sample Variance
       var Svary = sampleVariance(numbersToCalculate);
