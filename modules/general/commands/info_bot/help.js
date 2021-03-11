@@ -33,76 +33,6 @@ module.exports = class extends Command {
     const prefix = this.commandHandler.prefix;
 
     if (!args[0]) {
-      //Counter
-      var infoBotSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "info-bot")
-        .map(([, command]) => `${command.name}`)}`;
-      const infoBotCount = infoBotSize.split(`,`);
-
-      var funSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "fun")
-        .map(([, command]) => `${command.name}`)}`;
-      const funCount = funSize.split(`,`);
-
-      var genshinSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "genshin")
-        .map(([, command]) => `${command.name}`)}`;
-      const genshinCount = genshinSize.split(`,`);
-
-      var animeSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "anime")
-        .map(([, command]) => `${command.name}`)}`;
-      const animeCount = animeSize.split(`,`);
-
-      var moderationSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "moderation")
-        .map(([, command]) => `${command.name}`)}`;
-      const moderationCount = moderationSize.split(`,`);
-
-      var musicSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "music")
-        .map(([, command]) => `${command.name}`)}`;
-      const musicCount = musicSize.split(`,`);
-
-      var toolSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "tool")
-        .map(([, command]) => `${command.name}`)}`;
-      const toolCount = toolSize.split(`,`);
-
-      var actionSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "action")
-        .map(([, command]) => `${command.name}`)}`;
-      const actionCount = actionSize.split(`,`);
-
-      var changelogSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "changelog")
-        .map(([, command]) => `${command.name}`)}`;
-      const changelogCount = changelogSize.split(`,`);
-
-      var textSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "text")
-        .map(([, command]) => `${command.name}`)}`;
-      const textCount = textSize.split(`,`);
-
-      var animeMiscSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "anime-misc")
-        .map(([, command]) => `${command.name}`)}`;
-      const animeMiscCount = animeMiscSize.split(`,`);
-
-      var infoMiscSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "info-misc")
-        .map(([, command]) => `${command.name}`)}`;
-      const infoMiscCount = infoMiscSize.split(`,`);
-
-      var infoServerSize = `${Array.from(this.commandHandler.commands)
-        .filter(([, command]) => command.categories == "info-server")
-        .map(([, command]) => `${command.name}`)}`;
-      const infoServerCount = infoServerSize.split(`,`);
-
-      var total = infoBotCount.length + funCount.length + genshinCount.length + animeCount.length + moderationCount.length +
-        musicCount.length + toolCount.length + actionCount.length + changelogCount.length + textCount.length +
-        animeMiscCount.length + infoMiscCount.length + infoServerCount.length;
-
       //Show Commands
       let infoBot = `${Array.from(this.commandHandler.commands)
       .filter(([, command]) => command.categories == "info-bot")
@@ -169,6 +99,9 @@ module.exports = class extends Command {
         .map(([, command]) => `\`${command.name}\``)
         .join(` `)}`;
 
+        var total = infoBot.split(' ').length + infoServer.split(' ').length + infoMisc.split(' ').length + text.split(' ').length + fun.split(' ').length + action.split(' ').length
+        + anime.split(' ').length + animeMisc.split(' ').length + genshin.split(' ').length + tool.split(' ').length + moderation.split(' ').length + music.split(' ').length + changelog.split(' ').length;
+        
       const embed = new MessageEmbed()
         .setTitle('Showing Full Command List!')
         .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL({
@@ -181,55 +114,55 @@ module.exports = class extends Command {
         .setThumbnail('https://cdn.discordapp.com/attachments/653206818759376916/795497635812343848/Kirino_Question.png')
         .setDescription(`These are the available commands for ${message.guild.me.displayName}#7471‎‏‏‎ Version \`${build}\`\nThe bot currently has \`${total} commands in total\`\nThe bot's prefix is: \`${prefix}\`\nFor more details use \`\`\`css\n${prefix}help <command> or ${prefix}h <command>\`\`\``, )
         .addFields({
-          name: `**Info-Bot** [${infoBotCount.length}]`,
+          name: `**Info-Bot** [${infoBot.split(' ').length}]`,
           value: `${infoBot}`,
           inline: false
         }, {
-          name: `**Info-Server** [${infoServerCount.length}]`,
+          name: `**Info-Server** [${infoServer.split(' ').length}]`,
           value: `${infoServer}`,
           inline: false
         }, {
-          name: `**Info-Misc** [${infoMiscCount.length}]`,
+          name: `**Info-Misc** [${infoMisc.split(' ').length}]`,
           value: `${infoMisc}`,
           inline: false
         }, {
-          name: `**Text** [${textCount.length}]`,
+          name: `**Text** [${text.split(' ').length}]`,
           value: `${text}`,
           inline: false
         }, {
-          name: `**Fun** [${funCount.length}]`,
+          name: `**Fun** [${fun.split(' ').length}]`,
           value: `${fun}`,
           inline: false
         }, {
-          name: `**Action** [${actionCount.length}]`,
+          name: `**Action** [${action.split(' ').length}]`,
           value: `${action}`,
           inline: false
         }, {
-          name: `**Anime** [${animeCount.length}]`,
+          name: `**Anime** [${anime.split(' ').length}]`,
           value: `${anime}`,
           inline: false
         }, {
-          name: `**Anime-Misc** [${animeMiscCount.length}]`,
+          name: `**Anime-Misc** [${animeMisc.split(' ').length}]`,
           value: `${animeMisc}`,
           inline: false
         }, {
-          name: `**Genshin** [${genshinCount.length}]`,
+          name: `**Genshin** [${genshin.split(' ').length}]`,
           value: `${genshin}`,
           inline: false
         }, {
-          name: `**Tool/Utility** [${toolCount.length}]`,
+          name: `**Tool/Utility** [${tool.split(' ').length}]`,
           value: `${tool}`,
           inline: false
         }, {
-          name: `**Moderation** [${moderationCount.length}]`,
+          name: `**Moderation** [${moderation.split(' ').length}]`,
           value: `${moderation}`,
           inline: false
         }, {
-          name: `**Music** [${musicCount.length}]`,
+          name: `**Music** [${music.split(' ').length}]`,
           value: `${music}`,
           inline: false
         }, {
-          name: `**Changelog** [${changelogCount.length}]`,
+          name: `**Changelog** [${changelog.split(' ').length}]`,
           value: `You can check the bot's change over the time by using ${changelog}`,
           inline: false
         });
