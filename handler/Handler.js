@@ -246,7 +246,7 @@ class Handler {
 
         console.error(err);
         let embed = new MessageEmbed()
-        .setTitle(`BEEP BOOP Error └[∵┌]└[ ∵ ]┘[┐∵]┘`)
+        .setTitle(`Error └[∵┌]└[ ∵ ]┘[┐∵]┘`)
         .setDescription(`**Error Details**\n${err}`)
         .setColor('#000000')
 

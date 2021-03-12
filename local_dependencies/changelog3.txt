@@ -8,3 +8,5 @@ Added poll
 Repository now in public, added redditsave
 **[09/3/2021]**
 fixed bugs on statscalc, redditsave now provide directlink
+**[12/3/2021]**
+Added math command
