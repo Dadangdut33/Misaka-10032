@@ -8,7 +8,9 @@ var resGeh = [
   `https://media.discordapp.net/attachments/799595012005822484/812193818874347550/1613712492706.jpg`,
   `https://media.discordapp.net/attachments/799595012005822484/812193819063877632/1613712492713.jpg`,
   `https://media.discordapp.net/attachments/799595012005822484/812193819285651456/1613712492721.jpg`,
-  `https://media.discordapp.net/attachments/651015913080094724/812193541304221746/1613712421455.jpg`
+  `https://media.discordapp.net/attachments/651015913080094724/812193541304221746/1613712421455.jpg`,
+  `https://cdn.discordapp.com/attachments/799595012005822484/819735958415998996/1615369454000.jpg`,
+  `https://cdn.discordapp.com/attachments/799595012005822484/819736334541258772/bruh.gif`
 ]
 
 module.exports = function randomRes(x){
