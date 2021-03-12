@@ -5,9 +5,9 @@ const { prefix } = require("../../../../config");
 module.exports = class extends Command {
   constructor() {
     super('avatar', {
-      aliases: ['pp'],
+      aliases: ['pp', 'profilepicture'],
       categories: 'info-server',
-      info: 'Show avatar of tagged user',
+      info: 'Show avatar/profile picture of tagged user',
       usage: `${prefix}command/alias [tagged user]`,
       guildOnly: true,
     });
@@ -18,7 +18,7 @@ module.exports = class extends Command {
     if (!message.mentions.users.first()) {
 
       //Embed
-      Embed.setTitle(`Your Profile! (${message.author.tag})`);
+      Embed.setTitle(`Your Profile Picture! (${message.author.tag})`);
       Embed.setColor(`RANDOM`);
       Embed.setImage(message.author.displayAvatarURL({ format: 'jpg', size: 2048 }));
       Embed.addField(`Avatar URL`, `[Click Here!](${message.author.displayAvatarURL({ format: 'jpg', size: 2048 })})`)
@@ -29,7 +29,7 @@ module.exports = class extends Command {
       let User = message.mentions.members.first();
 
       //Embed
-      Embed.setTitle(`${message.client.users.cache.get(User.id).tag}'s Profile!`);
+      Embed.setTitle(`${message.client.users.cache.get(User.id).tag}'s Profile Picture!`);
       Embed.setColor(`RANDOM`);
       Embed.setImage(message.client.users.cache.get(User.id).displayAvatarURL({ format: 'jpg', size: 2048 }));
       Embed.addField(`Avatar URL`, `[Click Here](${message.client.users.cache.get(User.id).displayAvatarURL({ format: 'jpg', size: 2048 })})`)
