@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
+const commaNumber = require("comma-number");
 
 module.exports = class extends Command {
     constructor() {
@@ -14,19 +15,25 @@ module.exports = class extends Command {
     }
   
     async run(message, args) {
-        if (!args[0]) {
+        if (args.length < 0) {
             return message.channel.send("Please enter a valid argument!");
         }
 
-        const chars = {'x' : '*', ':' : '/'}; // Map the syntax
+        const chars = {'x' : '*', ':' : '/', ',' : '.'}; // Map the syntax
+        const display = {'x' : '*', ':' : '/',  ',' : '.', '_' : ''}; // For display purpose, no difference actually, could just move the _ to chars but ye
 
         try {
-            var mathRes = eval(args.join(" ").replace(/[x:]/g, m => chars[m]));
+            var mathRes = eval(args.join(" ").replace(/[x:,]/g, m => chars[m]));
+
+            var problem = [];
+            for (var i = 0; i < args.length; i++) {
+                problem[i] = commaNumber(args[i].replace(/[x:_]/g, m => display[m]), '.', ',');
+            }
 
             let embed = new MessageEmbed()
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-            .addField(`Problem`, `${args.join(" ").replace(/[x:]/g, m => chars[m])}`, false)
-            .addField(`Solution`, `${mathRes}`, false)
+            .addField(`Problem`, `${problem.join(" ")}`, false)
+            .addField(`Solution`, `${commaNumber(mathRes, '.', ',')}`, false)
             .setTimestamp();
     
             return message.channel.send(embed);

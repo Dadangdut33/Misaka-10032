@@ -15,6 +15,7 @@
     "ascii-table": "0.0.9",
     "axios": "^0.21.1",
     "chance": "^1.1.7",
+    "comma-number": "^2.0.1",
     "common-tags": "^1.8.0",
     "countries-and-timezones": "^2.3.1",
     "currently-airing-anime": "^0.6.3",
