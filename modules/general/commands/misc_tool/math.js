@@ -7,7 +7,7 @@ module.exports = class extends Command {
       super('math', {
         aliases: ['No alias is set for this command'],
         categories: 'tool',
-        info: `Perform a basic math equation (+/-/x/:) based on the string provided\n**Notes**\n1. You can use both symbols for multiplication (* or x) and division (: or /)\n2. It\'s also ok not to use space\n**Example**\`\`\`${prefix}math 3 * 3/2\`\`\``,
+        info: `Perform a basic math equation (+/-/x/:) based on the string provided\n\n**Notes**\n1. You can use both symbols for multiplication (* or x) and division (: or /)\n2. It\'s also ok not to use space\n\n**Example**\`\`\`${prefix}math 3 * 3/2\`\`\``,
         usage: `${prefix}command/alias <...>`,
         guildOnly: false,
       });
