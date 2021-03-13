@@ -25,7 +25,7 @@ module.exports = class extends Command {
             var coordinates = new adhan.Coordinates(-6.224036603042286, 106.70806216188234); //Ciledug -6.224036603042286, 106.70806216188234
 
             //Set Up Data
-            var date = new Date(); //Tidak dipakai karena bot di host online tapi diperlukan
+            var date = new Date(); // Date UTC + 0
             var params = adhan.CalculationMethod.MuslimWorldLeague();
             params.madhab = adhan.Madhab.Shafi;
             var prayerTimes = new adhan.PrayerTimes(coordinates, date, params);
