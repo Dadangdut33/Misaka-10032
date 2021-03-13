@@ -11,7 +11,7 @@ var splitter = new GraphemeSplitter();
 module.exports = class extends Command {
     constructor() {
         super('praytime', {
-            categories: 'info-misc',
+            categories: 'muslim',
             aliases: ["pt", "sholat", "adzan"],
             info: "Provide today's praytime, default timezone used are GMT+7. Calculation method using Muslim World League, dependencies used are moment-timezone and adhan. The default coordinate is Ciledug Indonesia but you can enter custom coordinate from google maps or custom city and also custom time zone as you can see in the usage section",
             usage: `${prefix}command/alias\`\`\`**or** \`\`\`css\n${prefix}command/alias <coordinates/coords> <coordinates1 coordinates2> [+/-] [GMT Timezone]\`\`\`**or**\`\`\`css\n${prefix}command/alias <city> "<cityname>" [[+/-] [GMT Timezone]] \`\`\`\`\`\`-> Notice the " and []`,

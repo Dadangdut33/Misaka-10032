@@ -4,7 +4,7 @@ const table = new ascii().setHeading("Command", "Load status");
 var i = 0;
 var x = 0;
 
-module.exports = () => {
+module.exports = (option) => {
     readdirSync("./modules/general/commands").forEach(dir => {
         const commands = readdirSync(`./modules/general/commands/${dir}/`).filter(f => f.endsWith(".js"));
         
@@ -29,6 +29,13 @@ module.exports = () => {
     }
 
     // console.log
-    console.log(table.toString());
-    console.log(`${i} Command(s) Loaded. ${x} Command(s) Fail to load. ${state}`);
+    if (option == "table") {
+        console.log(table.toString());
+        console.log(`${i} Command(s) Loaded. ${x} Command(s) Fail to load. ${state}`);
+    } else 
+    if (option == "notable") {
+        console.log(`${i} Command(s) Loaded. ${x} Command(s) Fail to load. ${state}`);
+    } else {
+        console.log(`Star Table Module failed to load! Pls check the option`);
+    }
 }

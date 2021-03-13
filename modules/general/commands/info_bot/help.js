@@ -99,8 +99,14 @@ module.exports = class extends Command {
         .map(([, command]) => `\`${command.name}\``)
         .join(` `)}`;
 
-        var total = infoBot.split(' ').length + infoServer.split(' ').length + infoMisc.split(' ').length + text.split(' ').length + fun.split(' ').length + action.split(' ').length
-        + anime.split(' ').length + animeMisc.split(' ').length + genshin.split(' ').length + tool.split(' ').length + moderation.split(' ').length + music.split(' ').length + changelog.split(' ').length;
+      let muslim = `${Array.from(this.commandHandler.commands)
+        .filter(([, command]) => command.categories == "muslim")
+        .map(([, command]) => `\`${command.name}\``)
+        .join(` `)}`;
+
+      var total = infoBot.split(' ').length + infoServer.split(' ').length + infoMisc.split(' ').length + text.split(' ').length + fun.split(' ').length + action.split(' ').length
+      + anime.split(' ').length + animeMisc.split(' ').length + genshin.split(' ').length + tool.split(' ').length + moderation.split(' ').length + music.split(' ').length 
+      + changelog.split(' ').length + muslim.split(' ').length; 
         
       const embed = new MessageEmbed()
         .setTitle('Showing Full Command List!')
@@ -158,6 +164,10 @@ module.exports = class extends Command {
           value: `${moderation}`,
           inline: false
         }, {
+          name: `**Muslim** [${muslim.split(' ').length}]`,
+          value: `${muslim}`,
+          inline: false
+        },{
           name: `**Music** [${music.split(' ').length}]`,
           value: `${music}`,
           inline: false
