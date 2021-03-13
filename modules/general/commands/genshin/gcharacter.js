@@ -639,8 +639,8 @@ module.exports = class extends Command {
     function hutao(){
       let embed = new MessageEmbed()
       .setColor('BC2628')
-      .setAuthor(`${capitalizeFirstLetter(args[0])} ☆☆☆☆☆`, `https://static.wikia.nocookie.net/gensin-impact/images/a/a4/Character_Hu_Tao_Thumb.png/revision/latest/scale-to-width-down/50?cb=20210228210611`)
-      .setDescription(`${capitalizeFirstLetter(args[0])} is a 5 star female character that uses polearm as a weapon and has pyro element in genshin impact`)
+      .setAuthor(`${capitalizeFirstLetter(args.join(" "))} ☆☆☆☆☆`, `https://static.wikia.nocookie.net/gensin-impact/images/a/a4/Character_Hu_Tao_Thumb.png/revision/latest/scale-to-width-down/50?cb=20210228210611`)
+      .setDescription(`${capitalizeFirstLetter(args.join(" "))} is a 5 star female character that uses polearm as a weapon and has pyro element in genshin impact`)
       .addField('❯\u2000\Talent Leveling Material:', `Book of Diligence, Nectar, & Shard of a Foul Legacy`, true)
       .addField('❯\u2000\Character Ascension Material:', `Agate Fragment, Junevil Jade, Silk Flower, & Nectar`, true)
       .addField('❯\u2000\World boss to gain material:', `- Dvalin -> Shard of a Foul Legacy\n- Pyro Regisvine -> Agate Fragment\nPrimo Geovishap -> Juvenile Jade`)
