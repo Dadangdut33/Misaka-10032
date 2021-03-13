@@ -85,7 +85,7 @@ module.exports = class extends Command {
                 }
 
                 for (var i = 0; i < dataParsed.ayat.data.ar.length; i++) {
-                    ayatNLatin.push(`${dataParsed.ayat.data.ar[i].ayat}\n**${dataParsed.ayat.data.ar[i].teks}**\n`)
+                    ayatNLatin.push(`${dataParsed.ayat.data.ar[i].ayat}\n${dataParsed.ayat.data.ar[i].teks}\n`)
                     terjemahan.push(`${dataParsed.ayat.data.ar[i].ayat}. ${dataParsed.ayat.data.id[i].teks}`)
                 }
 

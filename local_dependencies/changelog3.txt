@@ -10,3 +10,5 @@ Repository now in public, added redditsave
 fixed bugs on statscalc, redditsave now provide directlink
 **[12/3/2021]**
 Added math command
+**[13/3/2021]**
+Added paginator in function, added muslim command category, added quran, added option for table module, moved praytime to muslim. Updated hutao to gchar

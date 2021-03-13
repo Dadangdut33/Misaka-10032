@@ -67,15 +67,20 @@ module.exports = {
                     page = page + 1 < pages.length ? ++page : 0;
                     break;
                 case emojiList[2]:
-                    curPage.reactions.removeAll();
+                    curPage.reactions.removeAll(); // Remove Reaction
 
-                    pages[0]
-                    .setAuthor(``)
-                    .setTitle(`Embed Viewing Closed by Message Author`)
-                    .setDescription(`❌ ${msg.author} Closed the embed`)
-                    .setFooter(``);
+                    pages[0] // First embed in array
+                    .setAuthor(``) // Author
+                    .setTitle(`Embed Viewing Closed by Message Author`) // Title
+                    .setDescription(`❌ ${msg.author} Closed the embed`) // Desc
+                    .setFooter(``) // Footer
+                    .setImage(``) // Image
+                    .setTimestamp(``) // Timestamp
+                    .setThumbnail(``) // Thumbnail
+                    .fields = []; // Field
+                    
 
-                    curPage.edit(pages);
+                    curPage.edit(pages); // Edit it
 
                     return // So it end there, no error
                     break;

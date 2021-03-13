@@ -32,16 +32,19 @@ module.exports = client => {
               var toHaikued = message.content.replace(/(\n)/g, ""); // Remove new line
 
               haikuGet = haiku.format(toHaikued);
-              for(var i = 0; i < haikuGet.length; i++){
-                haikuGet[i] = capitalizeFirstLetter(haikuGet[i])
-              } 
-      
-              let embed = new MessageEmbed()
-              .setDescription(`*${haikuGet.join("\n\n").replace(/[\*\`\"]/g, "")}*\n\n- ${message.author.username}\n__　　　　　　　　　　　　　__\n[ᴴᵃᶦᵏᵘ](https://en.wikipedia.org/wiki/Haiku) ᵈᵉᵗᵉᶜᵗᵉᵈ ⁻ ˢᵒᵐᵉᵗᶦᵐᵉˢ ˢᵘᶜᶜᵉˢˢᶠᵘᶫᶫʸ`)
-              .setColor(`RANDOM`)
-              // .setFooter(``) ―
-      
-              message.channel.send(embed)
+              if (haikuGet[0] !== undefined) {
+
+                for(var i = 0; i < haikuGet.length; i++){
+                  haikuGet[i] = capitalizeFirstLetter(haikuGet[i])
+                } 
+  
+                let embed = new MessageEmbed()
+                .setDescription(`*${haikuGet.join("\n\n").replace(/[\*\`\"]/g, "")}*\n\n- ${message.author.username}\n__　　　　　　　　　　　　　__\n[ᴴᵃᶦᵏᵘ](https://en.wikipedia.org/wiki/Haiku) ᵈᵉᵗᵉᶜᵗᵉᵈ ⁻ ˢᵒᵐᵉᵗᶦᵐᵉˢ ˢᵘᶜᶜᵉˢˢᶠᵘᶫᶫʸ`)
+                .setColor(`RANDOM`)
+                // .setFooter(``) ―
+        
+                message.channel.send(embed)
+              }
             }
           }
       } 
