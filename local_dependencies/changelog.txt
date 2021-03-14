@@ -38,17 +38,3 @@ Added neko and ship
 Added random bot activity
 **[11/1/2021]**
 Added slowmode, member count for ppw and fix some bugs
-**[13/1/2021]**
-Updated gchar (added ganyu) and added ghost commands
-**[17/1/2021]**
-Added ascii and purge commands
-**[19/1/2021]**
-Added airing command
-**[24/1/2021]**
-A-A-Added S-Stutterify
-**[25/1/2021]**
-Added rng command
-**[29/1/2021]**
-Added changelog, changed bot name to D-Bot
-**[2/2/2021]**
-Added text categories and more text commands, added citycoordinates along with their timezones, improved praytime and fixed bugs

@@ -17,7 +17,6 @@ module.exports = class extends Command {
     
   async run (message, args){
     var pages;
-    args[0] = lowerCase();
 
     // Should probably change this to switch case later but not now don't have enough time
     if(!args[0]){
@@ -31,7 +30,7 @@ module.exports = class extends Command {
       return message.channel.send(embed);
     } 
 
-    switch (args.join(" ")) {
+    switch (args.join(" ").toLowerCase()) {
       case "list":
         list();
         break;
@@ -361,14 +360,6 @@ module.exports = class extends Command {
     
     function capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    function lowerCase(){
-      if (!args[0]){
-        return false;
-      } else {
-        return args[0].toLowerCase();
-      }
     }
 
     function list(){

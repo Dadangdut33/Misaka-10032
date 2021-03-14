@@ -12,3 +12,5 @@ fixed bugs on statscalc, redditsave now provide directlink
 Added math command
 **[13/3/2021]**
 Added paginator in function, added muslim command category, added quran, added option for table module, moved praytime to muslim. Updated hutao to gchar
+**[14/3/2021]**
+Fix some bugs, paginator now only allow message author, limit animedl command to anime-dl channel only. Updated genshin commands, now with dynamic embeds. Also add pages in airing

@@ -3,6 +3,8 @@ const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
 var Chance = require('chance');
 var chance = new Chance();
+const { paginationEmbed } = require('../../../../local_dependencies/functions.js');
+const emojiList = ['⏪', '⏩', '❌'];
 
 module.exports = class extends Command {
   constructor(){ 
@@ -108,88 +110,103 @@ module.exports = class extends Command {
           }
           // console.log(get.length);
 
+          var pages;
           if (get.length < 61){
             let embed = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
             .setDescription(get.join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
+            .addField(`>>>`, `Please report if the pull seems wrong`)
   
             return message.channel.send(embed);
           } 
 
-          if(get.length > 60 && get.length < 90){
-            let embed = new MessageEmbed()
+          if(get.length > 60 && get.length < 120){
+            let page1 = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
             .setDescription(get.slice(0, 60).join("\n"))
-            .addField(`Cont.`, get.slice(60, 89).join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
+            .addField(`>>>`, `Please report if the pull seems wrong`)
   
-            return message.channel.send(embed);
+            let page2 = new MessageEmbed()
+            .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
+            .setDescription(get.slice(60, 120).join("\n"))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
+            .addField(`>>>`, `Please report if the pull seems wrong`)
+
+            pages = [
+              page1,
+              page2
+            ]
+      
+            paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
+            return
           }
 
-          if(get.length > 89 && get.length < 110){
-            let embed = new MessageEmbed()
+          if(get.length > 120 && get.length < 180){
+            let page1 = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
             .setDescription(get.slice(0, 60).join("\n"))
-            .addField(`Cont.`, get.slice(60, 90).join("\n"))
-            .addField(`Cont.`, get.slice(90, 110).join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
+            .addField(`>>>`, `Please report if the pull seems wrong`)
   
-            return message.channel.send(embed);
+            let page2 = new MessageEmbed()
+            .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
+            .setDescription(get.slice(60, 120).join("\n"))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
+            .addField(`>>>`, `Please report if the pull seems wrong`)
+
+            let page3 = new MessageEmbed()
+            .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
+            .setDescription(get.slice(120, 180).join("\n"))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
+            .addField(`>>>`, `Please report if the pull seems wrong`)
+
+            pages = [
+              page1,
+              page2,
+              page3
+            ]
+      
+            paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
+            return
           }
 
-          if(get.length > 109 && get.length < 132){
-            let embed = new MessageEmbed()
+          if(get.length > 180 && get.length < 202){
+            let page1 = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
             .setDescription(get.slice(0, 60).join("\n"))
-            .addField(`Cont.`, get.slice(60, 90).join("\n"))
-            .addField(`Cont.`, get.slice(90, 110).join("\n"))
-            .addField(`Cont.`, get.slice(110, 131).join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
+            .addField(`>>>`, `Please report if the pull seems wrong`)
   
-            return message.channel.send(embed);
-          }
-
-          if(get.length > 131 && get.length < 196){
-            let embed = new MessageEmbed()
+            let page2 = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
-            .setDescription(get.slice(0, 60).join("\n"))
-            .addField(`Cont.`, get.slice(60, 90).join("\n"))
-            .addField(`Cont.`, get.slice(90, 110).join("\n"))
-            .addField(`Cont.`, get.slice(110, 131).join("\n"))
+            .setDescription(get.slice(60, 120).join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-  
-            message.channel.send(embed);
+            .addField(`>>>`, `Please report if the pull seems wrong`)
 
-            let embed2 = new MessageEmbed()
-            .setDescription(get.slice(131, 195).join("\n"))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
-  
-            return message.channel.send(embed2);
-          }
-          if(get.length > 131 && get.length < 202){
-            let embed = new MessageEmbed()
+            let page3 = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
-            .setDescription(get.slice(0, 60).join("\n"))
-            .addField(`Cont.`, get.slice(60, 90).join("\n"))
-            .addField(`Cont.`, get.slice(90, 110).join("\n"))
-            .addField(`Cont.`, get.slice(110, 131).join("\n"))
+            .setDescription(get.slice(120, 180).join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-  
-            message.channel.send(embed);
+            .addField(`>>>`, `Please report if the pull seems wrong`)
 
-            let embed2 = new MessageEmbed()
-            .setDescription(get.slice(131, 195).join("\n"))
-            .addField(`Cont`, get.slice(195, 201).join("\n"))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
-  
-            return message.channel.send(embed2);
+            let page4 = new MessageEmbed()
+            .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
+            .setDescription(get.slice(180, 201).join("\n"))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
+            .addField(`>>>`, `Please report if the pull seems wrong`)
+
+            pages = [
+              page1,
+              page2,
+              page3,
+              page4
+            ]
+      
+            paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
+            return
           }
-
         } else 
         if(args[0] == "ten"){
           if(isNaN(args[1])){
@@ -279,88 +296,105 @@ module.exports = class extends Command {
           }
           // console.log(get.length);
 
+          var pages;
           if (get.length < 61){
             let embed = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
             .setDescription(get.join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
+            .addField(`>>>`, `Please report if the pull seems wrong`)
   
             return message.channel.send(embed);
           } 
 
-          if(get.length > 60 && get.length < 90){
-            let embed = new MessageEmbed()
+          if(get.length > 60 && get.length < 120){
+            let page1 = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
             .setDescription(get.slice(0, 60).join("\n"))
-            .addField(`Cont.`, get.slice(60, 89).join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
+            .addField(`>>>`, `Please report if the pull seems wrong`)
   
-            return message.channel.send(embed);
+            let page2 = new MessageEmbed()
+            .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
+            .setDescription(get.slice(60, 120).join("\n"))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
+            .addField(`>>>`, `Please report if the pull seems wrong`)
+
+            pages = [
+              page1,
+              page2
+            ]
+      
+            paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
+            return
           }
 
-          if(get.length > 89 && get.length < 110){
-            let embed = new MessageEmbed()
-            .setTitle(`Simulate Ten Pull of ${args[1]} Times in Promotional Character Banner`)
-            .setDescription(get.slice(0, 60).join("\n"))
-            .addField(`Cont.`, get.slice(60, 90).join("\n"))
-            .addField(`Cont.`, get.slice(90, 110).join("\n"))
-            .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
-  
-            return message.channel.send(embed);
-          }
-
-          if(get.length > 109 && get.length < 132){
-            let embed = new MessageEmbed()
+          if(get.length > 120 && get.length < 180){
+            let page1 = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
             .setDescription(get.slice(0, 60).join("\n"))
-            .addField(`Cont.`, get.slice(60, 90).join("\n"))
-            .addField(`Cont.`, get.slice(90, 110).join("\n"))
-            .addField(`Cont.`, get.slice(110, 131).join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
+            .addField(`>>>`, `Please report if the pull seems wrong`)
   
-            return message.channel.send(embed);
+            let page2 = new MessageEmbed()
+            .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
+            .setDescription(get.slice(60, 120).join("\n"))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
+            .addField(`>>>`, `Please report if the pull seems wrong`)
+
+            let page3 = new MessageEmbed()
+            .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
+            .setDescription(get.slice(120, 180).join("\n"))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
+            .addField(`>>>`, `Please report if the pull seems wrong`)
+
+            pages = [
+              page1,
+              page2,
+              page3
+            ]
+      
+            paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
+            return
           }
 
-          if(get.length > 131 && get.length < 196){
-            let embed = new MessageEmbed()
+          if(get.length > 180 && get.length < 202){
+            let page1 = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
             .setDescription(get.slice(0, 60).join("\n"))
-            .addField(`Cont.`, get.slice(60, 90).join("\n"))
-            .addField(`Cont.`, get.slice(90, 110).join("\n"))
-            .addField(`Cont.`, get.slice(110, 131).join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
+            .addField(`>>>`, `Please report if the pull seems wrong`)
   
-            message.channel.send(embed);
-
-            let embed2 = new MessageEmbed()
-            .setDescription(get.slice(131, 195).join("\n"))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
-  
-            return message.channel.send(embed2);
-          }
-          if(get.length > 131 && get.length < 202){
-            let embed = new MessageEmbed()
+            let page2 = new MessageEmbed()
             .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
-            .setDescription(get.slice(0, 60).join("\n"))
-            .addField(`Cont.`, get.slice(60, 90).join("\n"))
-            .addField(`Cont.`, get.slice(90, 110).join("\n"))
-            .addField(`Cont.`, get.slice(110, 131).join("\n"))
+            .setDescription(get.slice(60, 120).join("\n"))
             .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-  
-            message.channel.send(embed);
+            .addField(`>>>`, `Please report if the pull seems wrong`)
 
-            let embed2 = new MessageEmbed()
-            .setDescription(get.slice(131, 195).join("\n"))
-            .addField(`Cont`, get.slice(195, 201).join("\n"))
-            .setFooter(`Pull Simulator (Please report if the pull seems wrong)`)
-  
-            return message.channel.send(embed2);
+            let page3 = new MessageEmbed()
+            .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
+            .setDescription(get.slice(120, 180).join("\n"))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
+            .addField(`>>>`, `Please report if the pull seems wrong`)
+
+            let page4 = new MessageEmbed()
+            .setTitle(`Simulate Single Pull of ${args[1]} Times in Promotional Character Banner`)
+            .setDescription(get.slice(180, 201).join("\n"))
+            .setAuthor(message.author.username, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
+            .addField(`>>>`, `Please report if the pull seems wrong`)
+
+            pages = [
+              page1,
+              page2,
+              page3,
+              page4
+            ]
+      
+            paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
+            return
           }
-
+        } else {
+          info();
         }
 
         function info() {

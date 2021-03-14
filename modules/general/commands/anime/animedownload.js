@@ -9,7 +9,7 @@ module.exports = class extends Command {
         aliases: ["anidl", "anigrab"],
         info: "Get Anime downloads link from [gogoanime](http://gogoanime.sh/)/[4anime](https://4anime.to/)/[animekisa](https://animekisa.tv/)/\n[animeout](https://www.animeout.xyz/).\n\n**Animeout is a download only sites so the list could be wrong if you search for all episodes**, if this happen you can just check for the download from the site by pressing Search on site or then download it directly from the site.\n\nAlso please note that this commands took quite lots of time depending on the connection.\n\nIf there is any error it could be because the download links does not exist or cannot be grabbed by the commands (It's not the bot's fault), but if you are sure that it could be considered a bug then please report it to Admin.\n\nCommands are possible by using [anigrab](https://www.npmjs.com/package/anigrab)",
         usage: `${prefix}anidl [<gogo/4anime/animekisa/animeout>] [<anime name>] [<all/specified episode>]\`\`\`**Notes**\`\`\`css\nNotice the []`,
-        guildOnly: false,
+        guildOnly: true,
         });
     }
     async run (message, args) {
@@ -23,6 +23,12 @@ module.exports = class extends Command {
             options[1] = anime name
             options[2] = episode
         */
+
+        // Limit it do anime-dl channel
+        if (message.channel.name !== "anime-dl"){
+            return message.channel.send(catchWrongChannels());
+        }
+        
 
         // If no []
         if (!options){        
@@ -601,15 +607,31 @@ module.exports = class extends Command {
         } else { // if wrong choice
             return message.channel.send(catchWrongArgs());
         }
+
+        function catchWrongArgs() {
+            let embed = new MessageEmbed()
+            .setDescription(`Please enter the correct argument example should be like this :arrow_down:\`\`\`css\n${prefix}anidl [gogo] [azumanga daioh] [3]\`\`\`For more info use the help commands.`)
+        
+            return embed;
+        }
+        
+        function catchWrongChannels(){
+            var channelID = message.guild.channels.cache.find(channel => channel.name === "anime-dl");
+            if (channelID == undefined) {
+                channelID = "#anime-dl\n\n**It seems like that channel is not made yet by the server mods and admin, please contact them!**"
+            } else {
+                channelID = channelID.toString();
+            }
+        
+            let embed = new MessageEmbed()
+            .setDescription(`You can only use this command in ${channelID}`)
+        
+            return embed;
+        }
     }
 }
 
-function catchWrongArgs() {
-    let embed = new MessageEmbed()
-    .setDescription(`Please enter the correct argument example should be like this :arrow_down:\`\`\`css\n${prefix}anidl [gogo] [azumanga daioh] [3]\`\`\`For more info use the help commands.`)
 
-    return embed;
-}
 
 /*
 old ideas

@@ -1,6 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
+const { paginationEmbed } = require('../../../../local_dependencies/functions.js');
+const emojiList = ['⏪', '⏩', '❌'];
 
 module.exports = class extends Command {
   constructor(){ 
@@ -13,104 +15,67 @@ module.exports = class extends Command {
     });
   }
   async run (message, args){
-    args[0] = lowerCase();
-
+    var pages;
     if (!args[0]){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setTitle("Please enter the name of the book that you want to check!")
-      .setDescription("There are currently 6 books for talent upgrade in genshin impact. You can use this command to check each of their farming information")
-      .addField('❯\u2000\Book Lists:', "- Gold\n- Ballad\n- Freedom\n- Prosperity\n- Resistance")
-      .setFooter(message.guild.me.displayName)
-      .setTimestamp();
-    
-      message.channel.send(embed);
-    } else
-    if (args[0] == "gold"){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Gold" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Taishan manshion - Jueyun Karst, Liyue",true)
-      .addField('❯\u2000\Day to Farm:', "Wednesday/Saturday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Beidou, Xingqiu, Xinyan, Zhongli")
-      .setFooter("Gold Talent Book Farming Info")
-      .setTimestamp();
+      return message.channel.send(info());
+    }
 
-      return message.channel.send(embed);
-    } else
-    if (args[0] == "ballad"){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Ballad" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Forsaken Rift - Springvale, Mondstadt",true)
-      .addField('❯\u2000\Day To Farm:', "Wednesday/Saturday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Albedo, Fischl, Kaeya, Lisa, Venti")
-      .setFooter("Ballad Talent Book Farming Info")
-      .setTimestamp();
+    switch(args.join(" ").toLowerCase()){
+      case "all":
+        pages = [
+          gold(),
+          ballad(),
+          freedom(),
+          diligence(),
+          prosperity(),
+          resistance()
+        ]
+  
+        paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
+        break;
 
-      return message.channel.send(embed);
-    } else 
-    if (args[0] == "freedom"){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Freedom" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Forsaken Rift - Springvale, Mondstadt",true)
-      .addField('❯\u2000\Day To Farm:', "Monday/Thursday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Amber, Barbara, Diona, Klee, Sucrose, Childe")
-      .setFooter("Freedom Talent Book Farming Info")
-      .setTimestamp();
+      case "gold":
+        message.channel.send(gold());
+        break;
 
-      return message.channel.send(embed);
-    } else 
-    if (args[0] == "diligence"){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Diligence" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Taishan manshion - Jueyun Karst, Liyue",true)
-      .addField('❯\u2000\Day To Farm:', "Tuesday/Friday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Chongyun, Xiangling, Ganyu")
-      .setFooter("Diligence Talent Book Farming Info")
-      .setTimestamp();
+      case "ballad":
+        message.channel.send(ballad());
+        break;
 
-      return message.channel.send(embed);
-    } else 
-    if (args[0] == "prosperity"){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Prosperity" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Taishan manshion - Jueyun Karst, Liyue",true)
-      .addField('❯\u2000\Day To Farm:', "Monday/Thursday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Keqing, Ningguang, Qiqi, Xiao")
-      .setFooter("Prosperity Talent Book Farming Info")
-      .setTimestamp();
+      case "freedom":
+        message.channel.send(freedom());
+        break;
 
-      return message.channel.send(embed);
-    } else 
-    if (args[0] == "resistance"){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Resistance" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Forsaken Rift - Springvale, Mondstadt",true)
-      .addField('❯\u2000\Day To Farm:', "Tuesday/Friday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Bennet, Diluc, Jean, Mona, Noelle, Razor")
-      .setFooter("Resistance Talent Book Farming Info")
-      .setTimestamp();
+      case "diligence":
+        message.channel.send(diligence());
+        break;
 
-      return message.channel.send(embed);
-    } else
-    if ((args[0] == "tatang" && args[1] == "sutarma") || args[0] == "tatangsutarma"){
+      case "prosperity":
+        message.channel.send(prosperity());
+        break;
+
+      case "resistance":
+        message.channel.send(resistance());
+        break;
+
+      case "tatang sutarma":
+      case "hidden":
+      case "rahasia negara":
+      case "rahasia":
+      case "misteri":
+      case "harta karun":
+      case "tatang":
+        message.channel.send(tatangSutarma());
+        break;
+
+      default:
+        message.channel.send(info());
+        break;
+    }
+
+
+
+    function tatangSutarma(){
       let embed = new MessageEmbed()
       .setColor('RANDOM')
       .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
@@ -124,15 +89,109 @@ module.exports = class extends Command {
       .setFooter("Above are images of Tatang Sutarma Sighting In Public")
       .setTimestamp();
 
-      return message.channel.send(embed);
+      return embed;
     }
 
-    function lowerCase(){
-      if (!args[0]){
-        return false;
-      } else {
-        return args[0].toLowerCase();
-      }
+    function gold(){
+      let embed = new MessageEmbed()
+      .setColor('RANDOM')
+      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setTitle(`Information on "Gold" Book`)
+      .setDescription(`Requested by ${message.author}`)
+      .addField('❯\u2000\Found On:', "Taishan manshion - Jueyun Karst, Liyue",true)
+      .addField('❯\u2000\Day to Farm:', "Wednesday/Saturday/Sunday",true)
+      .addField('❯\u2000\Character That Needs It:', "Beidou, Xingqiu, Xinyan, Zhongli")
+      .setFooter("Gold Talent Book Farming Info")
+      .setTimestamp();
+
+      return embed;
+    }
+
+    function ballad(){
+      let embed = new MessageEmbed()
+      .setColor('RANDOM')
+      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setTitle(`Information on "Ballad" Book`)
+      .setDescription(`Requested by ${message.author}`)
+      .addField('❯\u2000\Found On:', "Forsaken Rift - Springvale, Mondstadt",true)
+      .addField('❯\u2000\Day To Farm:', "Wednesday/Saturday/Sunday",true)
+      .addField('❯\u2000\Character That Needs It:', "Albedo, Fischl, Kaeya, Lisa, Venti")
+      .setFooter("Ballad Talent Book Farming Info")
+      .setTimestamp();
+
+      return embed;
+    }
+
+    function freedom(){
+      let embed = new MessageEmbed()
+      .setColor('RANDOM')
+      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setTitle(`Information on "Freedom" Book`)
+      .setDescription(`Requested by ${message.author}`)
+      .addField('❯\u2000\Found On:', "Forsaken Rift - Springvale, Mondstadt",true)
+      .addField('❯\u2000\Day To Farm:', "Monday/Thursday/Sunday",true)
+      .addField('❯\u2000\Character That Needs It:', "Amber, Barbara, Diona, Klee, Sucrose, Childe")
+      .setFooter("Freedom Talent Book Farming Info")
+      .setTimestamp();
+
+      return embed;
+    }
+
+    function diligence(){
+      let embed = new MessageEmbed()
+      .setColor('RANDOM')
+      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setTitle(`Information on "Diligence" Book`)
+      .setDescription(`Requested by ${message.author}`)
+      .addField('❯\u2000\Found On:', "Taishan manshion - Jueyun Karst, Liyue",true)
+      .addField('❯\u2000\Day To Farm:', "Tuesday/Friday/Sunday",true)
+      .addField('❯\u2000\Character That Needs It:', "Chongyun, Xiangling, Ganyu, Hu Tao")
+      .setFooter("Diligence Talent Book Farming Info")
+      .setTimestamp();
+
+      return embed;
+    }
+
+    function prosperity(){
+      let embed = new MessageEmbed()
+      .setColor('RANDOM')
+      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setTitle(`Information on "Prosperity" Book`)
+      .setDescription(`Requested by ${message.author}`)
+      .addField('❯\u2000\Found On:', "Taishan manshion - Jueyun Karst, Liyue",true)
+      .addField('❯\u2000\Day To Farm:', "Monday/Thursday/Sunday",true)
+      .addField('❯\u2000\Character That Needs It:', "Keqing, Ningguang, Qiqi, Xiao")
+      .setFooter("Prosperity Talent Book Farming Info")
+      .setTimestamp();
+
+      return embed;
+    }
+
+    function resistance(){
+      let embed = new MessageEmbed()
+      .setColor('RANDOM')
+      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setTitle(`Information on "Resistance" Book`)
+      .setDescription(`Requested by ${message.author}`)
+      .addField('❯\u2000\Found On:', "Forsaken Rift - Springvale, Mondstadt",true)
+      .addField('❯\u2000\Day To Farm:', "Tuesday/Friday/Sunday",true)
+      .addField('❯\u2000\Character That Needs It:', "Bennet, Diluc, Jean, Mona, Noelle, Razor")
+      .setFooter("Resistance Talent Book Farming Info")
+      .setTimestamp();
+
+      return embed;
+    }
+
+    function info(){
+      let embed = new MessageEmbed()
+      .setColor('RANDOM')
+      .setTitle("Please enter the correct name of the book that you want to check!")
+      .setDescription("There are currently 6 books for talent upgrade in genshin impact. You can use this command to check each of their farming information")
+      .addField('❯\u2000\Book Lists:', "- Gold\n- Ballad\n- Freedom\n- Prosperity\n- Resistance")
+      .setFooter(message.guild.me.displayName)
+      .setTimestamp();
+    
+      return embed;
     }
   }
 }

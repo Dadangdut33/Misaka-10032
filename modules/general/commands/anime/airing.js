@@ -5,6 +5,8 @@ const { prefix } = require("../../../../config");
 const fetch = require("node-fetch");
 const { id } = require('common-tags');
 global.fetch = fetch
+const { paginationEmbed } = require('../../../../local_dependencies/functions.js');
+const emojiList = ['⏪', '⏩', '❌'];
 
 module.exports = class extends Command {
     constructor(){ 
@@ -16,7 +18,7 @@ module.exports = class extends Command {
         guildOnly: false,
         });
     }
-    async run (message, args) {
+    async run (message) {
         currentlyAiringAnime({
             // sort: ['POPULARITY'],
             // includeSchedule: true
@@ -33,9 +35,9 @@ module.exports = class extends Command {
                     title1[i] = title1[i].substring(0,55);
                 }
 
-                status1[i] = result.status.toLowerCase();
+                // status1[i] = result.status.toLowerCase();
 
-                status1[i] = capitalizeFirstLetter(status1[i]);
+                // status1[i] = capitalizeFirstLetter(status1[i]);
 
                 if (result.nextAiringEpisode){
                     airing1[i] = result.nextAiringEpisode.timeUntilAiring;
@@ -56,9 +58,9 @@ module.exports = class extends Command {
                     title2[count] = title2[count].substring(0,55);
                 }
 
-                status2[count] = result.status.toLowerCase();
+                // status2[count] = result.status.toLowerCase();
 
-                status2[count] = capitalizeFirstLetter(status2[count]);
+                // status2[count] = capitalizeFirstLetter(status2[count]);
 
                 if (result.nextAiringEpisode){
                     airing2[count] = result.nextAiringEpisode.timeUntilAiring;
@@ -68,22 +70,41 @@ module.exports = class extends Command {
                 }
             }
 
-            // Embed
-            let embed = new MessageEmbed()
+            // Embed pages
+            var pages;
+            var animePage1 = [];
+            for (var i = 0; i < title1.length; i ++) {
+                if(days1[i] == undefined) {
+                    days1[i] = "-"
+                }
+
+                animePage1.push(`**${title1[i]}**\nNext Ep in: ${days1[i]}`); 
+            }
+
+            let page1 = new MessageEmbed()
+            .setAuthor(`Click For Web View`, ``, `https://ricklancee.github.io/currently-airing-anime/`)
             .setTitle(`Current Season's Anime`)
-            .addField(`Title`, title1, true)
-            .addField(`Next ep in`, days1, true)
-            .addField(`===============`, `\n**===============**`, false)
-            .addField(`Title`, title2, true)
-            .addField(`Next ep in`, days2, true)
-            
-            message.channel.send(embed)
+            .setDescription(animePage1.join("\n\n"))
+            .setTimestamp();
+
+            var animePage2 = [];
+            for (var i = 0; i < title2.length; i ++) {
+                if(days2[i] == undefined) {
+                    days2[i] = "-"
+                }
+
+                animePage2.push(`**${title2[i]}**\nNext Ep in: ${days2[i]}`); 
+            }
+
+            let page2 = new MessageEmbed()
+            .setTitle(`Current Season's Anime`)
+            .setDescription(animePage2.join("\n\n"));
 
             // Next page
             if (next) {    
                 next().then(({shows}) => {{
                     let titleNext = [], statusNext = [], airingNext = [], daysNext = [];
-                    for (var k = 2; k < shows.length; k++){
+                    for (var k = 0; k < shows.length; k++){
                         var result = shows[k];
 
                         titleNext[k] = result.title.romaji;
@@ -91,9 +112,9 @@ module.exports = class extends Command {
                             titleNext[k] = titleNext[k].substring(0,55);
                         }
         
-                        statusNext[k] = result.status.toLowerCase();
+                        // statusNext[k] = result.status.toLowerCase();
         
-                        statusNext[k] = capitalizeFirstLetter(statusNext[k]);
+                        // statusNext[k] = capitalizeFirstLetter(statusNext[k]);
         
                         if (result.nextAiringEpisode){
                             airingNext[k] = result.nextAiringEpisode.timeUntilAiring;
@@ -102,14 +123,34 @@ module.exports = class extends Command {
                         }
                     }
 
-                    let embedNext = new MessageEmbed()
-                    .addField(`Title`, titleNext, true)
-                    // .addField(`Status`, statusNext, true)
-                    .addField(`Next ep in`, daysNext, true)
-                    .setTimestamp();
-    
-                    message.channel.send(embedNext)
+                    var animePage3 = [];
+                    for (var i = 0; i < titleNext.length; i ++) {
+                        if(daysNext[i] == undefined) {
+                            daysNext[i] = "-"
+                        }
+
+                        animePage3.push(`**${titleNext[i]}**\nNext Ep in: ${daysNext[i]}`); 
+                    }
+
+                    let page3 = new MessageEmbed()
+                    .setTitle(`Current Season's Anime`)
+                    .setDescription(animePage3.join("\n\n"));
+
+                    pages = [
+                        page1,
+                        page2,
+                        page3
+                      ]
+                
+                    paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
                 }})
+            } else { // If no next
+                pages = [
+                    page1,
+                    page2
+                  ]
+            
+                paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
             }
 
         })
@@ -124,9 +165,9 @@ function secondsToDhms(seconds) {
     var s = Math.floor(seconds % 60);
     
     var dDisplay = d > 0 ? d + (d == 1 ? " day " : " days ") : "";    
-    var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-    var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-    var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    // var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+    // var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+    // var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
     // return dDisplay + hDisplay + mDisplay + sDisplay;
     return dDisplay + "+ " + h + ":" + m + ":" + s;
 }

@@ -15,14 +15,109 @@ module.exports = class extends Command {
   }
 
   async run (message, args){
-    // let today = new Date();
     let date = Moment.tz('Asia/Jakarta');
-    args[0] = lowerCase();
     var imgMonThurs = 'https://cdn.discordapp.com/attachments/799595012005822484/808234443579064330/mon.gif';
     var imgTuesFri = 'https://cdn.discordapp.com/attachments/799595012005822484/808234445702037514/tues.gif';
     var imgWedSat = 'https://cdn.discordapp.com/attachments/653206818759376916/792010648439619614/wed.gif';
+    var pages;
 
     if (!args[0]){
+      return message.channel.send(info());
+    }
+
+    switch(args.join(" ").toLowerCase()){
+      case "all":
+      case "everyday":
+      case "every day":
+        pages = [
+          monday(),
+          tuesday(),
+          wednesday(),
+          tuesday(),
+          friday(),
+          saturday(),
+          sunday()
+        ]
+
+        paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
+        break;
+
+      case "today":
+        let today = date.isoWeekday()
+        switch(today){
+          case 1: 
+            monday()
+            break;
+          case 2:
+            tuesday()
+            break;
+          case 3:
+            wednesday()
+            break;
+          case 4:
+            thursday()
+            break;
+          case 5:
+            friday()
+            break;
+          case 6:
+            saturday()
+            break;
+          case 7:
+            sunday()
+            break;
+        }
+      case "monday":
+      case "mon":
+      case "senin":  
+      case "1":
+        message.channel.send(monday())
+        break;
+
+      case "tuesday":
+      case "tues":
+      case "selasa":
+      case "2":
+        message.channel.send(tuesday())
+        break;
+
+      case "wednesday":
+      case "wed":
+      case "rabu":
+      case "3":
+        message.channel.send(wednesday())
+        break;
+
+      case "thursday":
+      case "thurs":
+      case "kamis":
+      case "4":
+        message.channel.send(thursday())
+        break;
+        
+      case "friday":
+      case "fri":
+      case "jumat":
+      case "5":
+        message.channel.send(friday())
+        break;
+
+      case "saturday":
+      case "sat":
+      case "sabtu":
+      case "6":
+        message.channel.send(saturday())
+        break;
+
+      case "sunday":
+      case "sun":
+      case "minggu":
+      case "7":
+        message.channel.send(sunday())
+        break;
+    }
+
+    function info(){
       let embed = new MessageEmbed()
       .setColor('RANDOM')
       .setTitle("Please enter the day that you want to check!")
@@ -30,68 +125,7 @@ module.exports = class extends Command {
       .setFooter(message.guild.me.displayName)
       .setTimestamp();
       
-      message.channel.send(embed);
-    } else if(args[0] == "today"){
-      let today = date.isoWeekday()
-      switch(today){
-        case 1: 
-          monday()
-          break;
-        case 2:
-          tuesday()
-          break;
-        case 3:
-          wednesday()
-          break;
-        case 4:
-          thursday()
-          break;
-        case 5:
-          friday()
-          break;
-        case 6:
-          saturday()
-          break;
-        case 7:
-          sunday()
-          break;
-      }
-    } else
-    if (args[0] == "monday" || args[0] == "1"){
-      monday();
-
-    } else
-    if (args[0] == "tuesday" || args[0] == "2"){
-      tuesday();      
-
-    } else
-    if (args[0] == "wednesday" || args[0] == "3"){
-      wednesday();
-
-    } else
-    if (args[0] == "thursday" || args[0] == "4"){
-      thursday();
-
-    } else
-    if (args[0] == "friday" || args[0] == "5"){
-      friday();
-      
-    } else
-    if (args[0] == "saturday" || args[0] == "6"){
-      saturday();
-
-    } else
-    if (args[0] == "sunday" || args[0] == "7"){
-      sunday();
-  
-    } 
-
-    function lowerCase(){
-      if (!args[0]){
-        return false;
-      } else {
-        return  args[0].toLowerCase();
-      }
+      return embed;
     }
 
     function monday(){
@@ -108,7 +142,7 @@ module.exports = class extends Command {
       .setImage(imgMonThurs)
       .setTimestamp();
       
-      message.channel.send(embed);
+      return embed;
     }
 
     function tuesday(){
@@ -119,13 +153,13 @@ module.exports = class extends Command {
       .setDescription("Below are list of things that can be farmed on Tuesday\n**Note:** Materials on Tuesday and Friday are the same")
       .addField('❯\u2000\Talent Leveling Material:', "Resistance & Diligence",true)
       .addField('❯\u2000\Weapon Ascension Material:', "Mist veiled elixir & Boreal Wolf Tooth",true)
-      .addField('❯\u2000\Character That Needs It:', "Noelle, Xiangling, Jean, Diluc, Mona, Razor, Bennet, Chongyun, Ganyu")
+      .addField('❯\u2000\Character That Needs It:', "Noelle, Xiangling, Jean, Diluc, Mona, Razor, Bennet, Chongyun, Ganyu, Hu Tao")
       .addField('❯\u2000\Weapon That Needs It:', "Prototype rancour, dragons bane, sword of descension, the flute, black sword, skyward blade, sacrificial greatsword, the rainslasher, blackcliff slasher, skyward pride, the unforged, prototype cresent, royal bow, sacrificial bow, skyward harp, blackcliff pole, deathmach, royal spear, the widsith, protype malice, eye of perception, skyward atlas, primodial jade cutter")
       .setFooter("Tuesday Farming guide")
       .setImage(imgTuesFri)
       .setTimestamp();
       
-      message.channel.send(embed);
+      return embed;
     }
 
     function wednesday(){
@@ -142,7 +176,7 @@ module.exports = class extends Command {
       .setImage(imgWedSat)
       .setTimestamp();
       
-      message.channel.send(embed);
+      return embed;
     }
 
     function thursday(){
@@ -159,7 +193,7 @@ module.exports = class extends Command {
       .setImage(imgMonThurs)
       .setTimestamp();
         
-      message.channel.send(embed);
+      return embed;
     }
     
     function friday(){
@@ -170,13 +204,13 @@ module.exports = class extends Command {
       .setDescription("Below are list of things that can be farmed on Friday\n**Note:** Materials on Tuesday and Friday are the same")
       .addField('❯\u2000\Talent Leveling Material:', "Resistance & Diligence",true)
       .addField('❯\u2000\Weapon Ascension Material:', "Mist veiled elixir & Boreal Wolf Tooth",true)
-      .addField('❯\u2000\Character That Needs It:', "Noelle, Xiangling, Jean, Diluc, Mona, Razor, Bennet, Chongyun, Ganyu")
+      .addField('❯\u2000\Character That Needs It:', "Noelle, Xiangling, Jean, Diluc, Mona, Razor, Bennet, Chongyun, Ganyu, Hu Tao")
       .addField('❯\u2000\Weapon That Needs It:', "Prototype rancour, dragons bane, sword of descension, the flute, black sword, skyward blade, sacrificial greatsword, the rainslasher, blackcliff slasher, skyward pride, the unforged, prototype cresent, royal bow, sacrificial bow, skyward harp, blackcliff pole, deathmach, royal spear, the widsith, protype malice, eye of perception, skyward atlas, primodial jade cutter")
       .setImage(imgTuesFri)
       .setFooter("Friday Farming guide")
       .setTimestamp();
       
-      message.channel.send(embed);  
+      return embed;
     }
 
     function saturday(){
@@ -193,7 +227,7 @@ module.exports = class extends Command {
       .setImage(imgWedSat)
       .setTimestamp();
       
-      message.channel.send(embed);
+      return embed;
     }
 
     function sunday(){
@@ -205,10 +239,8 @@ module.exports = class extends Command {
       .setFooter("Sunday Farming guide")
       .setTimestamp();
       
-      message.channel.send(embed);
-    }    
-
+      return embed;
+    }
   }
-
 }
 
