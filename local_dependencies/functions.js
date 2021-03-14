@@ -50,7 +50,7 @@ module.exports = {
         try { // Try
             if (!msg && !msg.channel) throw new Error('Channel is inaccessible.');
             if (!pages) throw new Error('Pages are not given.');
-            if (emojiList.length !== 3) emojiList = ['⏪', '⏩', '❌'];
+            if (emojiList.length !== 3 || emojiList === false) emojiList = ['⏪', '⏩', '❌'];
             let page = 0;
             const curPage = await msg.channel.send(pages[page].setFooter(`Page ${page + 1} / ${pages.length}`));
             for (const emoji of emojiList) await curPage.react(emoji);
