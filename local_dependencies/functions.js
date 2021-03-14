@@ -69,7 +69,7 @@ module.exports = {
                 case emojiList[2]:
                     curPage.reactions.removeAll(); // Remove Reaction
 
-                    pages[0] // First embed in array
+                    pages[page] // Edit Current page make all empty
                     .setAuthor(``) // Author
                     .setTitle(`Embed Viewing Closed by Message Author`) // Title
                     .setDescription(`❌ ${msg.author} Closed the embed`) // Desc
@@ -77,10 +77,10 @@ module.exports = {
                     .setImage(``) // Image
                     .setTimestamp(``) // Timestamp
                     .setThumbnail(``) // Thumbnail
-                    .fields = []; // Field
+                    .fields = []; // Field 
                     
 
-                    curPage.edit(pages); // Edit it
+                    curPage.edit(pages[page]); // Edit it
 
                     return // So it end there, no error
                     break;
@@ -97,7 +97,7 @@ module.exports = {
                     pages[page]
                     .setFooter(`Page ${page + 1} / ${pages.length} | Pages switching removed due to timeout`);
     
-                    curPage.edit(pages);
+                    curPage.edit(pages[page]);
                 }
             }
         });
