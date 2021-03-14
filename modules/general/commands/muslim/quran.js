@@ -76,7 +76,7 @@ module.exports = class extends Command {
                 var ayatNLatin = [];
                 var terjemahan = [];
 
-                if(dataParsed.ayat.error) {
+                if(dataParsed.ayat.error) { // Dia ga ada error messagenya jd buat sendiri
                     let embed = new MessageEmbed()
                     .setTitle("Error!")
                     .setDescription('Ayat Invalid!')
@@ -85,36 +85,84 @@ module.exports = class extends Command {
                 }
 
                 for (var i = 0; i < dataParsed.ayat.data.ar.length; i++) {
-                    ayatNLatin.push(`${dataParsed.ayat.data.ar[i].ayat}\n${dataParsed.ayat.data.ar[i].teks}\n`)
+                    ayatNLatin.push(`${dataParsed.ayat.data.ar[i].ayat}\n${dataParsed.ayat.data.ar[i].teks}\n\n${dataParsed.ayat.data.idt[i].teks.replace(/<[^>]*>?/gm, '')}\n`)
                     terjemahan.push(`${dataParsed.ayat.data.ar[i].ayat}. ${dataParsed.ayat.data.id[i].teks}`)
                 }
 
-                let page1 = new MessageEmbed()
+                let ayatLatinPage1 = new MessageEmbed()
                 .setAuthor(`Q.S. ${dataParsed.surat.nama}:${dataParsed.surat.nomor} (${dataParsed.query.ayat})`)
                 .setTitle('Ayat ke-')
-                .setDescription(ayatNLatin.join("\n"));
-                
-                let page2 = new MessageEmbed()
-                .setAuthor(`Q.S. ${dataParsed.surat.nama}:${dataParsed.surat.nomor} (${dataParsed.query.ayat})`)
-                .setTitle('Arti ayat ke-')
-                .setDescription(terjemahan.slice(0, 5).join("\n"));
+                .setDescription(ayatNLatin.slice(0, 3).join("\n"));
 
-                let page3 = new MessageEmbed()
+                let ayatLatinPage2 = new MessageEmbed()
+                .setAuthor(`Q.S. ${dataParsed.surat.nama}:${dataParsed.surat.nomor} (${dataParsed.query.ayat})`)
+                .setTitle('Ayat ke-')
+                .setDescription(ayatNLatin.slice(3, 5).join("\n"));
+
+                let ayatLatinPage3 = new MessageEmbed()
+                .setAuthor(`Q.S. ${dataParsed.surat.nama}:${dataParsed.surat.nomor} (${dataParsed.query.ayat})`)
+                .setTitle('Ayat ke-')
+                .setDescription(ayatNLatin.slice(5, 8).join("\n"));
+
+                let ayatLatinPage4 = new MessageEmbed()
+                .setAuthor(`Q.S. ${dataParsed.surat.nama}:${dataParsed.surat.nomor} (${dataParsed.query.ayat})`)
+                .setTitle('Ayat ke-')
+                .setDescription(ayatNLatin.slice(8, 10).join("\n"));
+                
+                let terjemahanPage1 = new MessageEmbed()
                 .setAuthor(`Q.S. ${dataParsed.surat.nama}:${dataParsed.surat.nomor} (${dataParsed.query.ayat})`)
                 .setTitle('Arti ayat ke-')
-                .setDescription(terjemahan.slice(5, 10).join("\n"));
+                .setDescription(terjemahan.slice(0, 3).join("\n"));
+
+                let terjemahanPage2 = new MessageEmbed()
+                .setAuthor(`Q.S. ${dataParsed.surat.nama}:${dataParsed.surat.nomor} (${dataParsed.query.ayat})`)
+                .setTitle('Arti ayat ke-')
+                .setDescription(terjemahan.slice(3, 5).join("\n"));
+
+                let terjemahanPage3 = new MessageEmbed()
+                .setAuthor(`Q.S. ${dataParsed.surat.nama}:${dataParsed.surat.nomor} (${dataParsed.query.ayat})`)
+                .setTitle('Arti ayat ke-')
+                .setDescription(terjemahan.slice(5, 8).join("\n"));
+
+                let terjemahanPage4 = new MessageEmbed()
+                .setAuthor(`Q.S. ${dataParsed.surat.nama}:${dataParsed.surat.nomor} (${dataParsed.query.ayat})`)
+                .setTitle('Arti ayat ke-')
+                .setDescription(terjemahan.slice(8, 10).join("\n"));
 
                 var pages = [];
-                if (terjemahan.length > 5) {
+                if (terjemahan.length > 8) { // Terjemahan dan Ayat-Latin satu paket
                     pages = [
-                        page1,
-                        page2,
-                        page3
+                        ayatLatinPage1,
+                        ayatLatinPage2,
+                        ayatLatinPage3,
+                        ayatLatinPage4,
+                        terjemahanPage1,
+                        terjemahanPage2,
+                        terjemahanPage3,
+                        terjemahanPage4
+                    ]
+                } else 
+                if (terjemahan.length > 5 && terjemahan.length < 8){
+                    pages = [
+                        ayatLatinPage1,
+                        ayatLatinPage2,
+                        ayatLatinPage3,
+                        terjemahanPage1,
+                        terjemahanPage2,
+                        terjemahanPage3
+                    ]
+                } else 
+                if (terjemahan.length > 3 && terjemahan.length < 5){
+                    pages = [
+                        ayatLatinPage1,
+                        ayatLatinPage2,
+                        terjemahanPage1,
+                        terjemahanPage2
                     ]
                 } else {
                     pages = [
-                        page1,
-                        page2
+                        ayatLatinPage1,
+                        terjemahanPage1
                     ]
                 }
 
