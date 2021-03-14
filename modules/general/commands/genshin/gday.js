@@ -46,27 +46,30 @@ module.exports = class extends Command {
 
       case "today":
         let today = date.isoWeekday()
+        console.log(today);
         switch(today){
           case 1: 
-            monday()
+            return message.channel.send(monday())
             break;
           case 2:
-            tuesday()
+            return message.channel.send(tuesday())
             break;
           case 3:
-            wednesday()
+            return message.channel.send(wednesday())
             break;
           case 4:
-            thursday()
+            return message.channel.send(thursday())
             break;
           case 5:
-            friday()
+            return message.channel.send(friday())
             break;
           case 6:
-            saturday()
+            return message.channel.send(saturday())
             break;
           case 7:
-            sunday()
+            return message.channel.send(sunday())
+            break;
+          default:
             break;
         }
       case "monday":
@@ -117,13 +120,17 @@ module.exports = class extends Command {
       case "7":
         message.channel.send(sunday())
         break;
+
+      default:
+        message.channel.send(info())
+        break;
     }
 
     function info(){
       let embed = new MessageEmbed()
       .setColor('RANDOM')
       .setTitle("Please enter the day that you want to check!")
-      .setDescription("Day provided can be day name in english or number 1-7 (Monday start on 1). You can also type \`today\` to see today's farm and all to see the farm details on every day")
+      .setDescription("Day provided can be day name in english, it's abbreviations, number 1-7 (Monday start on 1), and also day name in Indonesia.\n\nYou can also type \`today\` to see today's farm and all to see the farm details on every day")
       .setFooter(message.guild.me.displayName)
       .setTimestamp();
       
