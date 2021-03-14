@@ -2,6 +2,8 @@ const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
 const Moment = require('moment-timezone');
 const { prefix } = require("../../../../config");
+const { paginationEmbed } = require('../../../../local_dependencies/functions.js');
+const emojiList = ['⏪', '⏩', '❌'];
 
 module.exports = class extends Command {
   constructor(){ 
@@ -121,7 +123,7 @@ module.exports = class extends Command {
       let embed = new MessageEmbed()
       .setColor('RANDOM')
       .setTitle("Please enter the day that you want to check!")
-      .setDescription("Day provided can be day name in english or number 1-7 (Monday start on 1). You can also type today to see today's farm")
+      .setDescription("Day provided can be day name in english or number 1-7 (Monday start on 1). You can also type \`today\` to see today's farm and all to see the farm details on every day")
       .setFooter(message.guild.me.displayName)
       .setTimestamp();
       

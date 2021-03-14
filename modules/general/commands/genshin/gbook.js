@@ -188,6 +188,7 @@ module.exports = class extends Command {
       .setTitle("Please enter the correct name of the book that you want to check!")
       .setDescription("There are currently 6 books for talent upgrade in genshin impact. You can use this command to check each of their farming information")
       .addField('❯\u2000\Book Lists:', "- Gold\n- Ballad\n- Freedom\n- Prosperity\n- Resistance")
+      .addField(`You can also check every book by using`, `${prefix}gbook all`)
       .setFooter(message.guild.me.displayName)
       .setTimestamp();
     
