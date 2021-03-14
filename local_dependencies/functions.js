@@ -1,3 +1,5 @@
+const { DiscordAPIError, MessageEmbed } = require("discord.js");
+
 module.exports = {
     getMember: function(message, toFind = '') {
         toFind = toFind.toLowerCase();
@@ -105,8 +107,24 @@ module.exports = {
             return curPage;
         } 
         catch (e) { // Catch error
-            msg.channel.send(`${e}`);
-            throw (`${e}`);
+            if(e instanceof DiscordAPIError) {
+                let embed = new MessageEmbed()
+                .setTitle('Error')
+                .setDescription(`Data is too long to be returned as embed!`)
+                .addField(`Details`, e)
+                .setColor('00000')
+                
+                msg.channel.send(embed);
+                throw (`${e}`);
+            } else {
+                let embed = new MessageEmbed()
+                .setTitle('ERROR')
+                .setDescription(e)
+                .setColor('00000')
+    
+                msg.channel.send(embed);
+                throw (`${e}`);
+            }
         }
     }
 };
