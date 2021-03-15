@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const Path = require('path');
 const { Command } = require('../../../../handler');
 const Utils = require('../../../../Utils.js');
-const { prefix, build } = require("../../../../config");
+const { prefix, build, Repo_Link } = require("../../../../config");
 
 module.exports = class extends Command {
   constructor({
@@ -175,6 +175,14 @@ module.exports = class extends Command {
           name: `**Changelog** [${changelog.split(' ').length}]`,
           value: `You can check the bot's change over the time by using ${changelog}`,
           inline: false
+        }, {
+          name: `Behind The Code`,
+          value: `[Click Here](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/info_bot/help.js)`,
+          inline: true
+        }, {
+          name: `Bot's Repository`,
+          value: `[GitHub](${Repo_Link})`,
+          inline: true
         });
 
       message.channel.send(embed);
@@ -214,6 +222,8 @@ module.exports = class extends Command {
         .addField(`Guild Only`, `${command.guildOnly}`, false)
         .addField(`Description`, `${command.info}`)
         .addField(`Usage`, `\`\`\`css\n${command.usage}\`\`\``)
+        .addField(`Behind The Code`, `[Click Here](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/${command.categories}/${command.name}.js)`, true)
+        .addField(`Bot's Repository`, `[GitHub](${Repo_Link})`, true)
 
 
       message.channel.send(embed);
