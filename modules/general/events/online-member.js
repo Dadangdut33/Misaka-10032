@@ -4,7 +4,7 @@ module.exports = client => {
     const guild = client.guilds.cache.get('640790707082231834') // Server ID
     if(guild !== undefined){
         const msgId = '820964895767265280'; // The embed id 
-        const channelID = '791234593340653600'; // The channel it's in
+        const channelID = '820964768067878922'; // The channel it's in
         const rulesChannelID = '640825665310031882'; // The rules channel
         const modsRolesID = '645494894613233665'; // Mod roles ID
 
