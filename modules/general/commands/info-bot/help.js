@@ -177,7 +177,7 @@ module.exports = class extends Command {
           inline: false
         }, {
           name: `Behind The Code`,
-          value: `[Click Here](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/info_bot/help.js)`,
+          value: `[Click Here](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/info-bot/help.js)`,
           inline: true
         }, {
           name: `Bot's Repository`,

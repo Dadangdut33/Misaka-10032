@@ -11,7 +11,7 @@ module.exports = class extends Command {
         aliases: ['cc'],
         categories: 'info-misc',
         info: 'Get city coordinate using the [all-the-cities](https://www.npmjs.com/package/all-the-cities)',
-        usage: `${prefix} <link>`,
+        usage: `${prefix}command/alias <link>`,
         guildOnly: false,
       });
     }
