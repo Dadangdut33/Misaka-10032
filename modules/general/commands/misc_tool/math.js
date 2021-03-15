@@ -20,14 +20,14 @@ module.exports = class extends Command {
         }
 
         const chars = {'x' : '*', ':' : '/', ',' : '.'}; // Map the syntax
-        const display = {'x' : '*', ':' : '/',  ',' : '.', '_' : ''}; // For display purpose, no difference actually, could just move the _ to chars but ye
+        const display = {'*' : 'x', ':' : '/',  '.' : ',', '_' : ''}; // For display purposes
 
         try {
             var mathRes = eval(args.join(" ").replace(/[x:,]/g, m => chars[m]));
 
             var problem = [];
             for (var i = 0; i < args.length; i++) {
-                problem[i] = commaNumber(args[i].replace(/[x:_]/g, m => display[m]), '.', ',');
+                problem[i] = commaNumber(args[i].replace(/[*:._]/g, m => display[m]), '.', ',');
             }
 
             let embed = new MessageEmbed()
