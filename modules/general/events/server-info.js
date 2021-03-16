@@ -107,9 +107,7 @@ module.exports = client => {
                     .addField('Total Members', guild.memberCount, true)
                     .addField('Total Bots', totalBots(), true)
                     .addField('Status (User Only)', `**Online :** ${onlineUsers()}\n**Offline :** ${(guild.memberCount - totalBots()) - onlineUsers()}`, false)
-                    .setFooter('Last Updated')
-                    .setColor('RANDOM')
-                    .setTimestamp();
+                    .setColor('RANDOM');
                     
         
                     msg.edit(embed);
@@ -123,9 +121,7 @@ module.exports = client => {
                     let embed = new MessageEmbed()
                     .setTitle('Server Emojis')
                     .setDescription(`**Non Animated**\n${emojiNonAnimated.join(" ")}`)
-                    .setFooter('Last Updated')
                     .setColor('RANDOM')
-                    .setTimestamp();
                 
                     msg.edit(embed);
                 });
@@ -137,9 +133,7 @@ module.exports = client => {
                 channel.messages.fetch(emojisInfoID2).then(msg =>{ // Then fetch the message
                     let embed = new MessageEmbed()
                     .setDescription(`**Animated**\n${emojiAnimated.join(" ")}`)
-                    .setFooter('Last Updated')
                     .setColor('RANDOM')
-                    .setTimestamp();
                 
                     msg.edit(embed);
                 });
@@ -150,8 +144,8 @@ module.exports = client => {
             client.channels.fetch(channelID).then(channel => { // First fetch channel from client
                 channel.messages.fetch(memberInfoID).then(msg =>{ // Then fetch the message
                     let embed = new MessageEmbed()
-                    .setTitle('Showing 10 of')
-                    .setDescription(`**Oldest Member:**\n${onlyFiveOldest.join("\n")}\n\n**Newest Member:**\n${onlyFiveNewest.join("\n")}`)
+                    .setTitle('Showing 5 of')
+                    .setDescription(`**Oldest Member**\n${onlyFiveOldest.join("\n")}\n\n**Newest Member**\n${onlyFiveNewest.join("\n")}`)
                     .setFooter('Last Updated')
                     .setColor('RANDOM')
                     .setTimestamp();
