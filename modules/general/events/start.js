@@ -6,7 +6,7 @@ const table = require('./start-table');
 const Auditlog = require("discord-auditlog");
 const Moment = require('moment-timezone');
 const listenToMessage = require('./msgListener');
-const onlineCount = require('./online-member');
+const serverInfo = require('./server-info');
 
 module.exports = class extends Event {
   constructor() {
@@ -51,10 +51,10 @@ module.exports = class extends Event {
     // Message Listener
     listenToMessage(client);
 
-    //Membercount 
+    // Membercount 
     membercount(client);        
 
-    //Onlinecount
-    onlineCount(client); // Checked every 15 minutes
+    // Serverinfo
+    serverInfo(client); // Updated every 15 minutes
   }
 };

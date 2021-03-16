@@ -19,30 +19,59 @@ module.exports = class extends Command {
     async run(message, args) {
         if (!args[0]){
           var emoji = []; 
-          emoji = getEmoji();
+          emoji = getEmoji(); // Map the emojis
 
-          var emojiList = [];
+          var nonAnimated = [];
+          var Animated  = [];
           if(emoji == ""){
-            emojiList[0] = "No custom emoji in server"
+            nonAnimated.push("No custom emoji in server");
+            Animated.push("-")
           } else {
             for (var i = 0; i < emoji.length; i++){
-              emojiList[i] = `<:${emoji[i].name}:${emoji[i].id}>` 
+              if (emoji[i].animated) {
+                Animated.push(`<a:${emoji[i].name}:${emoji[i].id}>`)
+              } else 
+              if (!emoji[i].animated) {
+                nonAnimated.push(`<:${emoji[i].name}:${emoji[i].id}>`)
+              }
             }
           }
 
-          var emoji1 = [];
-          var emoji2 = [];
-          for (var i = 0; i < 25; i ++){
-            emoji1[i] = emojiList[i];
+          // Non Animated
+          var emoji1NonAnimated = [];
+          var emoji2NonAnimated = [];
+          for (var i = 0; i < 25; i ++){ // 1-25
+            emoji1NonAnimated.push(nonAnimated[i]);
+          }
+          for (var i = 25; i < 50; i ++){ // 26-50
+            emoji2NonAnimated.push(nonAnimated[i]);
+          }
+          if (!emoji1NonAnimated[0]){
+            emoji1NonAnimated.push('-');
+          }
+          if (!emoji2NonAnimated[0]){ // If not more than 25
+            emoji2NonAnimated.push('-');
           }
 
-          for (var i = 25; i < 50; i ++){
-            emoji2[i] = emojiList[i];
+          // Animated
+          var emoji1Animated = [];
+          var emoji2Animated = [];
+          for (var i = 0; i < 25; i ++){ // 1-25
+            emoji1Animated.push(Animated[i]);
           }
-          if (!emoji2[25]){
-            emoji2[25] = "-"
+          for (var i = 25; i < 50; i ++){ // 26-50
+            emoji2Animated.push(Animated[i]);
           }
 
+          if(!emoji1Animated[0]){ // If no animated emoji
+            emoji1Animated.push('-');
+          }
+          if (!emoji2Animated[0]){ // If not more than 25
+            emoji2Animated.push('-');
+          }
+
+
+          // Age
           var today = Moment().tz('Asia/Jakarta');
           var age = today - message.guild.createdAt;
 
@@ -60,8 +89,10 @@ module.exports = class extends Command {
           .addField("Default Notification", message.guild.defaultMessageNotifications, true)
           .addField("AFK Timeout", message.guild.afkTimeout, true)
           .addField("Nitro Lvl/Supporter", `${message.guild.premiumTier}/${message.guild.premiumSubscriptionCount}`, true)
-          .addField("Emojis (Max shown 50 - animated emojis are not supported)", emoji1.join(" "), false)
-          .addField("Cont.", emoji2.join(" "), false)
+          .addField("Emojis (Max shown 50)", emoji1NonAnimated.join(" "), false)
+          .addField("Cont.", emoji2NonAnimated.join(" "), false)
+          .addField("Animated Emojis", emoji1Animated.join(" "), false)
+          .addField("Cont.", emoji2Animated.join(" "), false)
           .addField("Server Age", `${prettyMS(age)}`, false)
           .addField("Created On", `${Moment(message.guild.createdAt).tz('Asia/Jakarta').format('dddd DD MMMM YYYY HH:mm:ss')} GMT+0700 (Western Indonesia Time)`, false)
           .addField("You Joined At", `${Moment(message.member.joinedAt).tz('Asia/Jakarta').format('dddd DD MMMM YYYY HH:mm:ss')} GMT+0700 (Western Indonesia Time)`, false)
