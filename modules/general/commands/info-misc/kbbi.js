@@ -15,7 +15,6 @@ module.exports = class extends Command {
     });
   }
   async run(message, args) {
-      console.log(args)
     if (args.length < 0 || args.join(" ") == "") {
       info();
       return;
