@@ -115,18 +115,18 @@ module.exports = class extends Command {
         .setTimestamp();
 
       message.channel.send(embed);
+    }
 
-      //Info
-      function info() {
-        let embed = new MessageEmbed()
-          .setColor("RANDOM")
-          .setTitle(`Please Enter The Correct Arguments`)
-          .setDescription(`For more detailed info please check using the help command. Usage example :arrow_down:\`\`\`css\n${prefix}command/alias 23 21 11 33 22 1\`\`\``)
-          .setFooter(message.guild.me.displayName, message.client.user.displayAvatarURL())
-          .setTimestamp();
-      
-        message.channel.send(embed);
-      }
+    //Info
+    function info() {
+      let embed = new MessageEmbed()
+        .setColor("RANDOM")
+        .setTitle(`Please Enter The Correct Arguments`)
+        .setDescription(`For more detailed info please check using the help command. Usage example :arrow_down:\`\`\`css\n${prefix}command/alias 23 21 11 33 22 1\`\`\``)
+        .setFooter(message.guild.me.displayName, message.client.user.displayAvatarURL())
+        .setTimestamp();
+    
+      message.channel.send(embed);
     }
   }
 };
