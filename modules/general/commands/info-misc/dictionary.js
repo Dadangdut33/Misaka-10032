@@ -3,6 +3,7 @@ const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
 const request = require('request-promise');
 const cheerio = require('cheerio');
+const { paginationEmbed } = require('../../../../local_dependencies/functions.js');
 
 module.exports = class extends Command {
   constructor() {
@@ -16,23 +17,24 @@ module.exports = class extends Command {
   }
   async run(message, args) {
     if (!args[0]) {
-      return null;
+      return message.channel.send(`Please enter a correct word to search!`);
     } else {
 
       //const query = encodeURIComponent(wordToDefine.join(this.usageDelim));
       const query = args.join(`_`);
 
+      var pages = [];
       const author = 'Lexico (Powered By Oxford)'
       const thumbnail = 'https://i.imgur.com/4wHZP6c.png';
       const url = 'https://www.lexico.com/en/definition/'
       const link = url + query;
-
 
       await request(link)
         .then(definition => {
           const $ = cheerio.load(definition);
           const title = toTitleCase($('.entryWrapper').find('.hw').data('headword-id'));
 
+          let display = [];
           $('.entryWrapper').children('.gramb').each((i, el) => {
             const examples = `**Examples:**\n${$(el).find('.ex').first().text()}`;
             const meaning = $(el).find('.ind').text();
@@ -45,7 +47,7 @@ module.exports = class extends Command {
             ].join('\n');
             //`${meaning.replace(/\./g, `.\n`)}`,
 
-            const display = new MessageEmbed()
+            display[i] = new MessageEmbed()
               .setAuthor(author)
               .setColor("RANDOM")
               .setTitle(title)
@@ -53,15 +55,18 @@ module.exports = class extends Command {
               .setThumbnail(thumbnail)
               .setURL(link);
 
-            // console.log(meaning.join('\n'))
-            // console.log(meaning.replace(/.|;/g, `.\n`))
-            return message.channel.send(display);
           });
+          
+          for (var i = 0; i < display.length; i++){
+            pages.push(display[i])
+          }
+    
+          paginationEmbed(message, pages, false, 300000);
         })
-        .catch(() => {
+        .catch((error) => {
           // console.log(error);
           return message.channel.send('No definition found, please enter a correct word!');
-        });
+      });
     }
   }
 }

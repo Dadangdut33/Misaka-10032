@@ -73,10 +73,11 @@ module.exports = {
                         curPage.reactions.removeAll(); // Remove Reaction
 
                         pages[page] // Edit Current page make all empty
-                        .setAuthor(``) // Author
+                        .setAuthor(``, ``, ``) // Author, icon, links
                         .setTitle(`Embed Viewing Closed by Message Author`) // Title
                         .setDescription(`❌ ${msg.author} Closed the embed`) // Desc
-                        .setFooter(``) // Footer
+                        .setURL(``) // Title URL
+                        .setFooter(``, ``) // Footer, icon
                         .setImage(``) // Image
                         .setTimestamp(``) // Timestamp
                         .setThumbnail(``) // Thumbnail

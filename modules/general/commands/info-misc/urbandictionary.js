@@ -3,6 +3,7 @@ const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
 const request = require('request-promise');
 const cheerio = require('cheerio');
+const { paginationEmbed } = require('../../../../local_dependencies/functions.js');
 
 module.exports = class extends Command {
   constructor() {
@@ -16,11 +17,11 @@ module.exports = class extends Command {
   }
   async run(message, args) {
     if (!args[0]) {
-      return null;
+      return message.channel.send(`Please enter a correct word to search!`);
     } else {
       const query = args.join(`%20`);
 
-      // const author = "Urban Dictionary";
+      var pages = [];
       const url = 'https://www.urbandictionary.com/define.php?term=';
       const thumbnail = "https://naeye.net/wp-content/uploads/2018/05/Urban-Dictionary-logo-475x300.png";
       const link = url + query;
@@ -29,8 +30,8 @@ module.exports = class extends Command {
         .then(definition => {
           const $ = cheerio.load(definition);
 
-          //Limit it to 3
-          $('.def-panel').slice(0,3).each((i, el) => {
+          let display = [];
+          $('.def-panel').each((i, el) => {
             const author = $(el).find('.ribbon').text()
             const title = toTitleCase($(el).find('.word').text());
             const meaning = $(el).children('.meaning').text();
@@ -45,7 +46,7 @@ module.exports = class extends Command {
               `\n**Author:** ${contributor}`
             ].join('\n');
 
-            let display = new MessageEmbed()
+            display[i] = new MessageEmbed()
               .setAuthor(author)
               .setColor('RANDOM')
               .setThumbnail(thumbnail)
@@ -55,10 +56,16 @@ module.exports = class extends Command {
               .setDescription(description)
               .setTitle(title);
 
-            return message.channel.send(display);
+            // return message.channel.send(display);
           })
+
+          for (var i = 0; i < display.length; i++){
+            pages.push(display[i])
+          }
+    
+          paginationEmbed(message, pages, false, 300000);
         })
-        .catch(() => {
+        .catch((error) => {
           // console.log(error)
           return message.channel.send('No definition found, please enter a correct word!');
         });
