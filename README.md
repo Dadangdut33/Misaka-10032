@@ -1,6 +1,6 @@
 # Misaka-10032
 A Personal discord bot made by [me](https://github.com/Dadangdut33)\
-This is the repository of Misaka-10032 Discord bot that i use in my private discord server (Para Pencari Waifu)\
+This is the repository of Misaka-10032 bot that i use for my private discord server (Para Pencari Waifu)\
 Originally this bot repository was private but I opened it to public now cause why not ¯\_(ツ)_/¯
 
 ## Getting Started
@@ -9,6 +9,7 @@ If you want to clone it and use it for your server, you gonna have to change som
    - What you will need to modify
      1. **[User ID to send Messages]** You need to change the id to send messages in [handler.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/handler/Handler.js) and [reportbug.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/info_bot/reportbug.js). 
      2. **[Channel ID & Server ID for member count, channel log, and server info]** You need to change the id used [Member-count.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/member-count.js), [start.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/start.js), and [server-info](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/server-info.js) 
+     3. **[Repository Link]** You need to change the repository links in [help.js]
      4. **[Bot Token]** You need to create a .env file and add your own token there
      5. **[API Keys]** And last, You will also need to create api.json file and add your own API keys from bitly and rapidAPI if you want to use [shortlink](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/tool/shortlink.js) and [translate](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/tool/translate.js). 
 
