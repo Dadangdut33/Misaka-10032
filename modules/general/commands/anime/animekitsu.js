@@ -14,7 +14,7 @@ module.exports = class extends Command {
       aliases: ["ak"],
       info: "Get information of any anime from [kitsu.io](https://kitsu.io/explore/anime) using kitsu.js npm",
       usage: `${prefix}command/alias <title> [[kitsu]]\`\`\`**Notes**\`\`\`Optionally, you can search using old kitsu method by including [kitsu] in the arguments. *Notice the -> []`,
-      guildOnly: false,
+      guildOnly: true,
     });
   }
   async run(message, args) {

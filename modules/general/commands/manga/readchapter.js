@@ -14,7 +14,7 @@ module.exports = class extends Command {
             aliases: ["readid", "read", "mangaread"],
             info: "Read manga from mangadex by inputting chapter id. You can get the chapter ID by searching the manga name using \`searchchapter\` command.\n\nCommand possible by using [Mangadex API](https://mangadex.org/thread/351011) & [Mangadex API NPM](https://www.npmjs.com/package/mangadex-api)",
             usage: `${prefix}command/alias <chapterID>`,
-            guildOnly: false,
+            guildOnly: true,
         });
     }
 
