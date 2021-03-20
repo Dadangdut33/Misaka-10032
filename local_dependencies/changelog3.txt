@@ -16,3 +16,5 @@ Added paginator in function, added muslim command category, added quran, added o
 Fix some bugs, paginator now only allow message author, limit animedl command to anime-dl channel only. Updated genshin commands, now with dynamic embeds. Also add pages in airing
 **[16/3/2021]**
 Added kbbi
+**[20/3/2021]**
+Moved some commands categories and added readchapter and searchchapter to read manga using Mangadex API

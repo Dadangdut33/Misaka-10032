@@ -62,14 +62,24 @@ module.exports = class extends Command {
           
           if(reaction == undefined){ // If no reaction
             msg.delete();
-            optionsToChoose.delete();
-            return message.channel.send(`Search for **${search}** Aborted because of no reaction from ${message.author}!`);
+            embed
+            .setAuthor('Search aborted!')
+            .setTitle('')
+            .setDescription(`Search for **${search}** aborted because of no reaction from ${message.author}!`);
+    
+            optionsToChoose.edit(embed);
+            return;
           }
     
           if(reaction + 1 > limit){ // +1 because the original is from 0 to access the array
             msg.delete();
-            optionsToChoose.delete();
-            return message.channel.send(`Invalid options chosen! Please choose the correct available options!`);
+            embed
+            .setAuthor('Invalid options chosen!')
+            .setTitle('')
+            .setDescription('Please choose the correct available options!');
+    
+            optionsToChoose.edit(embed);
+            return;
           }
 
           var anime = result[reaction]
@@ -257,21 +267,3 @@ module.exports = class extends Command {
     }
   }
 }
-
-/* OLD EMBED
-            let embed = new MessageEmbed()
-                .setColor('RANDOM')
-                .setAuthor(`${anime.titles.english ? anime.titles.english : search} | ${anime.showType}`, anime.posterImage.original)
-                .setDescription(anime.synopsis.replace(/<[^>]*>/g, '').split('\n')[0])
-                .addField('❯\u2000\Information', `•\u2000\**Japanese Name:** ${anime.titles.romaji}\n\•\u2000\**Age Rating:** ${anime.ageRating}\n\•\u2000\**NSFW:** ${anime.nsfw ? 'Yes' : 'No'}`, false)
-                .addField('❯\u2000\Stats', `•\u2000\**Average Rating:** ${anime.averageRating}\n\•\u2000\**Rating Rank:** ${anime.ratingRank}\n\•\u2000\**Popularity Rank:** ${anime.popularityRank}`, true)
-                .addField('❯\u2000\Status', `•\u2000\**Episodes:** ${anime.episodeCount ? anime.episodeCount : 'N/A'}\n\•\u2000\**Start Date:** ${anime.startDate}\n\•\u2000\**End Date:** ${anime.endDate ? anime.endDate : "Still airing"}`, true)
-                .addField(`‎‏‏‎ ‎‏`, `‎‏‏‎ `, true)
-                .addFields( {name: "❯\u2000\Search Online", value: `•\u2000\[Gogoanime](https://gogoanime.so//search.html?keyword=${args.join('%20')})\n•\u2000\[4Anime](https://4anime.to/?s=${args.join('+')})\n•\u2000\[9Anime](https://9anime.ru/search?keyword=${args.join('+')})`, inline: true},
-                            {name: "❯\u2000\Promotional Video", value: `•\u2000\[Click Here!](https://youtube.com/watch?v=${anime.youtubeVideoId})`, inline: true}, 
-                            {name: "❯\u2000\Find on MAL", value: `•\u2000\[MyAnimeList](https://myanimelist.net/anime.php?q=${args.join('+')})`, inline: true} )
-                .setFooter(message.guild.me.displayName)
-                .setTimestamp()
-                .setThumbnail(anime.posterImage.original, 100, 200);
-          
-*/

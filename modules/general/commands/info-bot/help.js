@@ -54,6 +54,11 @@ module.exports = class extends Command {
         .map(([, command]) => `\`${command.name}\``)
         .join(` `)}`;
 
+      let manga = `${Array.from(this.commandHandler.commands)
+        .filter(([, command]) => command.categories == "manga")
+        .map(([, command]) => `\`${command.name}\``)
+        .join(` `)}`;
+
       let moderation = `${Array.from(this.commandHandler.commands)
         .filter(([, command]) => command.categories == "moderation")
         .map(([, command]) => `\`${command.name}\``)
@@ -105,7 +110,7 @@ module.exports = class extends Command {
         .join(` `)}`;
 
       var total = infoBot.split(' ').length + infoServer.split(' ').length + infoMisc.split(' ').length + text.split(' ').length + fun.split(' ').length + action.split(' ').length
-      + anime.split(' ').length + animeMisc.split(' ').length + genshin.split(' ').length + tool.split(' ').length + moderation.split(' ').length + music.split(' ').length 
+      + anime.split(' ').length + manga.split(' ').length + animeMisc.split(' ').length + genshin.split(' ').length + tool.split(' ').length + moderation.split(' ').length + music.split(' ').length 
       + changelog.split(' ').length + muslim.split(' ').length; 
         
       const embed = new MessageEmbed()
@@ -146,6 +151,10 @@ module.exports = class extends Command {
         }, {
           name: `**Anime** [${anime.split(' ').length}]`,
           value: `${anime}`,
+          inline: false
+        }, {
+          name: `**Manga** [${manga.split(' ').length}]`,
+          value: `${manga}`,
           inline: false
         }, {
           name: `**Anime-Misc** [${animeMisc.split(' ').length}]`,

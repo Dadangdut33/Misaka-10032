@@ -35,6 +35,7 @@
     "isnumber": "^1.0.0",
     "kitsu.js": "^2.0.0",
     "mal-scraper": "^2.11.2",
+    "mangadex-api": "^4.6.4",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.32",
     "ms": "^2.1.2",

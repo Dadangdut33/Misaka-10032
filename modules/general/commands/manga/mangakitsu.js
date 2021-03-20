@@ -10,7 +10,7 @@ const chooseArr = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"];
 module.exports = class extends Command {
   constructor() {
     super('mangakitsu', {
-      categories: "anime",
+      categories: "manga",
       aliases: ["mk"],
       info: "Get information of any manga from [kitsu.io](https://kitsu.io/explore/manga)",
       usage: `${prefix}command/alias <title>`,
@@ -50,20 +50,30 @@ module.exports = class extends Command {
       .setDescription(options.join("\n"))
 
       const optionsToChoose = await message.channel.send(embed); // Await the embed
-      const reacted = await promptMessage(optionsToChoose, message.author, 5, chooseArr); // Await reaction
+      const reacted = await promptMessage(optionsToChoose, message.author, 50, chooseArr); // Await reaction
       const reaction = await getResult(reacted); // Get Result from reaction
       await optionsToChoose.reactions.removeAll();
 
       if(reaction == undefined){ // If no reaction after timeout
         msg.delete();
-        optionsToChoose.delete();
-        return message.channel.send(`Search for **${search}** Aborted because of no reaction from ${message.author}!`);
+        embed
+        .setAuthor('Search aborted!')
+        .setTitle('')
+        .setDescription(`Search for **${search}** aborted because of no reaction from ${message.author}!`);
+
+        optionsToChoose.edit(embed);
+        return;
       }
 
       if(reaction + 1 > limit){ // +1 because the original is from 0 to access the array
         msg.delete();
-        optionsToChoose.delete();
-        return message.channel.send(`Invalid options chosen! Please choose the correct available options!`);
+        embed
+        .setAuthor('Invalid options chosen!')
+        .setTitle('')
+        .setDescription('Please choose the correct available options!');
+
+        optionsToChoose.edit(embed);
+        return;
       }
 
       var manga = result[reaction]

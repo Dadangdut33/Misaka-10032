@@ -8,7 +8,7 @@ const chooseArr = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"];
 module.exports = class extends Command {
   constructor() {
     super('mangamal', {
-      categories: "anime",
+      categories: "manga",
       aliases: ["mm"],
       info: "Get information of any manga from [myanimelist.net](https://myanimelist.net/) using [mal-scraper](https://www.npmjs.com/package/mal-scraper)",
       usage: `${prefix}command/alias <title>`,
@@ -61,14 +61,24 @@ module.exports = class extends Command {
         
         if(reaction == undefined){ // If no reaction after timeout
           msg.delete();
-          optionsToChoose.delete();
-          return message.channel.send(`Search for **${search}** Aborted because of no reaction from ${message.author}!`);
+          embed
+          .setAuthor('Search aborted!')
+          .setTitle('')
+          .setDescription(`Search for **${search}** aborted because of no reaction from ${message.author}!`);
+  
+          optionsToChoose.edit(embed);
+          return;
         }
   
         if(reaction + 1 > limit){ // +1 because the original is from 0 to access the array
           msg.delete();
-          optionsToChoose.delete();
-          return message.channel.send(`Invalid options chosen! Please choose the correct available options!`);
+          embed
+          .setAuthor('Invalid options chosen!')
+          .setTitle('')
+          .setDescription('Please choose the correct available options!');
+  
+          optionsToChoose.edit(embed);
+          return;
         }
 
         var manga = data[reaction];
