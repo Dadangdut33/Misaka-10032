@@ -92,6 +92,7 @@ module.exports = class extends Command {
             var chaptersArray = [];
             for (var i = 0; i < chap_Length - 1; i++){
                 if((await theMangaChapter).chapters[i].language == "gb"){  // language en -> gb
+                    msg.edit(`Getting chapter \`${(await theMangaChapter).chapters[i].chapter}\` please wait...`)
                     chaptersArray.push(`Ch. ${(await theMangaChapter).chapters[i].chapter} id : ${(await theMangaChapter).chapters[i].id} (${(await theMangaChapter).chapters[i].title})`) // Get all id
                 }
             }
@@ -132,6 +133,11 @@ module.exports = class extends Command {
                 
                 pages.push(page3)
             }
+
+            msg.edit(`**__Loading Finished__**`)
+            msg.delete({
+                timeout: 5000
+            })
 
             paginationEmbed(message, pages, false, 600000); // 10 minutes
         }

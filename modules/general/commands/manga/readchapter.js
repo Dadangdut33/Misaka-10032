@@ -49,6 +49,11 @@ module.exports = class extends Command {
                 .setDescription(`Uploaded on: ${Moment((await toRead).timestamp * 1000).tz('Asia/Jakarta').format('DD-MM-YY')}`)
             }
     
+            msg.edit(`**__Loading Finished__**`)
+            msg.delete({
+                timeout: 5000
+            })
+
             var pages = [];
             for (var i = 0; i < embedChaptersReader.length; i++){
                 pages.push(embedChaptersReader[i]);
