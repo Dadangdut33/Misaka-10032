@@ -11,7 +11,6 @@ module.exports = client => {
     // const regexTagHaiku = /([<@0-9>])/gi; // Not used cause no need, message.mentions.members.first() is the same
     const regexEmojiHaiku = /(:[^:\s]+:|<:[^:\s]+:[0-9]+>|<a:[^:\s]+:[0-9]+>)/g;
     
-    // console.log(message.mentions.channels.first())
 
     if(!message.content.startsWith(prefix) && message.channel.type !== "dm"){ // Prefix to prevent listening to commands, the dm to prevent listening to dm so no error happen 
       if(gehFilter.test(message.content)){

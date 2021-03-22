@@ -59,7 +59,7 @@ module.exports = class extends Command {
       Embed.addField(`Account Age`, `${prettyMS(age)}`, false)
       Embed.addField(`Account Created At`, `${Moment(message.author.createdAt).tz('Asia/Jakarta').format('dddd DD MMMM YYYY HH:mm:ss')} GMT+0700 (Western Indonesia Time)`, false)
       Embed.addField(`Roles`, `\`\`\`css\n${roles.join(`, `)}\`\`\``)
-      Embed.addField(`Avatar URL`, `[Click Here!](${message.author.displayAvatarURL({ format: 'jpg', size: 2048 })})`)
+      Embed.addField(`Avatar URL`, `[JPG](${message.author.displayAvatarURL({ format: 'jpg', size: 2048 })}) | [PNG](${message.author.displayAvatarURL({ format: 'png', size: 2048 })}) | [WEBP](${message.author.displayAvatarURL({ format: 'webp', size: 2048 })})`)
       Embed.setFooter(`${message.author.username}'s Profile`)
       Embed.setTimestamp();
 
@@ -115,7 +115,7 @@ module.exports = class extends Command {
       Embed.addField(`Account Age`, `${prettyMS(age)}`, false)
       Embed.addField(`Account Created At`, `${Moment(message.client.users.cache.get(User.id).createdAt).tz('Asia/Jakarta').format('dddd DD MMMM YYYY HH:mm:ss')} GMT+0700 (Western Indonesia Time)`, false)
       Embed.addField(`Roles`, `\`\`\`css\n${roles.join(`, `)}\`\`\``)
-      Embed.addField(`Avatar URL`, `[Click Here](${message.client.users.cache.get(User.id).displayAvatarURL({ format: 'jpg', size: 2048 })})`)
+      Embed.addField(`Avatar URL`, `[JPG](${message.client.users.cache.get(User.id).displayAvatarURL({ format: 'jpg', size: 2048 })}) | [PNG](${message.client.users.cache.get(User.id).displayAvatarURL({ format: 'png', size: 2048 })}) | [WEBP](${message.client.users.cache.get(User.id).displayAvatarURL({ format: 'webp', size: 2048 })})`)
       Embed.setFooter(`Requested by ${message.author.username}`)
 
       return message.channel.send(Embed);

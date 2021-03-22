@@ -3,7 +3,7 @@ const { prefix } = require("../../../config");
 const membercount = require('./member-count');
 const activityRand = require('./bot-activity');
 const table = require('./start-table');
-const Auditlog = require("discord-auditlog");
+const Auditlog = require("./audit-welcome");
 const Moment = require('moment-timezone');
 const listenToMessage = require('./msgListener');
 const serverInfo = require('./server-info');
@@ -37,15 +37,12 @@ module.exports = class extends Event {
     }, 900000); //900000 -> every 15 minutes
     console.log(`==============================================\nModule: Random Bot activity loaded (${activityRand().actLen}) | Loaded from local modules | Bot's presence will change every 15 minutes.`)
 
-    // Best npm ever lol
-    Auditlog(client, {
-      "640790707082231834": { // For PPW
-        auditlog: "mod-log",	
-        movement: false,
-        auditmsg: "vc-log",
-        voice: false, // Set a Channel name if you want to use it
-        trackroles: false, // Default is False
-      }
+    // Some Auditlog
+    Auditlog(client, { //
+        "640790707082231834": { // For PPW 
+          auditlog: "mod-log",
+          auditmsg: "mod-log",
+        }
     });
 
     // Message Listener

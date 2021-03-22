@@ -18,3 +18,5 @@ Fix some bugs, paginator now only allow message author, limit animedl command to
 Added kbbi
 **[20/3/2021]**
 Moved some commands categories and added readchapter and searchchapter to read manga using Mangadex API
+**[22/3/2021]**
+Changed some logging options, not auditlog is local. Added more image options on avatar and profile
