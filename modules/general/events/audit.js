@@ -204,7 +204,7 @@ ${message.attachments.map(x => x.proxyURL)}
                             color: 000000,
                             timestamp: new Date(),
                             footer: {
-                                text: `${member.nickname || member.user.username}\nIf old avatar doesn't show up, it means it's not in the bot cache`
+                                text: `${member.nickname || member.user.username} • If old avatar doesn't show up, it means it's not in the bot's cache`
                             },
                             thumbnail: {
                                 url: newUser.displayAvatarURL()
