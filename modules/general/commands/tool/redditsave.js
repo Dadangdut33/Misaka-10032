@@ -9,7 +9,7 @@ module.exports = class extends Command {
       super('redditsave', {
         aliases: ['No alias is set for this command'],
         categories: 'tool',
-        info: 'Get media download links of a reddit post',
+        info: 'Get media download links of a reddit post using webscraper and [redditsave](https://redditsave.com/)',
         usage: `${prefix}command/alias <post link>`,
         guildOnly: false,
       });
