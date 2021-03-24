@@ -41,7 +41,6 @@ module.exports = class extends Command {
             return message.channel.send("Error! Please provide a valid youtube video URL.");
         }
 
-        console.log(theID)
         const msg = await message.channel.send(`Please wait... Video ID: \`${theID.replace(/&/, "")}\``);
 
         let link = `https://www.yt-download.org/api/widget/mp3/${theID.replace(/&/, "")}`; // MP3
