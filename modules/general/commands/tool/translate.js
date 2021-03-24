@@ -1,7 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
-const { RapidKey } = require("../../../../api.json")
 const axios = require('axios');
 
 module.exports = class extends Command {
@@ -30,7 +29,7 @@ module.exports = class extends Command {
             url: 'https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/translation/text/translate',
             params: {source: 'auto', target: 'en', input: `${args.join(" ")}`},
             headers: {
-              'x-rapidapi-key': RapidKey,
+              'x-rapidapi-key': process.env.RapidKey,
               'x-rapidapi-host': 'systran-systran-platform-for-language-processing-v1.p.rapidapi.com'
             }
           };

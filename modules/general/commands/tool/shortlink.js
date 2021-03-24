@@ -3,7 +3,6 @@ const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
 var request = require('request');
 const Moment = require('moment-timezone');
-const { BitlyKey } = require("../../../../api.json")
 
 module.exports = class extends Command {
     constructor() {
@@ -32,7 +31,7 @@ module.exports = class extends Command {
 
         // Authorization
         var headers = {
-            'Authorization': `Bearer ${BitlyKey}`, //Token from https://app.bitly.com/
+            'Authorization': `Bearer ${process.env.BitlyKey}`, //Token from https://app.bitly.com/
             'Content-Type': 'application/json'
         };
 

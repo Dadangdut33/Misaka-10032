@@ -2,7 +2,6 @@ const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
 const { paginationEmbed } = require('../../../../local_dependencies/functions.js');
-const { Mangadex_Password, Mangadex_Username } = require("../../../../api.json")
 const { Mangadex } = require('mangadex-api')
 const client = new Mangadex()
 const Moment = require('moment-timezone');
@@ -26,7 +25,7 @@ module.exports = class extends Command {
             return message.channel.send(notANumber());
         } else {
             const msg = await message.channel.send(`Searching for chapter id \`${args.join(" ")}\` please wait...`);
-            await client.agent.login(Mangadex_Username, Mangadex_Password, false); // Authentication
+            await client.agent.login(process.env.Mangadex_Username, process.env.Mangadex_Password, false); // Authentication
 
             // Search the chapter
             const toRead = client.chapter.getChapter(args.join(" "));

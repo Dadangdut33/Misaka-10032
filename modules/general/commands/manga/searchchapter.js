@@ -2,7 +2,6 @@ const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
 const { promptMessage, paginationEmbed } = require('../../../../local_dependencies/functions.js');
-const { Mangadex_Password, Mangadex_Username } = require("../../../../api.json")
 const chooseArr = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣"];
 const { Mangadex } = require('mangadex-api')
 const client = new Mangadex()
@@ -24,7 +23,7 @@ module.exports = class extends Command {
             return message.channel.send(info());
         } else {
             const msg = await message.channel.send(`Searching for \`${args.join(" ")}\` please wait...`);
-            await client.agent.login(Mangadex_Username, Mangadex_Password, false); // Authentication
+            await client.agent.login(process.env.Mangadex_Username, process.env.Mangadex_Password, false); // Authentication
             const result = await client.search(args.join(" ")); // Search
 
             // If no results

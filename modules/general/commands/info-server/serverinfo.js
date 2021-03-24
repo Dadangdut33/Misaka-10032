@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
-const { PPW_invite } = require("../../../../invitelink.json")
+// const { PPW_invite } = require("../../../../invitelink.json")
 const Moment = require('moment-timezone');
 const prettyMS = require('pretty-ms')
 
@@ -81,7 +81,7 @@ module.exports = class extends Command {
           .setTitle(`Server Information`)
           .setDescription(`[Get Server Icon](${message.guild.iconURL(({ format: 'jpg', size: 2048 }))})`)
           .addField("Server ID", message.guild.id, true)
-          .addField("Permanent Invite Link", PPW_invite, true)
+          .addField("Permanent Invite Link", process.env.PPW_invite, true)
           .addField("Owner", "<@" + message.guild.ownerID + ">", false)
           .addField("Server Name", message.guild.name, true)
           .addField("Region", message.guild.region, true)
