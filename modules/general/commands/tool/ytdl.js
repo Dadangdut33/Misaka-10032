@@ -116,10 +116,10 @@ module.exports = class extends Command {
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL())
                 .setTitle(`Link Info`)
                 .setDescription(`**Video ID:** \`${theID.replace(/&/, "")}\`\n**Original Link:**\n${args.join(" ")}`)
-                .addField(`MP3`, `[320 Kbps](${mp3_320KBPS}) | [256Kbps](${mp3_256KBPS}) | [192Kbps](${mp3_192KBPS}) | [128Kbps](${mp3_128KBPS})`, false)
+                .addField(`MP3`, `[320 Kbps](${mp3_320KBPS}) | [256Kbps](${mp3_256KBPS}) | [192Kbps](${mp3_192KBPS}) | [128Kbps](${mp3_128KBPS}) | [More Options](${link})`, false)
                 .addField(`MP4`, `[Quality 1](${onlyMp4}) | [More Options](${link2})`, false)
                 .addField(`Webm/Mkv`, `[Quality 1](${mvk_WebmLinkOnly[3].replace(/\"/g, "")}) | [Quality 2](${mvk_WebmLinkOnly[4].replace(/\"/g, "")}) | [Quality 3](${mvk_WebmLinkOnly[5].replace(/\"/g, "")}) | [Quality 4](${mvk_WebmLinkOnly[6].replace(/\"/g, "")}) | [More Options](${link3})`, false)
-                .addField(`To check the quality`, `You can click more options to check the quality details of the video`)
+                .addField(`Notes`, `1. You can click more options to check the quality details of the video\n2. If token invalid, you can just click more options too, to download it directly from the website`)
                 .setFooter(`Via yt-download.org • Direct Download Link`)
                 .setColor('FF0000')
                 .setTimestamp();
