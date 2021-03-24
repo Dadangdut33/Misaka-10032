@@ -41,11 +41,12 @@ module.exports = class extends Command {
             return message.channel.send("Error! Please provide a valid youtube video URL.");
         }
 
-        const msg = await message.channel.send(`Please wait... Video ID: \`${theID}\``);
+        console.log(theID)
+        const msg = await message.channel.send(`Please wait... Video ID: \`${theID.replace(/&/, "")}\``);
 
-        let link = `https://www.yt-download.org/api/widget/mp3/${theID}`; // MP3
-        let link2 = `https://www.yt-download.org/api/widget/videos/${theID}` // MP4
-        let link3 = `https://www.yt-download.org/api/widget/merged/${theID}` // Webm/MKV
+        let link = `https://www.yt-download.org/api/widget/mp3/${theID.replace(/&/, "")}`; // MP3
+        let link2 = `https://www.yt-download.org/api/widget/videos/${theID.replace(/&/, "")}` // MP4
+        let link3 = `https://www.yt-download.org/api/widget/merged/${theID.replace(/&/, "")}` // Webm/MKV
 
 
         //Fetching the HTML using axios
@@ -104,10 +105,7 @@ module.exports = class extends Command {
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL())
                 .setTitle(`Original Youtube Link`)
                 .setDescription(args[0])
-                .addField(`MP3 320Kbps`, `[Click here](${mp3_320KBPS})`, true)
-                .addField(`MP3 256Kbps`, `[Click here](${mp3_256KBPS})`, true)
-                .addField(`MP3 192Kbps`, `[Click here](${mp3_192KBPS})`, true)
-                .addField(`MP3 128Kbps`, `[Click here](${mp3_128KBPS})`, true)
+                .addField(`MP3`, `[320 KBPS](${mp3_320KBPS}) | [256Kbps](${mp3_256KBPS}) | [192Kbps](${mp3_192KBPS}) | [128Kbps](${mp3_128KBPS})`, false)
                 .addField(`MP4`, `[Quality 1](${onlyMp4}) | [More Options](${link2})`, false)
                 .addField(`Webm/Mkv`, `[Quality 1](${mvk_WebmLinkOnly[1].replace(/\"/g, "")}) | [Quality 2](${mvk_WebmLinkOnly[2].replace(/\"/g, "")}) | [Quality 3](${mvk_WebmLinkOnly[3].replace(/\"/g, "")}) | [Quality 4](${mvk_WebmLinkOnly[4].replace(/\"/g, "")}) | [More Options](${link3})`, false)
                 .addField(`To check the quality`, `You can click more options to check the quality details of the video`)
