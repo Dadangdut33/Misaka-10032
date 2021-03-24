@@ -37,6 +37,10 @@ module.exports = class extends Command {
             theID = shareID[0].replace(/\.be\//, "");
         }
 
+        if(!theID){
+            return message.channel.send("Error! Please provide a valid youtube video URL.");
+        }
+
         const msg = await message.channel.send(`Please wait... Video ID: \`${theID}\``);
 
         let link = `https://www.yt-download.org/api/widget/mp3/${theID}`; // MP3
@@ -55,7 +59,7 @@ module.exports = class extends Command {
             // const responseTwo = responses[1]
             // const responesThree = responses[2]
 
-            console.log(responses[0])
+            // console.log(responses[0])
             let loaded = [];
             for (var i = 0; i < 3; i++){
                 loaded.push(await cheerio.load(responses[i].data))
@@ -64,7 +68,7 @@ module.exports = class extends Command {
             // Match the link only but still with href
             var hrefLink = loaded[0].html().match(/href=(["'])(.*?)\1/g);
     
-            console.log(hrefLink)
+            // console.log(hrefLink)
             if(hrefLink[1] == null) {
                 msg.delete();
                 message.channel.send("Error! Please provide a valid youtube url.");
@@ -84,7 +88,7 @@ module.exports = class extends Command {
             // Mp4
             var mp4Href = loaded[1].html().match(/href=(["'])(.*?)\1/g);
             var Mp4linkOnly = mp4Href.join("").match(/"[^"]*"/gus);
-            var onlyMp4 = Mp4linkOnly[0].replace(/\"/g, "");
+            var onlyMp4 = Mp4linkOnly[1].replace(/\"/g, "");
     
             // Mkv
             var mkvHref = loaded[2].html().match(/href=(["'])(.*?)\1/g);
