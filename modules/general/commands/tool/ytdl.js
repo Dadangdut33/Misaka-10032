@@ -9,7 +9,7 @@ module.exports = class extends Command {
       super('ytdl', {
         aliases: ['No alias is set for this command'],
         categories: 'tool',
-        info: 'Get download links of mp3/mp4 files of a yt link using [yt-download.org](https://www.yt2mp3.ws/developers/)',
+        info: 'Get download links of mp3/mp4 files of a yt link via [yt-download.org](https://www.yt2mp3.ws/developers/)',
         usage: `${prefix}command/alias <video link>`,
         guildOnly: false,
       });
@@ -51,7 +51,24 @@ module.exports = class extends Command {
         let link2 = `https://www.yt-download.org/file/mp4/${theID.replace(/&/, "")}` // MP4
         let link3 = `https://www.yt-download.org/file/merged/${theID.replace(/&/, "")}` // Webm/MKV
         
+        msg.edit(`**Loading Finished**`);
+        msg.delete({
+            timeout: 5000
+        });
 
+        const embed = new MessageEmbed()
+        .setColor('RANDOM')
+        .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL())
+        .setTitle(`Link Info`)
+        .setDescription(`**Video ID:** \`${theID.replace(/&/, "")}\`\n**Original Link:**\n${args.join(" ")}`)
+        .addField(`Link to Downloads`, `[Get MP3 Links](${link}) | [Get MP4 Links](${link2}) | [Get WEBM/MKV Links](${link3})`, false)
+        .setFooter(`Via yt-download.org`)
+        .setColor('FF0000')
+        .setTimestamp();
+
+        return message.channel.send(embed);
+
+        /* Its impossible to get the direct link because it turns out the site is ip oriented
         //Fetching the HTML using axios
         const dataMp3 = await axios.get(link);
         const dataMP4 = await axios.get(link2);
@@ -125,6 +142,6 @@ module.exports = class extends Command {
                 .setTimestamp();
                 
             return message.channel.send(embed);
-        }));
+        }));*/
     }
 };
