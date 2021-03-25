@@ -12,7 +12,7 @@ If you want to clone it and use it for your server, you gonna have to change som
      3. **[The repository link]** change the repository links in [help.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/info-bot/help.js) 
      4. **[The .env]** The .env contains many sensitive information. You need to create a .env file and add **Token**, **RapidKey**, **BitlyKey**, **Mangadex_Username**, **Mangadex_Password**, & **Server_invite**. Token is used for the bot RapidKey used for [translate.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/tool/translate.js) BitlyKey for [shortlink.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/tool/shortlink.js), Mangadex_Username & Mangadex_Password for [readchapter.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/manga/readchapter.js) & [searchchapter.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/manga/searchchapter.js) and Server_invite for [serverinfo.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/info-server/serverinfo.js)\
      Your .env should probably looks something like this 🔽
-     ![Example of the .env file][https://media.discordapp.net/attachments/799595012005822484/824624727440097300/unknown.png]
+     ![Example of the .env file][envexample.png]
 
    - Optional
      1. You should probably change the [about](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/info_bot/about.js) info commands
