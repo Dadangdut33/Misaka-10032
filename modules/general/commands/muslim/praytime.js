@@ -8,6 +8,8 @@ const cities = require('all-the-cities');
 const GraphemeSplitter = require('grapheme-splitter');
 var splitter = new GraphemeSplitter();
 
+// This command is formatted very messy, will make adjustment later when there is enough free time
+
 module.exports = class extends Command {
     constructor() {
         super('praytime', {
@@ -273,122 +275,135 @@ module.exports = class extends Command {
             let timezone;
 
             
-                var reg2 = /\[(.*?)\]/;
+            var reg2 = /\[(.*?)\]/;
 
-                var tz = reg2.exec(args.join(" ")); //Clear one on index 1 for some reason
-                // var clearTZ = tz[0].replace(/[\[\]]/g, ""); tz1
-                var splitted = [];
+            var tz = reg2.exec(args.join(" ")); //Clear one on index 1 for some reason
+            // var clearTZ = tz[0].replace(/[\[\]]/g, ""); tz1
+            var splitted = [];
 
-                if (tz) {
-                    var tzString = tz[1];
+            if (tz) {
+                var tzString = tz[1];
 
-                    splitted = splitter.splitGraphemes(tzString);                   
-                }
+                splitted = splitter.splitGraphemes(tzString);                   
+            }
 
-                //Prevent wrong invalid timezone input
-                if (splitted[2] > 13 || splitted[2] < -12) {
-                    let embed = new MessageEmbed()
-                        .setTitle(`Invalid timezone provided`)
-                        .setDescription(`The valid timezone are range from -12 to +13, that is the rule of physics`)
-                        .setTimestamp();
-    
-                    return message.channel.send(embed);
-                }
-
-                //Get TImezone
-                if (!splitted[0]) {
-                    timezone = `-7`;
-                } else
-                if (splitted[0] == "+") {
-                    timezone = `-${splitted[2]}`;
-                } else
-                if (splitted[0] == "-") {
-                    timezone = `+${splitted[2]}`;
-                } 
-
-                //Get Praytime
-                var fajrTime = Moment(prayerTimes.fajr).tz(`Etc/GMT${timezone}`).format('h:mm A');
-                var sunriseTime = Moment(prayerTimes.sunrise).tz(`Etc/GMT${timezone}`).format('h:mm A');
-                var dhuhrTime = Moment(prayerTimes.dhuhr).tz(`Etc/GMT${timezone}`).format('h:mm A');
-                var asrTime = Moment(prayerTimes.asr).tz(`Etc/GMT${timezone}`).format('h:mm A');
-                var maghribTime = Moment(prayerTimes.maghrib).tz(`Etc/GMT${timezone}`).format('h:mm A');
-                var ishaTime = Moment(prayerTimes.isha).tz(`Etc/GMT${timezone}`).format('h:mm A');
-                var qiblaDirection = adhan.Qibla(coordinates);
-
-                //Dinamic
-                var current = prayerTimes.currentPrayer();
-                var next = prayerTimes.nextPrayer();
-
-                //Current and next
-                if (current == "fajr") {
-                    var nextPrayer = sunriseTime;
-                } else
-                if (current == "sunrise") {
-                    var nextPrayer = dhuhrTime;
-                } else
-                if (current == "dhuhr") {
-                    var nextPrayer = asrTime;
-                } else
-                if (current == "asr") {
-                    var nextPrayer = maghribTime;
-                } else
-                if (current == "maghrib") {
-                    var nextPrayer = ishaTime;
-                } else
-                if (current == "isha") {
-                    var nextPrayer = fajrTime;
-                    var next = fajrTime;
-                }
-
-                //Moment Date Format
-                var date2 = Moment.tz(`Etc/GMT${timezone}`).format('dddd DD MMMM YYYY');
-                var time = Moment.tz(`Etc/GMT${timezone}`).format('HH:mm:ss');
-                let zone = Moment.tz(`Etc/GMT${timezone}`).format('Z');
-
-                //Send Result
-
+            //Prevent wrong invalid timezone input
+            if (splitted[2] > 13 || splitted[2] < -12) {
                 let embed = new MessageEmbed()
-                    .setColor('RANDOM')
-                    .setTitle(`Praytime for ${date2}`)
-                    .setDescription(`Time provided are based on \`GMT${zone}\`. Default is GMT+7\nCity: \`${result[0].name} - ${result[0].country}\`\nCoordinates: \`${coord[1]}, ${coord[0]}\``)
-                    .addField(`Current Prayer Time`, `${current}`, true)
-                    .addField('Next Prayer', `${next}`, true)
-                    .addField('Next Prayer in', `${nextPrayer}`)
-                    .addField(`Below are the praytime for today`, "```css\n       Current Time: " + time + "```")
-                    .addFields({
-                        name: "Fajr",
-                        value: `${fajrTime}`,
-                        inline: true
-                    }, {
-                        name: "Sunrise",
-                        value: `${sunriseTime}`,
-                        inline: true
-                    }, {
-                        name: "Dhuhr",
-                        value: `${dhuhrTime}`,
-                        inline: true
-                    }, {
-                        name: "Asr",
-                        value: `${asrTime}`,
-                        inline: true
-                    }, {
-                        name: "Maghrib",
-                        value: `${maghribTime}`,
-                        inline: true
-                    }, {
-                        name: "Isha",
-                        value: `${ishaTime}`,
-                        inline: true
-                    })
-                    .setFooter(`GMT${zone}`)
+                    .setTitle(`Invalid timezone provided`)
+                    .setDescription(`The valid timezone are range from -12 to +13, that is the rule of physics`)
                     .setTimestamp();
 
-                message.channel.send(embed);
-                if (!splitted[0]) {
-                    info2();
-                }
+                return message.channel.send(embed);
+            }
+
+            //Get TImezone
+            if (!splitted[0]) {
+                timezone = `-7`;
+            } else
+            if (splitted[0] == "+") {
+                timezone = `-${splitted[2]}`;
+            } else
+            if (splitted[0] == "-") {
+                timezone = `+${splitted[2]}`;
+            } 
+
+            //Get Praytime
+            var fajrTime = Moment(prayerTimes.fajr).tz(`Etc/GMT${timezone}`).format('h:mm A');
+            var sunriseTime = Moment(prayerTimes.sunrise).tz(`Etc/GMT${timezone}`).format('h:mm A');
+            var dhuhrTime = Moment(prayerTimes.dhuhr).tz(`Etc/GMT${timezone}`).format('h:mm A');
+            var asrTime = Moment(prayerTimes.asr).tz(`Etc/GMT${timezone}`).format('h:mm A');
+            var maghribTime = Moment(prayerTimes.maghrib).tz(`Etc/GMT${timezone}`).format('h:mm A');
+            var ishaTime = Moment(prayerTimes.isha).tz(`Etc/GMT${timezone}`).format('h:mm A');
+            var qiblaDirection = adhan.Qibla(coordinates);
+
+            //Dinamic
+            var current = prayerTimes.currentPrayer();
+            var next = prayerTimes.nextPrayer();
+
+            //Current and next
+            if (current == "fajr") {
+                var nextPrayer = sunriseTime;
+            } else
+            if (current == "sunrise") {
+                var nextPrayer = dhuhrTime;
+            } else
+            if (current == "dhuhr") {
+                var nextPrayer = asrTime;
+            } else
+            if (current == "asr") {
+                var nextPrayer = maghribTime;
+            } else
+            if (current == "maghrib") {
+                var nextPrayer = ishaTime;
+            } else
+            if (current == "isha") {
+                var nextPrayer = fajrTime;
+                var next = fajrTime;
+            }
+
+            //Moment Date Format
+            var date2 = Moment.tz(`Etc/GMT${timezone}`).format('dddd DD MMMM YYYY');
+            var time = Moment.tz(`Etc/GMT${timezone}`).format('HH:mm:ss');
+            let zone = Moment.tz(`Etc/GMT${timezone}`).format('Z');
+
+            //Send Result
+
+            let embed = new MessageEmbed()
+                .setColor('RANDOM')
+                .setTitle(`Praytime for ${date2}`)
+                .setDescription(`Time provided are based on \`GMT${zone}\`. Default is GMT+7\nCity: \`${result[0].name} - ${result[0].country}\`\nCoordinates: \`${coord[1]}, ${coord[0]}\``)
+                .addField(`Current Prayer Time`, `${current}`, true)
+                .addField('Next Prayer', `${next}`, true)
+                .addField('Next Prayer in', `${nextPrayer}`)
+                .addField(`Below are the praytime for today`, "```css\n       Current Time: " + time + "```")
+                .addFields({
+                    name: "Fajr",
+                    value: `${fajrTime}`,
+                    inline: true
+                }, {
+                    name: "Sunrise",
+                    value: `${sunriseTime}`,
+                    inline: true
+                }, {
+                    name: "Dhuhr",
+                    value: `${dhuhrTime}`,
+                    inline: true
+                }, {
+                    name: "Asr",
+                    value: `${asrTime}`,
+                    inline: true
+                }, {
+                    name: "Maghrib",
+                    value: `${maghribTime}`,
+                    inline: true
+                }, {
+                    name: "Isha",
+                    value: `${ishaTime}`,
+                    inline: true
+                })
+                .setFooter(`GMT${zone}`)
+                .setTimestamp();
+
+            message.channel.send(embed);
+            if (!splitted[0]) {
+                info2();
+            }
             
+        } else {
+            wrongArgs();
         }
+
+        function wrongArgs() {
+            let embed = new MessageEmbed()
+            .setColor("RANDOM")
+            .setTitle(`Invalid Arguments Provided!`)
+            .setDescription(`For more detailed info please check using the help command. You can enter custom city with custom timezone or custom coordinate with custom timezone`);
+
+
+            message.channel.send(embed);
+        }
+
         function errinfo(){
             let embed = new MessageEmbed()
             .setColor("RANDOM")
