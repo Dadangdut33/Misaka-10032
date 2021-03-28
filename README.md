@@ -1,7 +1,7 @@
 # Misaka-10032
 A Personal discord bot made by [me](https://github.com/Dadangdut33)\
 This is the repository of Misaka-10032 bot that i use for my private discord server (Para Pencari Waifu)\
-Originally this bot repository was private but I opened it to public now cause why not ¯\_(ツ)_/¯
+Originally this bot repository was private but I opened it to public now cause why not ¯\\_(ツ)_/¯
 
 ## Getting Started
 If you want to clone it and use it for your server, you gonna have to change some stuff.

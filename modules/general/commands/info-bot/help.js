@@ -185,7 +185,7 @@ module.exports = class extends Command {
           value: `You can check the bot's change over the time by using ${changelog}`,
           inline: false
         }, {
-          name: `Behind The Code`,
+          name: `Command's Source Code`,
           value: `[Click Here](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/info-bot/help.js)`,
           inline: true
         }, {
@@ -231,7 +231,7 @@ module.exports = class extends Command {
         .addField(`Guild Only`, `${command.guildOnly}`, false)
         .addField(`Description`, `${command.info}`)
         .addField(`Usage`, `\`\`\`css\n${command.usage}\`\`\``)
-        .addField(`Behind The Code`, `[Click Here](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/${command.categories}/${command.name}.js)`, true)
+        .addField(`Command's Source Code`, `[Click Here](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/${command.categories}/${command.name}.js)`, true)
         .addField(`Bot's Repository`, `[GitHub](${Repo_Link})`, true)
 
 
