@@ -31,7 +31,7 @@ module.exports = class extends Command {
                 let embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ format: 'jpg', size: 2048}))
                 .setDescription(`**Number:** \`${data.phone}\`\n**Valid:** \`${data.valid}\`\nType: ${data.type}`)
-                .addField(`Number Format`, `International: \`${data.format.international}\`\nLocal: \`${data.format.local}\``)
+                .addField(`Number Format`, `International: \`${data.format.international}\`\nLocal: \`${data.format.local}\``, true)
                 .addField(`Country`, `Code: ${data.country.code}\nName: ${data.country.name}`, true)
                 .addField(`Carrier`, `${data.carrier}`, true)
                 .addField(`Check again`, `If the phone number is invalid it's because you put an invalid country code as the prefix of the number`);
