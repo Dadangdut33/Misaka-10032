@@ -21,7 +21,7 @@ module.exports = class extends Command {
                 let data = response.data;
                 let embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ format: 'jpg', size: 2048}))
-                .setDescription(`**Email inputted:** \`${data.email}\`\n**Deliverability**: \`${data.deliverability}\`\n**Quality Score**: \`${data.quality_score}\``)
+                .setDescription(`**Email inputted:** \`${data.email}\`\n**Deliverability:** \`${data.deliverability}\`\n**Quality Score:** \`${data.quality_score}\``)
                 .addField(`Is it valid?`, `${data.is_valid_format.text}`, true)
                 .addField(`Is it free?`, `${data.is_free_email.text}`, true)
                 .addField(`Is it disposable?`, `${data.is_disposable_email.text}`, true)
