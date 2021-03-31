@@ -24,3 +24,5 @@ Changed some logging options, not auditlog is local. Added more image options on
 Added ytdl
 **[29/3/2021]**
 Added ytthumbnail
+**[31/3/2021]**
+Added verifymail and verifyphone

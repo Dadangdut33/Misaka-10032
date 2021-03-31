@@ -19,6 +19,15 @@ module.exports = class extends Command {
             axios.get(`https://phonevalidation.abstractapi.com/v1?api_key=${process.env.validatePhone}&phone=${args[0]}`)
             .then(response => {
                 let data = response.data;
+
+                if(!data.valid){
+                    let embed = new MessageEmbed()
+                    .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ format: 'jpg', size: 2048}))
+                    .setDescription(`**Number:** \`${data.phone}\`\n**Valid:** \`${data.valid}\``)
+
+                    return message.channel.send(embed);
+                }
+
                 let embed = new MessageEmbed()
                 .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ format: 'jpg', size: 2048}))
                 .setDescription(`**Number:** \`${data.phone}\`\n**Valid:** \`${data.valid}\`\nType: ${data.type}`)
