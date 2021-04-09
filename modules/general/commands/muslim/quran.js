@@ -134,7 +134,7 @@ module.exports = class extends Command {
                 .setTitle('Arti ayat ke-')
                 .setDescription(terjemahan.slice(8, 10).join("\n"));
 
-                var pages = [];
+                var pages = []; // HAHA look at this horrendous code, not gonna bother with it cause it works tho 
                 if (terjemahan.length > 8) { // 9-10
                     pages = [
                         ayatLatinPage1,

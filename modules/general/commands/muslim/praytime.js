@@ -22,8 +22,8 @@ module.exports = class extends Command {
     }
 
     async run(message, args) {
-        if (!args[0]) { // DEFAULT
-            //Get Coordinates
+        if (!args[0]) { // No parameter
+            // Default for local time
             var coordinates = new adhan.Coordinates(-6.224036603042286, 106.70806216188234); //Ciledug -6.224036603042286, 106.70806216188234
 
             //Set Up Data
@@ -32,14 +32,6 @@ module.exports = class extends Command {
             params.madhab = adhan.Madhab.Shafi;
             var prayerTimes = new adhan.PrayerTimes(coordinates, date, params);
 
-            //Manual Adjustment (Dunno why but it's not working)
-            params.adjustments.fajr = 0;
-            params.adjustments.sunrise = 0;
-            params.adjustments.dhuhr = 0;
-            params.adjustments.asr = 0;
-            params.adjustments.maghrib = 0;
-            params.adjustments.isha = 4;
-
             //Get Praytime
             var fajrTime = Moment(prayerTimes.fajr).tz('Asia/Jakarta').format('h:mm A');
             var sunriseTime = Moment(prayerTimes.sunrise).tz('Asia/Jakarta').format('h:mm A');
@@ -47,32 +39,14 @@ module.exports = class extends Command {
             var asrTime = Moment(prayerTimes.asr).tz('Asia/Jakarta').format('h:mm A');
             var maghribTime = Moment(prayerTimes.maghrib).tz('Asia/Jakarta').format('h:mm A');
             var ishaTime = Moment(prayerTimes.isha).tz('Asia/Jakarta').format('h:mm A');
-            var qiblaDirection = adhan.Qibla(coordinates);
 
-            //Dinamic
             var current = prayerTimes.currentPrayer();
             var next = prayerTimes.nextPrayer();
 
-            //Current and next
-            if (current == "fajr") {
-                var nextPrayer = sunriseTime;
-            } else
-            if (current == "sunrise") {
-                var nextPrayer = dhuhrTime;
-            } else
-            if (current == "dhuhr") {
-                var nextPrayer = asrTime;
-            } else
-            if (current == "asr") {
-                var nextPrayer = maghribTime;
-            } else
-            if (current == "maghrib") {
-                var nextPrayer = ishaTime;
-            } else
-            if (current == "isha") {
-                var nextPrayer = fajrTime;
-                var next = fajrTime;
+            if(current == "isha"){
+                next = fajrTime;
             }
+            var nextPrayer = getNext(current, fajrTime, sunriseTime, dhuhrTime, asrTime, maghribTime, ishaTime);
 
             //Moment Date Format
             var date2 = Moment.tz('Asia/Jakarta').format('dddd DD MMMM YYYY');
@@ -114,24 +88,23 @@ module.exports = class extends Command {
                 })
                 .setFooter(`GMT+0700 (Western Indonesia Time)`)
 
-            message.channel.send(embed);
-
-            //User input coordinates
-        } else
-        if (args[0] == "coordinates" || args[0] == "coords") { // COORDINATES
+            return message.channel.send(embed);
 
             
+        } else //For User input coordinates
+        if (args[0] == "coordinates" || args[0] == "coords") { // COORDINATES
+
             if (isNaN(args[1] || isNaN(args[2]))){
                 return errinfo();
             } 
 
             //Get coordinates
-            let coord = []
+            let coord = [];
             coord = args[1].replace(/,/g, ``); 
             var coordinates = new adhan.Coordinates(coord, args[2]);
 
             //Set Up Data
-            var date = new Date(); //Tidak dipakai karena bot di host online tapi diperlukan
+            var date = new Date();
             var params = adhan.CalculationMethod.MuslimWorldLeague();
             params.madhab = adhan.Madhab.Shafi;
             var prayerTimes = new adhan.PrayerTimes(coordinates, date, params);
@@ -166,39 +139,21 @@ module.exports = class extends Command {
                 var asrTime = Moment(prayerTimes.asr).tz(`Etc/GMT${timezone}`).format('h:mm A');
                 var maghribTime = Moment(prayerTimes.maghrib).tz(`Etc/GMT${timezone}`).format('h:mm A');
                 var ishaTime = Moment(prayerTimes.isha).tz(`Etc/GMT${timezone}`).format('h:mm A');
-                var qiblaDirection = adhan.Qibla(coordinates);
 
-                //Dinamic
                 var current = prayerTimes.currentPrayer();
                 var next = prayerTimes.nextPrayer();
 
-                //Current and next
-                if (current == "fajr") {
-                    var nextPrayer = sunriseTime;
-                } else
-                if (current == "sunrise") {
-                    var nextPrayer = dhuhrTime;
-                } else
-                if (current == "dhuhr") {
-                    var nextPrayer = asrTime;
-                } else
-                if (current == "asr") {
-                    var nextPrayer = maghribTime;
-                } else
-                if (current == "maghrib") {
-                    var nextPrayer = ishaTime;
-                } else
-                if (current == "isha") {
-                    var nextPrayer = fajrTime;
-                    var next = fajrTime;
+                if(current == "isha"){
+                    next = fajrTime;
                 }
+                var nextPrayer = getNext(current, fajrTime, sunriseTime, dhuhrTime, asrTime, maghribTime, ishaTime);
 
-                //Moment Date Format
+                // Moment Date Format
                 var date2 = Moment.tz(`Etc/GMT${timezone}`).format('dddd DD MMMM YYYY');
                 var time = Moment.tz(`Etc/GMT${timezone}`).format('HH:mm:ss');
                 let zone = Moment.tz(`Etc/GMT${timezone}`).format('Z');
 
-                //Send Result
+                // Send Result
 
                 let embed = new MessageEmbed()
                     .setColor('RANDOM')
@@ -237,7 +192,7 @@ module.exports = class extends Command {
                     .setTimestamp();
 
                 message.channel.send(embed);
-                if (!args[3]) {
+                if (!args[3]) { // No custom tz
                     info();
                 }
             }
@@ -247,33 +202,28 @@ module.exports = class extends Command {
 
             var search = reg.exec(args.join(" "));
 
-            // console.log(search);
             if (search == null) return errorinfo();
             var searchClear = search[0].replace(/["']/g, "");
 
             var result = []
             result = cities.filter(city => city.name.match(capitalizeTheFirstLetterOfEachWord(searchClear)));
 
-            // console.log(result);
             if (result[0] == undefined) return errorinfo();
             
-
             //Get Coordinates
             let coord = []
             coord = result[0].loc.coordinates;
 
             var coordinates = new adhan.Coordinates(coord[1], coord[0]);
 
-
             //Set Up Data
-            var date = new Date(); //Tidak dipakai karena bot di host online tapi diperlukan
+            var date = new Date();
             var params = adhan.CalculationMethod.MuslimWorldLeague();
             params.madhab = adhan.Madhab.Shafi;
             var prayerTimes = new adhan.PrayerTimes(coordinates, date, params);
 
             //Declare Timezone
             let timezone;
-
             
             var reg2 = /\[(.*?)\]/;
 
@@ -315,32 +265,15 @@ module.exports = class extends Command {
             var asrTime = Moment(prayerTimes.asr).tz(`Etc/GMT${timezone}`).format('h:mm A');
             var maghribTime = Moment(prayerTimes.maghrib).tz(`Etc/GMT${timezone}`).format('h:mm A');
             var ishaTime = Moment(prayerTimes.isha).tz(`Etc/GMT${timezone}`).format('h:mm A');
-            var qiblaDirection = adhan.Qibla(coordinates);
 
             //Dinamic
             var current = prayerTimes.currentPrayer();
             var next = prayerTimes.nextPrayer();
 
-            //Current and next
-            if (current == "fajr") {
-                var nextPrayer = sunriseTime;
-            } else
-            if (current == "sunrise") {
-                var nextPrayer = dhuhrTime;
-            } else
-            if (current == "dhuhr") {
-                var nextPrayer = asrTime;
-            } else
-            if (current == "asr") {
-                var nextPrayer = maghribTime;
-            } else
-            if (current == "maghrib") {
-                var nextPrayer = ishaTime;
-            } else
-            if (current == "isha") {
-                var nextPrayer = fajrTime;
-                var next = fajrTime;
+            if(current == "isha"){
+                next = fajrTime;
             }
+            var nextPrayer = getNext(current, fajrTime, sunriseTime, dhuhrTime, asrTime, maghribTime, ishaTime);
 
             //Moment Date Format
             var date2 = Moment.tz(`Etc/GMT${timezone}`).format('dddd DD MMMM YYYY');
@@ -453,6 +386,30 @@ module.exports = class extends Command {
                separateWord[i].substring(1);
             }
             return separateWord.join(' ');
+        }
+
+        function getNext(current, fajrTime, sunriseTime, dhuhrTime, asrTime, maghribTime, ishaTime){
+            var next;
+            if (current == "fajr") {
+                next = sunriseTime;
+            } else
+            if (current == "sunrise") {
+                next = dhuhrTime;
+            } else
+            if (current == "dhuhr") {
+                next = asrTime;
+            } else
+            if (current == "asr") {
+                next = maghribTime;
+            } else
+            if (current == "maghrib") {
+                next = ishaTime;
+            } else
+            if (current == "isha") {
+                next = fajrTime;
+            }
+
+            return next;
         }
     }
 }

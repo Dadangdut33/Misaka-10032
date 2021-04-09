@@ -57,33 +57,6 @@ module.exports = class extends Command {
   }
 }
 
-// OLD
-
-/*
-        const wiki = await request(link)
-          .then(article => JSON.parse(article))
-          .catch(error => {
-            if (error.statusCode === 403) return message.channel.send('Wikipedia is down, try again later.');
-            if (error.statusCode === 404) return message.channel.send(`I couldn\'t find that article on Wikipedia or maybe you type it wrong?`);
-            else {
-              return message.channel.send('Error');
-            }
-          });
-          console.log(wiki);
-
-        let embed = new MessageEmbed()
-        .setAuthor(author)
-        .setColor('RANDOM')
-        .setDescription(`${wiki.extract}`)
-        .setFooter(footer, footerpic)
-        .setImage(`${wiki.thumbnail ? wiki.thumbnail.source : ''}`)
-        .setTitle(`${wiki.title}`)
-        .setURL(`${wiki.content_urls.desktop.page}`)
-        .setTimestamp();
-
-        return message.channel.send(embed);
-          */
-
 /* RESULT EXAMPLE
 { 
   type: 'standard',

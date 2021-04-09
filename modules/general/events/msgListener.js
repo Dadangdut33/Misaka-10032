@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 const randomRes = require('./bot-response');
 const { prefix } = require("../../../config");
 const haiku = require('../../../local_dependencies/haikus-detector');
-const { capitalizeFirstLetter } = require('../../../local_dependencies/functions');
+const { capitalizeFirstLetter, hasNumber } = require('../../../local_dependencies/functions');
 
 module.exports = client => {
   const listenToMessage = message => { // The function 
@@ -23,6 +23,7 @@ module.exports = client => {
       if(!message.mentions.members.first() // Mention member
          && !message.mentions.channels.first() // Mention channel
          && !regexEmojiHaiku.test(message.content) // Emoji
+         && !hasNumber(message.content) // Number
          && !new RegExp("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?").test(message.content) // Links
          ){ // To Prevent Error
           if(!message.content.startsWith("||") && !message.content.endsWith("||") && !message.author.bot){ // Make sure it's not a spoiler and not a bot

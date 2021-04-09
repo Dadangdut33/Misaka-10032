@@ -52,15 +52,6 @@ module.exports = class extends Command {
           tags = '';
         }
 
-        /* OLD METHOD LOL
-        //To gain title you need to delete some useless word that show up
-        //In order to delete this word replace was use many time bruhhh 
-        var x = title.toString().replace("Less","");
-        var y = x.toString().replace("Real", "");
-        var z = y.toString().replace(",", "");
-        var final = z.toString().replace(",", "");
-        */
-
         //Remove Less Real and comma
         const final = title.toString().replace(/Less|Real|,/g, "");
 

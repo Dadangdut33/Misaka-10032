@@ -252,12 +252,3 @@ ${Array.from(this.commandHandler.commands)
     )
   .join(', ')}`;
 */
-
-/*Other way to count
-var counterInfo = 0, i;
-  for  (i = 0; i < infoCount.length; i++){
-  if(infoCount[i] !== undefined){
-    counterInfo++;
-  }
-}  
-*/

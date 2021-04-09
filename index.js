@@ -7,11 +7,19 @@ if (Number(process.version.slice(1).split('.')[0]) < 10)
     'Node 10.0.0 or higher is required. Update Node on your system.',
   );
 
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => res.send('Hello World!'));
+
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+
 const path = require('path');
 
 const { Client } = require('discord.js');
 const { Handler } = require('./handler');
-const { config } = require("dotenv"); 
+require('dotenv').config();
 
 const client = new Client({ disableEveryone: true });
 const handler = new Handler(client, '!');
@@ -19,10 +27,6 @@ const handler = new Handler(client, '!');
 handler.load(path.join(__dirname, './modules'), {
   client,
   commandHandler: handler,
-});
-
-config({
-  path: __dirname + "/.env"
 });
 
 client.login(process.env.TOKEN);

@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
+const { reverseString } = require('../../../../local_dependencies/functions');
 
 module.exports = class extends Command {
     constructor() {
@@ -30,6 +31,3 @@ module.exports = class extends Command {
 };
 
 
-function reverseString(str) {
-    return str.split("").reverse().join("");
-}
