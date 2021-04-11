@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
+const { htmlToText } = require('html-to-text');
 const cheerio = require('cheerio');
 const axios = require('axios');
 
@@ -32,7 +33,7 @@ module.exports = class extends Command {
 
         // Get each respective data
         var title = await $('title').text();
-        var definitionGet = await $('div[id = "d1"]').text();
+        var definitionGet = await $('div[id = "d1"]').html();
         var footer = await $('div[id = "footer"]').text();
 
 
@@ -44,26 +45,11 @@ module.exports = class extends Command {
             return message.channel.send(embed);
         }
 
-        const newNumber = {
-            '0' : '**0**',
-            '1' : '**1**',
-            '2' : '**2**',
-            '3' : '**3**',
-            '4' : '**4**',
-            '5' : '**5**',
-            '6' : '**6**',
-            '7' : '**7**',
-            '8' : '**8**',
-            '9' : '**9**',
-        }; // ga jd
-
-
         // Embed
         const embed = new MessageEmbed()
         .setAuthor(title.replace(/<[^>]*>?/gm, ''), 'https://media.discordapp.net/attachments/799595012005822484/821354290237014056/favicon.png', link)
-        // .setDescription(definitionGet.slice(0, 1800).replace(/[0-9]/g, m => newNumber[m]).replace(/;+[a-z]/gi, "\n\n"))
-        .setDescription(`${definitionGet.slice(0, 1900)}...`)
-        .addField(`Detil Lebih Lanjut`, `[Klik Disini](${link})`, false)
+        .setDescription(`${htmlToText(definitionGet.slice(0, 2000))}`)
+        .addField(`Detail Lebih Lanjut`, `[Klik Disini](${link})`, false)
         .setFooter(footer);
 
         return message.channel.send(embed);

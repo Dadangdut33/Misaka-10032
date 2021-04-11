@@ -3,6 +3,7 @@ const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
 const { paginationEmbed } = require('../../../../local_dependencies/functions.js');
 const emojiList = ['⏪', '⏩', '❌'];
+const { htmlToText } = require('html-to-text');
 
 module.exports = class extends Command {
     constructor() {
@@ -85,7 +86,7 @@ module.exports = class extends Command {
                 }
 
                 for (var i = 0; i < dataParsed.ayat.data.ar.length; i++) {
-                    ayatNLatin.push(`${dataParsed.ayat.data.ar[i].ayat}\n${dataParsed.ayat.data.ar[i].teks}\n\n${dataParsed.ayat.data.idt[i].teks.replace(/<[^>]*>?/gm, '')}\n`)
+                    ayatNLatin.push(`${dataParsed.ayat.data.ar[i].ayat}\n${dataParsed.ayat.data.ar[i].teks}\n\n${htmlToText(dataParsed.ayat.data.idt[i].teks)}\n`)
                     terjemahan.push(`${dataParsed.ayat.data.ar[i].ayat}. ${dataParsed.ayat.data.id[i].teks}`)
                 }
 

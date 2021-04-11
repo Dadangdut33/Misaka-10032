@@ -32,6 +32,7 @@
     "grapheme-splitter": "^1.0.4",
     "haiku-detect": "^1.1.0",
     "he": "^1.2.0",
+    "html-to-text": "^7.0.0",
     "isnumber": "^1.0.0",
     "kitsu.js": "^2.0.0",
     "mal-scraper": "^2.11.2",
