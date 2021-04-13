@@ -11,7 +11,7 @@ module.exports = class extends Command {
         aliases: ['alquran', 'ayat'],
         categories: 'muslim',
         info: `Online quran using [Fathimah API](https://fathimah.docs.apiary.io/).\n\n Ayat maksimal untuk ditunjukan adalah 10, limit dari API nya. **Untuk pencarian dengan ayat mulai dan ayat berhenti perhatikan (-) nya**\n\n**Contoh**\`\`\`${prefix}quran cari 13-23\`\`\``,
-        usage: `${prefix}command/alias <list>\`\`\`\`\`\`${prefix}command/alias <random>\`\`\`\`\`\`${prefix}command/alias <cari/ayat> <nomor surat> <ayat mulai-ayat berhenti>\`\`\`\`\`\`${prefix}command/alias <cari/ayat> <nomor surat> <ayat yang ingin dicari>`,
+        usage: `${prefix}command/alias <list>\`\`\`\`\`\`${prefix}command/alias <random>\`\`\`\`\`\`${prefix}command/alias <cari/search/ayat/baca/read> <nomor surat> <ayat mulai-ayat berhenti>\`\`\`\`\`\`${prefix}command/alias <cari/ayat> <nomor surat> <ayat yang ingin dicari>`,
         guildOnly: true,
       });
     }
@@ -60,7 +60,7 @@ module.exports = class extends Command {
     
             paginationEmbed(message, pages, emojiList, 300000); // 5 Menit
         } else
-        if (args[0].toLowerCase() == "cari" || args[0].toLowerCase() == "search" || args[0].toLowerCase() == "ayat" ) {
+        if (args[0].toLowerCase() == "cari" || args[0].toLowerCase() == "search" || args[0].toLowerCase() == "ayat" || args[0].toLowerCase() == "baca" || args[0].toLowerCase() == "read") {
             args.shift(); // Remove first element
             // Now surat is on args[0], ayat is on args[1]
 
@@ -218,7 +218,7 @@ module.exports = class extends Command {
         function info() {
             let embed = new MessageEmbed()
             .setTitle('Invalid Arguments')
-            .setDescription(`**Usage should be like this:** \n\`${prefix}command/alias <list>\` or\n\`${prefix}command/alias <random>\` or\n\`${prefix}command/alias <cari/ayat> <nomor surat> <ayat mulai-ayat berhenti>\` or\n\`${prefix}command/alias <cari/ayat> <nomor surat> <ayat yang ingin dicari>\`\n\n**Example:**\n\`${prefix}quran cari 13-23\``)
+            .setDescription(`**Usage should be like this:** \n\`${prefix}command/alias <list>\` or\n\`${prefix}command/alias <random>\` or\n\`${prefix}command/alias <cari/search/ayat/read/baca> <nomor surat> <ayat mulai-ayat berhenti>\` or\n\`${prefix}command/alias <cari/ayat> <nomor surat> <ayat yang ingin dicari>\`\n\n**Example:**\n\`${prefix}quran cari 13-23\``)
             .setFooter('For more info check using help commands!');
 
             return message.channel.send(embed);

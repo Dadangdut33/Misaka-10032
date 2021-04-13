@@ -26,3 +26,5 @@ Added ytdl
 Added ytthumbnail
 **[31/3/2021]**
 Added verifymail and verifyphone
+**[31/3/2021]**
+Added tafsir
