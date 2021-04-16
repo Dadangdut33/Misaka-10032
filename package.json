@@ -18,6 +18,7 @@
     "comma-number": "^2.0.1",
     "common-tags": "^1.8.0",
     "countries-and-timezones": "^2.3.1",
+    "cron": "^1.8.2",
     "currently-airing-anime": "^0.6.3",
     "discord-auditlog": "^2.2.5",
     "discord.js": "^12.2.0",

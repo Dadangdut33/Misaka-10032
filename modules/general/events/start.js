@@ -7,6 +7,7 @@ const Auditlog = require("./audit");
 const Moment = require('moment-timezone');
 const listenToMessage = require('./msgListener');
 const serverInfo = require('./server-info');
+const dailyMessage = require('./daily-message');
 
 module.exports = class extends Event {
   constructor() {
@@ -44,6 +45,9 @@ module.exports = class extends Event {
           auditmsg: "mod-log",
         }
     });
+
+    // Daily Message
+    dailyMessage(client, '640790707082231834', '832439834609844235');
 
     // Message Listener
     listenToMessage(client);
