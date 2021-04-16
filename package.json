@@ -21,7 +21,7 @@
     "cron": "^1.8.2",
     "currently-airing-anime": "^0.6.3",
     "discord-auditlog": "^2.2.5",
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.5.3",
     "discord.js-poll-embed": "^1.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

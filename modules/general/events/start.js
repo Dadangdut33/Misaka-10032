@@ -8,6 +8,7 @@ const Moment = require('moment-timezone');
 const listenToMessage = require('./msgListener');
 const serverInfo = require('./server-info');
 const dailyMessage = require('./daily-message');
+const crosspost = require('./crosspost');
 
 module.exports = class extends Event {
   constructor() {
@@ -45,6 +46,9 @@ module.exports = class extends Event {
           auditmsg: "mod-log",
         }
     });
+
+    // Crosspost
+    crosspost(client);
 
     // Daily Message
     dailyMessage(client, '640790707082231834', '832439834609844235');
