@@ -1,18 +1,20 @@
-module.exports = client => {
-    const guild = client.guilds.cache.get('640790707082231834')
-    if(guild !== undefined){
+module.exports = (client, guildID, channelID) => {
+    const guild = client.guilds.cache.get(guildID);
+    if(!guild) return console.log("Invalid guild for member count");
+    try {
+        const theID = channelID;
         const updateMembers = guild => {
-            const channel = guild.channels.cache.get(channelId)
+            const channel = guild.channels.cache.get(theID);
             channel.setName(`Total Members: ${guild.memberCount}`)
         }
         
-        const channelId = '798031042954919957'; 
-    
         client.on('guildMemberAdd', (member) => updateMembers(member.guild))
         client.on('guildMemberRemove', (member) => updateMembers(member.guild))
       
         updateMembers(guild)
     
         console.log(`Module: Member-Count Loaded | Loaded from local module | Now waiting for new members...`);
+    } catch (e) {
+        console.log(e);
     }
 }

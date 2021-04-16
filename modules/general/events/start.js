@@ -22,7 +22,7 @@ module.exports = class extends Event {
     client.user.setPresence({
       status: "online",
       activity: {
-        name: `${prefix}help | Rem = Best Girl, says Misaka stating the truth | ${Moment(client.readyAt).tz('Asia/Jakarta').format('HH:mm:ss')} Booting up... Managing ${client.guilds.cache.size} Guilds, ${client.channels.cache.size} Channels, and ${client.users.cache.size} Members`,
+        name: `${prefix}help | ${Moment(client.readyAt).tz('Asia/Jakarta').format('HH:mm:ss')} Booting up... Managing ${client.guilds.cache.size} Guilds, ${client.channels.cache.size} Channels, and ${client.users.cache.size} Members`,
         type: "PLAYING"
       }
     });
@@ -35,7 +35,7 @@ module.exports = class extends Event {
         name: `${prefix}help | ${activityRand(x).activity.desc}`
       })
     }, 900000); //900000 -> every 15 minutes
-    console.log(`==============================================\nModule: Random Bot activity loaded (${activityRand().actLen}) | Loaded from local modules | Bot's presence will change every 15 minutes.`)
+    console.log(`${"=".repeat(30)}\nModule: Random Bot activity loaded (${activityRand().actLen}) | Loaded from local modules | Bot's presence will change every 15 minutes.`)
 
     // Some Auditlog
     Auditlog(client, { //
@@ -49,9 +49,11 @@ module.exports = class extends Event {
     listenToMessage(client);
 
     // Membercount 
-    membercount(client);        
+    membercount(client, '640790707082231834','798031042954919957');        
 
     // Serverinfo
-    serverInfo(client); // Updated every 15 minutes
+    serverInfo(client, '640790707082231834', '820964768067878922', '640825665310031882', '645494894613233665', '820964895767265280'
+    , '821170444509380639', '821170482945458196', '821205412795383871', '821206531730571274', 'https://discord.com/channels/640790707082231834/820964768067878922/820964895767265280'
+    , '640790708155842575', '640790708155842587', '827086299051196426'); // Updated every 15 minutes
   }
 };

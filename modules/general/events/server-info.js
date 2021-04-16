@@ -2,17 +2,12 @@ const { MessageEmbed } = require("discord.js");
 const Moment = require('moment-timezone');
 const prettyMS = require('pretty-ms')
 
-module.exports = client => {
-    const guild = client.guilds.cache.get('640790707082231834') // Server ID
-    if(guild !== undefined){
-        const channelID = '820964768067878922'; // The channel it's in
-        const rulesChannelID = '640825665310031882'; // The rules channel
-        const modsRolesID = '645494894613233665'; // Mod roles ID
-        const serverInfoID = '820964895767265280'; // The id for server info embed  
-        const emojisInfoID1 = '821170444509380639'; // Id for embed emojis 
-        const emojisInfoID2 = '821170482945458196'; // Id for embed emojis 
-        const memberInfoID = '821205412795383871'; // Id for embed showing member
+module.exports = (client, guildID, channelID, rulesChannelID, modRolesID, serverInfoID, emojisInfoID1, emojisInfoID2, memberInfoID, jumpChannelID
+    , goToTop, jumpToGeneral, vcGeneral, publicStage) => { // Client, channel id is the id of the channel for all the embed location
+    const guild = client.guilds.cache.get(guildID) // Server ID
+    if(!guild) return console.log("Invalid guild id for server info!");
 
+    try {
         // Member info
         var memberList = [];
         memberList = getMember()
@@ -86,7 +81,21 @@ module.exports = client => {
             embedEmojis1();
             embedEmojis2();
             embedMember();
+            jump();
         }, 900000) // Every 15 minutes
+
+        function jump() {
+            client.channels.fetch(channelID).then(channel => { // First fetch channel from client
+                channel.messages.fetch(jumpChannelID).then(msg =>{ // Then fetch the message
+                    let embed = new MessageEmbed()
+                    .setTitle('Quick Links')
+                    .setDescription(`[\[Go To The Top\]](${goToTop}) | <#${jumpToGeneral}> | <#${vcGeneral}> | <#${publicStage}>`)
+                    .setColor('RANDOM')
+                
+                    msg.edit(embed);
+                });
+            })
+        }
 
         function embedStats() {
             client.channels.fetch(channelID).then(channel => { // First fetch channel from client
@@ -94,11 +103,12 @@ module.exports = client => {
                     let embed = new MessageEmbed()
                     .setAuthor(guild.name, guild.iconURL(({ format: 'jpg', size: 2048 })))
                     .setTitle('Server Information')
-                    .setDescription(`Welcome To ${guild.name}! This embed contains some information of the server. Before you start participating please read the rules first in <#${rulesChannelID}>. If you have any questions feel free to ask the owner (<@${guild.ownerID}>) or <@&${modsRolesID}>. Once again welcome, have fun, & please enjoy your stay ^^\n\n[Get Server Icon](${guild.iconURL(({ format: 'jpg', size: 2048 }))})`)
+                    .setDescription(`Welcome To ${guild.name}! This embed contains some information of the server. Before you start participating please read the rules first in <#${rulesChannelID}>. If you have any questions feel free to ask the owner (<@${guild.ownerID}>) or <@&${modRolesID}>. Once again welcome, have fun, & please enjoy your stay ^^\n\n[Get Server Icon](${guild.iconURL(({ format: 'jpg', size: 2048 }))})`)
                     .setThumbnail(guild.iconURL(({ format: 'jpg', size: 2048 })))
                     .addField('Server Owner', `<@${guild.ownerID}>`, false)
                     .addField(`Rules & Guides Channel`, `<#${rulesChannelID}>`, false)
-                    .addField("Server Age", `${prettyMS(age)}`, false)
+                    .addField("Server Age", `${prettyMS(age)}`, true)
+                    .addField("Server Permanent Link", `${process.env.Server_invite}`, true)
                     .addField('Server Created At', `${Moment(guild.createdAt).tz('Asia/Jakarta').format('dddd DD MMMM YYYY HH:mm:ss')} GMT+0700`, false)
                     .addField(`Server Region`, guild.region, true)
                     .addField("Default Notification", guild.defaultMessageNotifications, true)
@@ -193,8 +203,11 @@ module.exports = client => {
         embedEmojis1();
         embedEmojis2();
         embedMember();
+        jump();
 
         console.log(`Module: Online Counter Loaded | Loaded from local module | Now watching online users...`);
+    } catch (e) {
+        console.log(e);
     }
 }
 

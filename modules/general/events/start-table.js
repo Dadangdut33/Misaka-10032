@@ -36,6 +36,6 @@ module.exports = (option) => {
     if (option == "notable") {
         console.log(`${i} Command(s) Loaded. ${x} Command(s) Fail to load. ${state}`);
     } else {
-        console.log(`Star Table Module failed to load! Pls check the option`);
+        console.log(`Start Table Module failed to load! Pls check the option`);
     }
 }
