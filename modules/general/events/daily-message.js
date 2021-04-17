@@ -51,35 +51,16 @@ module.exports = async (client, guildID, channelID) => {
             .setColor('RANDOM')
             .setTitle(`Daily Praytime for ${date2} - Ciledug`)
             .addField(`Below are the praytime for today`, "```css\n       Current Time: " + time + "```")
-            .addFields({
-                name: "Fajr",
-                value: `${fajrTime}`,
-                inline: true
-            }, {
-                name: "Sunrise",
-                value: `${sunriseTime}`,
-                inline: true
-            }, {
-                name: "Dhuhr",
-                value: `${dhuhrTime}`,
-                inline: true
-            }, {
-                name: "Asr",
-                value: `${asrTime}`,
-                inline: true
-            }, {
-                name: "Maghrib",
-                value: `${maghribTime}`,
-                inline: true
-            }, {
-                name: "Isha",
-                value: `${ishaTime}`,
-                inline: true
-            })
+            .addFields({ name: "Fajr", value: `${fajrTime}`, inline: true }, 
+                    { name: "Sunrise", value: `${sunriseTime}`, inline: true }, 
+                    { name: "Dhuhr", value: `${dhuhrTime}`, inline: true }, 
+                    { name: "Asr", value: `${asrTime}`, inline: true }, 
+                    { name: "Maghrib", value: `${maghribTime}`, inline: true }, 
+                    { name: "Isha", value: `${ishaTime}`, inline: true })
             .setFooter(`GMT+0700 (Western Indonesia Time)`)
 
         let scheduledMessage = new cron.CronJob('00 00 08 * * *', () => {
-            // This runs every day at 08:00:00, you can do anything you want 00 00 08
+            // This runs every day at 08:00:00, you can do anything you want
             let channel = guild.channels.cache.get(theID);
             channel.send(embedPray);
             channel.send(embedAyat);
