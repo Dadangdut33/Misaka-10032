@@ -5,8 +5,8 @@ From https://www.npmjs.com/package/discord-auditlog
 
 module.exports = function (bot, options) {
     const description = {
-        name: "audit-welcome",
-        filename: "audit-welcome.js",
+        name: "audit",
+        filename: "audit.js",
         version: "1.0.0"
     }
 
