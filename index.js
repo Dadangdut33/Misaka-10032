@@ -23,10 +23,22 @@ require('dotenv').config();
 
 const client = new Client({ disableEveryone: true });
 const handler = new Handler(client, '!');
+const mongoose = require("mongoose");
 
 handler.load(path.join(__dirname, './modules'), {
   client,
   commandHandler: handler,
+});
+
+// Database
+mongoose.connect(process.env.MONGODB_SRV, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false
+}).then(()=> {
+  console.log(`Connected to database!`);
+}).catch((err) => {
+  console.log(err);
 });
 
 client.login(process.env.TOKEN);
