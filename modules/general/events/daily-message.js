@@ -3,6 +3,8 @@ const adhan = require('adhan');
 const Moment = require('moment-timezone');
 const { MessageEmbed } = require("discord.js");
 
+// dailyMessage(client, '640790707082231834', '832439834609844235');
+
 module.exports = async (client, guildID, channelID) => {
     const guild = client.guilds.cache.get(guildID);
     if(!guild) return console.log("Invalid guild for daily message");

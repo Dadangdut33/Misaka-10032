@@ -51,8 +51,6 @@ module.exports = class extends Command {
             directLink = `[Click Here](${linkOnly.join("").replace(/("|amp;)/g, "")})`
         }
 
-        // Delete user sent message
-        message.delete();
         const embed = new MessageEmbed()
             .setColor('RANDOM')
             .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL())

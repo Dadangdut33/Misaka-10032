@@ -50,9 +50,6 @@ module.exports = class extends Event {
     // Crosspost
     crosspost(client);
 
-    // Daily Message
-    dailyMessage(client, '640790707082231834', '832439834609844235');
-
     // Message Listener
     listenToMessage(client);
 
