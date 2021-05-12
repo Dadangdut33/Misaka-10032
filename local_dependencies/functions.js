@@ -1,5 +1,6 @@
 const { DiscordAPIError, MessageEmbed } = require("discord.js");
 const axios = require('axios');
+const mongoose = require('mongoose');
 
 module.exports = {
     getMember: function(message, toFind = '') {
@@ -25,6 +26,12 @@ module.exports = {
 
     formatDate: function(date) {
         return new Intl.DateTimeFormat('en-US').format(date)
+    },
+
+    find_DB: function(name, query, cb) {
+        mongoose.connection.db.collection(name, function (err, collection) {
+           collection.find(query).toArray(cb);
+       });
     },
 
     promptMessage: async function (message, author, time, validReactions) {
