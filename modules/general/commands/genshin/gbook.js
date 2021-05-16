@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
 const { prefix } = require("../../../../config");
-const { paginationEmbed } = require('../../../../local_dependencies/functions.js');
+const { paginationEmbed, find_DB, capitalizeFirstLetter} = require('../../../../local_dependencies/functions.js');
 const emojiList = ['⏪', '⏩', '❌'];
 
 module.exports = class extends Command {
@@ -15,47 +15,40 @@ module.exports = class extends Command {
     });
   }
   async run (message, args){
-    var pages;
+    
     if (!args[0]){
       return message.channel.send(info());
     }
 
     switch(args.join(" ").toLowerCase()){
       case "all":
-        pages = [
-          gold(),
-          ballad(),
-          freedom(),
-          diligence(),
-          prosperity(),
-          resistance()
-        ]
-  
-        paginationEmbed(message, pages, emojiList, 300000); // 5 Minutes
-        break;
+        var pages = [];
 
-      case "gold":
-        message.channel.send(gold());
-        break;
+        find_DB('g_Char', { book: "Gold" }, function (err, docs) {
+          pages.push(dataToEmbed(docs));
+        });
 
-      case "ballad":
-        message.channel.send(ballad());
-        break;
+        find_DB('g_Char', { book: "Ballad" }, function (err, docs) {
+          pages.push(dataToEmbed(docs));
+        });
 
-      case "freedom":
-        message.channel.send(freedom());
-        break;
+        find_DB('g_Char', { book: "Freedom" }, function (err, docs) {
+          pages.push(dataToEmbed(docs));
+        });
 
-      case "diligence":
-        message.channel.send(diligence());
-        break;
+        find_DB('g_Char', { book: "Diligence" }, function (err, docs) {
+          pages.push(dataToEmbed(docs));
+        });
 
-      case "prosperity":
-        message.channel.send(prosperity());
-        break;
+        find_DB('g_Char', { book: "Prosperity" }, function (err, docs) {
+          pages.push(dataToEmbed(docs));
+        });
 
-      case "resistance":
-        message.channel.send(resistance());
+        find_DB('g_Char', { book: "Resistance" }, function (err, docs) {
+          pages.push(dataToEmbed(docs));
+
+          paginationEmbed(message, pages, emojiList, 300000);
+        });
         break;
 
       case "tatang sutarma":
@@ -69,11 +62,35 @@ module.exports = class extends Command {
         break;
 
       default:
-        message.channel.send(info());
+        find_DB('g_Char', { book: `${capitalizeFirstLetter(args.join(" "))}`}, function (err, docs) {
+          if(!docs[0]){
+            return message.channel.send(info());
+          } else {
+            return message.channel.send(dataToEmbed(docs));
+          }
+        });
         break;
     }
 
+    function dataToEmbed(data){
+      var chars = [];
+      Array.from(data, newData => {
+        chars.push(newData.name[0])
+      });
 
+      let embed = new MessageEmbed()
+      .setColor("RANDOM")
+      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setTitle(`Information on "${data[0].book}" Book`)
+      .setDescription(`Requested by ${message.author}`)
+      .addField('❯\u2000\Found On:', data[0].domain,true)
+      .addField('❯\u2000\Day to Farm:', data[0].fields.farmDay,true)
+      .addField('❯\u2000\Character That Needs It:', chars.join(", ")) 
+      .setFooter(`${data[0].book} Talent Book Farming Info`)
+      .setTimestamp();
+
+      return embed;
+    }
 
     function tatangSutarma(){
       let embed = new MessageEmbed()
@@ -87,96 +104,6 @@ module.exports = class extends Command {
       .addField('❯\u2000\Chapter That Are Released To Public Can Be Found On:', "https://buku-tatang-sutarman.blogspot.com/")
       .setImage('https://cdn.discordapp.com/attachments/651015913080094724/794514667992776724/Tatang_Sutarma.gif')
       .setFooter("Above are images of Tatang Sutarma Sighting In Public")
-      .setTimestamp();
-
-      return embed;
-    }
-
-    function gold(){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Gold" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Taishan manshion - Jueyun Karst, Liyue",true)
-      .addField('❯\u2000\Day to Farm:', "Wednesday/Saturday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Beidou, Xingqiu, Xinyan, Zhongli")
-      .setFooter("Gold Talent Book Farming Info")
-      .setTimestamp();
-
-      return embed;
-    }
-
-    function ballad(){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Ballad" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Forsaken Rift - Springvale, Mondstadt",true)
-      .addField('❯\u2000\Day To Farm:', "Wednesday/Saturday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Albedo, Fischl, Kaeya, Lisa, Venti")
-      .setFooter("Ballad Talent Book Farming Info")
-      .setTimestamp();
-
-      return embed;
-    }
-
-    function freedom(){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Freedom" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Forsaken Rift - Springvale, Mondstadt",true)
-      .addField('❯\u2000\Day To Farm:', "Monday/Thursday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Amber, Barbara, Diona, Klee, Sucrose, Childe")
-      .setFooter("Freedom Talent Book Farming Info")
-      .setTimestamp();
-
-      return embed;
-    }
-
-    function diligence(){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Diligence" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Taishan manshion - Jueyun Karst, Liyue",true)
-      .addField('❯\u2000\Day To Farm:', "Tuesday/Friday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Chongyun, Xiangling, Ganyu, Hu Tao")
-      .setFooter("Diligence Talent Book Farming Info")
-      .setTimestamp();
-
-      return embed;
-    }
-
-    function prosperity(){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Prosperity" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Taishan manshion - Jueyun Karst, Liyue",true)
-      .addField('❯\u2000\Day To Farm:', "Monday/Thursday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Keqing, Ningguang, Qiqi, Xiao")
-      .setFooter("Prosperity Talent Book Farming Info")
-      .setTimestamp();
-
-      return embed;
-    }
-
-    function resistance(){
-      let embed = new MessageEmbed()
-      .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
-      .setTitle(`Information on "Resistance" Book`)
-      .setDescription(`Requested by ${message.author}`)
-      .addField('❯\u2000\Found On:', "Forsaken Rift - Springvale, Mondstadt",true)
-      .addField('❯\u2000\Day To Farm:', "Tuesday/Friday/Sunday",true)
-      .addField('❯\u2000\Character That Needs It:', "Bennet, Diluc, Jean, Mona, Noelle, Razor")
-      .setFooter("Resistance Talent Book Farming Info")
       .setTimestamp();
 
       return embed;
