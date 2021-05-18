@@ -58,7 +58,8 @@ module.exports = class extends Command {
         .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL())
         .setTitle(`Link Info`)
         .setDescription(`**Video ID:** \`${theID.replace(/&/, "")}\`\n**Original Link:**\n${args.join(" ")}`)
-        .addField(`Link to The Thumbnail`, `[Default Quality](${defaultImg}) | [HQ](${hqDefault}) | [MQ](${mqDefault}) | [SD](${sdDefault}) | [Maxres](${maxDefault})`, false)
+        .addField(`Link to The Thumbnail`, `[Default Quality](${defaultImg}) | [HQ](${hqDefault}) | [MQ](${mqDefault}) | [SD](${sdDefault}) | [Maxres](${maxDefault})\n\n:arrow_down: **Preview of SD Quality**`, false)
+        .setImage(sdDefault)
         .setColor('FF0000')
         .setTimestamp();
 
