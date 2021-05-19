@@ -105,7 +105,7 @@ module.exports = class extends Command {
 
       let embed = new MessageEmbed()
       .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setAuthor(`Requested by ${message.author.username}`, `${message.author.displayAvatarURL()}`)
       .setTitle(`\`${data[0].fields.farmDay}\` Farm Guide`)
       .setDescription("Below are list of characters or weapons that can get materials on the specified days")
       .addField(`❯\u2000\Forsaken Rift (${farm_Type_1[0]}) [${forsaken_Rift.length}]:`, forsaken_Rift.join(`, `), false)
@@ -133,11 +133,11 @@ module.exports = class extends Command {
 
       let embed = new MessageEmbed()
       .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setAuthor(`Requested by ${message.author.username}`, `${message.author.displayAvatarURL()}`)
       .setTitle(`\`${data[0].farm_Day}\` Farm Guide`)
       .setDescription("Below are list of characters or weapons that can get materials on the specified days")
-      .addField(`❯\u2000\Forsaken Rift (${farm_Type_1[0]}) [${cecilia_Garden[0].weapons.length}]:`, cecilia_Garden[0].weapons.map(x => `\`${x}\``).join(", "), false)
-      .addField(`❯\u2000\Taishan Mansion (${farm_Type_2[0]}) [${hidden_Palace[0].weapons.length}]:`, hidden_Palace[0].weapons.map(x => `\`${x}\``).join(", "), false)
+      .addField(`❯\u2000\Cecilia Garden (${farm_Type_1[0]}) [${cecilia_Garden[0].weapons.length}]:`, cecilia_Garden[0].weapons.map(x => `\`${x}\``).join(", "), false)
+      .addField(`❯\u2000\Hidden Palace of Lianshan Formula (${farm_Type_2[0]}) [${hidden_Palace[0].weapons.length}]:`, hidden_Palace[0].weapons.map(x => `\`${x}\``).join(", "), false)
       .addField(`❯\u2000\Search on Wiki`, `• [${farm_Type_1[0]}](https://genshin-impact.fandom.com/wiki/Special:Search?query=${farm_Type_1[0].replace(/\s/g, "+")})\n• [${farm_Type_2[0]}](https://genshin-impact.fandom.com/wiki/Special:Search?query=${farm_Type_2[0].replace(/\s/g, "+")})`)
       .setTimestamp();
 
@@ -147,7 +147,7 @@ module.exports = class extends Command {
     function sunday(){
       let embed = new MessageEmbed()
       .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setAuthor(`Requested by ${message.author.username}`, `${message.author.displayAvatarURL()}`)
       .setTitle("Sunday Farm Guide")
       .setDescription("You can farm for every material on sunday!")
       .setTimestamp();

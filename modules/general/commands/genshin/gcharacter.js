@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { Command } = require('../../../../handler');
-const { prefix } = require("../../../../config");
+const { prefix, Genshin_Ver } = require("../../../../config");
 const { paginationEmbed, find_DB, capitalizeFirstLetter} = require('../../../../local_dependencies/functions.js');
 const emojiList = ['⏪', '⏩', '❌'];
 
@@ -59,10 +59,10 @@ module.exports = class extends Command {
 
       let embed = new MessageEmbed()
       .setColor('RANDOM')
-      .setAuthor(`${message.guild.me.displayName}`, `${message.client.user.displayAvatarURL()}`)
+      .setAuthor(`Requested by ${message.author.username}`, `${message.author.displayAvatarURL()}`)
       .setTitle(`Showing Full Genshin Impact Character List`)
       .addField(`❯\u2000\Upcoming Character`, "- Ayaka [Cryo]\n")
-      .setFooter("Genshin Character List Patch 1.5")
+      .setFooter(`Genshin Character List Patch ${Genshin_Ver}`)
       .setTimestamp();
 
       find_DB('g_Char', '', function (err, docs) {
