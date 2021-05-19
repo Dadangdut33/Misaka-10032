@@ -99,9 +99,9 @@ module.exports = class extends Command {
                     .setColor('RANDOM')
                     .setAuthor(`Requested by ${message.author.username}`, `${message.author.displayAvatarURL()}`)
                     .setDescription(`Below are lists of weapons currently in genshin impact ${Genshin_Ver}\n\nDomain: \`Hidden Palace of Lianshan Formula\``)
-                    .addField(`❯\u2000${farm_Type_2[0]}) [${hidden_Palace[0].weapons.length}]:`, hidden_Palace[0].weapons.map(x => `\`${x}\``).join(", "), false)
-                    .addField(`❯\u2000${farm_Type_2[1]}) [${hidden_Palace[1].weapons.length}]:`, hidden_Palace[1].weapons.map(x => `\`${x}\``).join(", "), false)
-                    .addField(`❯\u2000${farm_Type_2[2]}) [${hidden_Palace[2].weapons.length}]:`, hidden_Palace[2].weapons.map(x => `\`${x}\``).join(", "), false)
+                    .addField(`❯\u2000${farm_Type_2[0]} [${hidden_Palace[0].weapons.length}]:`, hidden_Palace[0].weapons.map(x => `\`${x}\``).join(", "), false)
+                    .addField(`❯\u2000${farm_Type_2[1]} [${hidden_Palace[1].weapons.length}]:`, hidden_Palace[1].weapons.map(x => `\`${x}\``).join(", "), false)
+                    .addField(`❯\u2000${farm_Type_2[2]} [${hidden_Palace[2].weapons.length}]:`, hidden_Palace[2].weapons.map(x => `\`${x}\``).join(", "), false)
                     .addField(`❯\u2000\Search on Wiki`, `• [${farm_Type_2[0]}](https://genshin-impact.fandom.com/wiki/Special:Search?query=${farm_Type_2[0].replace(/\s/g, "+")})\n• [${farm_Type_2[1]}](https://genshin-impact.fandom.com/wiki/Special:Search?query=${farm_Type_2[1].replace(/\s/g, "+")})\n• [${farm_Type_2[2]}](https://genshin-impact.fandom.com/wiki/Special:Search?query=${farm_Type_2[2].replace(/\s/g, "+")})`)
                     .setTimestamp();           
 
