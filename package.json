@@ -28,7 +28,7 @@
     "figlet": "^1.5.0",
     "fraktur": "^1.1.0",
     "fs": "0.0.2",
-    "genius-lyrics": "^3.0.0",
+    "genius-lyrics": "^4.2.9",
     "got": "^9.6.0",
     "grapheme-splitter": "^1.0.4",
     "haiku-detect": "^1.1.0",

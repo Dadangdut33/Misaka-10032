@@ -1,7 +1,8 @@
 const { MessageEmbed } = require("discord.js")
-const Genius = new (require("genius-lyrics")).Client(process.env.Genius_Key);
+const Genius = require("genius-lyrics");
 const { prefix } = require("../../../../config");
 const { Command } = require('../../../../handler');
+const Moment = require('moment-timezone');
 
 module.exports = class extends Command {
   constructor() {
@@ -25,7 +26,8 @@ module.exports = class extends Command {
 
     const msg = await message.channel.send(embed)
     try {
-      const songs = await Genius.tracks.search(args.join(" "));
+      const Client = new Genius.Client(process.env.Genius_Key);
+      const songs = await Client.songs.search(args.join(" "));
       const lyrics = await songs[0].lyrics();
 
       if(lyrics.length == 0){
@@ -42,10 +44,16 @@ module.exports = class extends Command {
       .setTitle(songs[0].title)
       .setURL(songs[0].url)
       .addField(`Lyrics State`, songs[0].raw.lyrics_state, true)
-      .addField(`Released At`, songs[0].releasedAt, true)
       .setImage(songs[0].image)
-      .setColor("YELLOW")
+      .setColor("YELLOW");
 
+      const fetched = await songs[0].fetch();
+      if(fetched.releasedAt) {
+        var dateGet = Moment(fetched.releasedAt).tz('Asia/Jakarta').format('DD-MMMM-YYYY');;
+
+        edited.addField(`Released at`, `${dateGet}\n(D-M-Y)`, true);
+      }
+     
       msg.edit(edited)
       var start = 0, end = 2048;
       for (let i = 0; i < Math.ceil(lyrics.length / 2048); i++) {
