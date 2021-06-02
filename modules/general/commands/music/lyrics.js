@@ -51,7 +51,7 @@ module.exports = class extends Command {
       if(fetched.releasedAt) {
         var dateGet = Moment(fetched.releasedAt).tz('Asia/Jakarta').format('DD-MMMM-YYYY');;
 
-        edited.addField(`Released at`, `${dateGet}\n(D-M-Y)`, true);
+        edited.addField(`Released at`, `${dateGet}`, true);
       }
      
       msg.edit(edited)
