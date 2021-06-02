@@ -51,38 +51,11 @@ module.exports = class extends Command {
         pages.push(infoPage);
         pages.push(theAyat);
 
-        if(parsedData.data.tafsir.id.long.length <= 2048) {
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long));
-        } else
-        if(parsedData.data.tafsir.id.long.length > 2048 && parsedData.data.tafsir.id.long.length <= 4096){
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(0, 2048)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(2048, 4096)));
-        } else
-        if(parsedData.data.tafsir.id.long.length > 4096 && parsedData.data.tafsir.id.long.length <= 6144){
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(0, 2048)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(2048, 4096)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(4096, 6144)));
-        } else
-        if(parsedData.data.tafsir.id.long.length > 6144 && parsedData.data.tafsir.id.long.length <= 8192){
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(0, 2048)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(2048, 4096)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(4096, 6144)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(6144, 8192)));
-        } else
-        if(parsedData.data.tafsir.id.long.length > 8192 && parsedData.data.tafsir.id.long.length <= 10240){
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(0, 2048)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(2048, 4096)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(4096, 6144)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(6144, 8192)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(8192, 10240)));
-        } else
-        if(parsedData.data.tafsir.id.long.length > 10240 && parsedData.data.tafsir.id.long.length <= 12288){
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(0, 2048)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(2048, 4096)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(4096, 6144)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(6144, 8192)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(8192, 10240)));
-            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(10240, 12288)));
+        var start = 0, end = 2048; // Cut it to 2048
+        for(var i = 0; i < (parsedData.data.tafsir.id.long.length / 2048); i++){
+            pages.push(descEmbed(parsedData, parsedData.data.tafsir.id.long.slice(start, end)));
+            start += 2048;
+            end += 2048;
         }
 
         paginationEmbed(message, pages, "", 600000);
