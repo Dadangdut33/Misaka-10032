@@ -1,4 +1,4 @@
-const { prefix, build } = require("../../../config");
+const { prefix, build } = require("../../../../config");
 
 //Type PLAYING WATCHING LISTENING STREAMING
 'use strict';

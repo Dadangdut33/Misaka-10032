@@ -1,9 +1,9 @@
 // const haiku = require("haiku-detect"); Now forked onto local dependencies for manual calibration
 const { MessageEmbed } = require('discord.js');
 const randomRes = require('./bot-response');
-const { prefix } = require("../../../config");
-const haiku = require('../../../local_dependencies/haikus-detector');
-const { capitalizeFirstLetter, hasNumber } = require('../../../local_dependencies/functions');
+const { prefix } = require("../../../../config");
+const haiku = require('../../../../local_dependencies/haikus-detector');
+const { capitalizeFirstLetter, hasNumber } = require('../../../../local_dependencies/functions');
 
 module.exports = client => {
   const listenToMessage = message => { // The function 

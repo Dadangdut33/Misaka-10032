@@ -1,14 +1,14 @@
 const { Event } = require('../../../handler');
 const { prefix } = require("../../../config");
-const membercount = require('./member-count');
-const activityRand = require('./bot-activity');
-const table = require('./start-table');
-const Auditlog = require("./audit");
 const Moment = require('moment-timezone');
-const listenToMessage = require('./msgListener');
-const serverInfo = require('./server-info');
-const dailyMessage = require('./daily-message');
-const crosspost = require('./crosspost');
+const membercount = require('./types/member-count');
+const activityRand = require('./types/bot-activity');
+const table = require('./types/start-table');
+const Auditlog = require("./types/audit");
+const listenToMessage = require('./types/msgListener');
+const serverInfo = require('./types/server-info');
+const crosspost = require('./types/crosspost');
+// const dailyMessage = require('./types/daily-message');
 
 module.exports = class extends Event {
   constructor() {
