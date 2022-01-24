@@ -31,7 +31,6 @@
     "genius-lyrics": "^4.2.9",
     "got": "^9.6.0",
     "grapheme-splitter": "^1.0.4",
-    "haiku-detect": "^1.1.0",
     "he": "^1.2.0",
     "html-to-text": "^7.0.0",
     "isnumber": "^1.0.0",
@@ -44,8 +43,11 @@
     "ms": "^2.1.2",
     "node-fetch": "^2.6.1",
     "node-opus": "^0.3.3",
+    "normalize-strings": "^1.1.1",
+    "number-to-words": "^1.2.4",
     "opusscript": "0.0.7",
     "owoify-js": "^1.0.7",
+    "pluralize": "^8.0.0",
     "pretty-ms": "^7.0.1",
     "random-puppy": "^1.1.0",
     "request-promise": "^4.2.6",
@@ -57,7 +59,6 @@
     "vaporwave": "^1.0.4",
     "weather-js": "^2.0.0"
   },
-  "devDependencies": {},
   "engines": {
     "node": "14.17.6"
   }
