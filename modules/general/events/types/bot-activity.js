@@ -257,7 +257,7 @@ var activity = [
 	},
 	{
 		type: "PLAYING",
-		desc: "Running on glitch.com (With exploits lol)",
+		desc: "Running on replit.com",
 	},
 	{
 		type: "PLAYING",
