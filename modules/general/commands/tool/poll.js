@@ -1,83 +1,82 @@
 const { MessageEmbed } = require("discord.js");
-const { Command } = require('../../../../handler');
+const { Command } = require("../../../../handler");
 const { prefix } = require("../../../../config");
-const pollEmbed = require('discord.js-poll-embed');
+const pollEmbed = require("discord.js-poll-embed");
 
 module.exports = class extends Command {
-    constructor() {
-      super('poll', {
-        aliases: ['No alis is set for this command'],
-        categories: 'tool',
-        info: 'Create poll. Please not that it\'s not recommended to create a long poll because the bot is not hosted in a legit way so it\'s not always on 24/7 which means the collector won\'t work after reset. You can still see the poll results based on the emojis tho xD\n\n**Tips**\n1 hour = 3600 seconds\n\n**Poll limit is 10 options**',
-        usage: `${prefix}command <timeout> <[title]> <[options 1]> <[options 2]> ... <[options x]>\`\`\`**Notes**\`\`\`Notice the -> []. If you want the poll to have infinite time, input 0 in timeout`,
-        guildOnly: true,
-      });
-    }
-  
-    async run(message, args) {
-        var regex = /\[(.*?)\]/g; // Regex to find options in square bracket []
-        var options = args.join(" ").match(regex); // Match the regex put it into options
+	constructor() {
+		super("poll", {
+			aliases: ["No alis is set for this command"],
+			categories: "tool",
+			info: "Create poll. Please not that it's not recommended to create a long poll because the bot is not hosted in a legit way so it's not always on 24/7 which means the collector won't work after reset. You can still see the poll results based on the emojis tho xD\n\n**Tips**\n1 hour = 3600 seconds\n\n**Poll limit is 10 options**",
+			usage: `${prefix}command <timeout> <[title]> <[options 1]> <[options 2]> ... <[options x]>\`\`\`**Notes**\`\`\`Notice the -> []. If you want the poll to have infinite time, input 0 in timeout`,
+			guildOnly: true,
+		});
+	}
 
-        if(args[0] > 2147483647 || isNaN(args[0])) { // If number invalid
-            let embed = new MessageEmbed()
-            .setDescription('Invalid duration inputted')
+	async run(message, args) {
+		var regex = /\[(.*?)\]/g; // Regex to find options in square bracket []
+		var options = args.join(" ").match(regex); // Match the regex put it into options
 
-            return message.channel.send(embed)
-        }
+		if (args[0] > 2147483647 || isNaN(args[0])) {
+			// If number invalid
+			let embed = new MessageEmbed().setDescription("Invalid duration inputted");
 
-        if(!options[1]){ // If no options
-            let embed = new MessageEmbed()
-            .setDescription('Please enter a valid options')
+			return message.channel.send(embed);
+		}
 
-            return message.channel.send(embed);
-        }
+		if (!options[1]) {
+			// If no options
+			let embed = new MessageEmbed().setDescription("Please enter a valid options");
 
-        if(options.length > 10) {
-            let embed = new MessageEmbed()
-            .setDescription('Poll limit is 10 options!')
+			return message.channel.send(embed);
+		}
 
-            return message.channel.send(embed);
-        }
+		if (options.length > 10) {
+			let embed = new MessageEmbed().setDescription("Poll limit is 10 options!");
 
-        // Remove the [] surrounding the options
-        for (var i = 0; i < options.length; i++){
-            options[i] = options[i].replace(/[\[\]]/g, "");
-        }
+			return message.channel.send(embed);
+		}
 
-        // Title if first array of options
-        var title = options[0]
-        
-        // Timeout on first args
-        var timeout = args[0];
+		// Remove the [] surrounding the options
+		for (var i = 0; i < options.length; i++) {
+			options[i] = options[i].replace(/[\[\]]/g, "");
+		}
 
-        // Remove first array of options which is the title
-        options.shift()
+		// Title if first array of options
+		var title = options[0];
 
-        const emojiList = [ // This contains emoji from 1-10
-            '\u0031\u20E3',
-            '\u0032\u20E3',
-            '\u0033\u20E3',
-            '\u0034\u20E3',
-            '\u0035\u20E3',
-            '\u0036\u20E3',
-            '\u0037\u20E3',
-            '\u0038\u20E3',
-            '\u0039\u20E3',
-            '\uD83D\uDD1F'
-        ];
+		// Timeout on first args
+		var timeout = args[0];
 
-        const forceEndPollEmoji = '\u2705' // This is check mark emoji
-        
-        // Call the pollembed function
-        pollEmbed(message, title, options, timeout, emojiList, forceEndPollEmoji).catch(error => { // Catch error if there is any error
-            console.log(error);
-            let embed = new MessageEmbed()
-            .setTitle('An error occured')
-            .setDescription(error)
+		// Remove first array of options which is the title
+		options.shift();
 
-            return message.channel.send(embed)
-        });
-    }
+		const emojiList = [
+			// This contains emoji from 1-10
+			"\u0031\u20E3",
+			"\u0032\u20E3",
+			"\u0033\u20E3",
+			"\u0034\u20E3",
+			"\u0035\u20E3",
+			"\u0036\u20E3",
+			"\u0037\u20E3",
+			"\u0038\u20E3",
+			"\u0039\u20E3",
+			"\uD83D\uDD1F",
+		];
+
+		const forceEndPollEmoji = "\u2705"; // This is check mark emoji
+
+		// Call the pollembed function
+		pollEmbed(message, title, options, timeout, emojiList, forceEndPollEmoji).catch((error) => {
+			// Catch error if there is any error
+			console.log(error);
+			let embed = new MessageEmbed().setTitle("An error occured").setDescription(error);
+
+			return message.channel.send(embed);
+		});
+	}
 };
 
 // options is an array of strings, which contains the poll options

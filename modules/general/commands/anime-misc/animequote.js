@@ -16,75 +16,64 @@ module.exports = class extends Command {
 	}
 
 	async run(message, args) {
-		let image;
-		let tags;
-		let found;
-
-		/*
-        Why these random values are being considered?
-        Some quotes on Less-Real are not working for some reason. This is why such random values are taken after trial and error.
-        */
-
-		var a = Math.floor(Math.random() * 7000) || Math.floor(Math.random() * (11267 - 10950 + 1) + 10950); //7001 to 10949 missing
-
-		let link = `https://www.less-real.com/quotes/${a}`;
-
-		//Fetching the HTML using axios
-		var { data } = await axios.get(link);
-
-		//Using cheerio to load the HTML fetched
-		var $ = await cheerio.load(data);
-
-		//Fetching the title of the site
-		var title = await $("title")[0].children[0].data.split("-");
-
-		//Gets the quote
-		var quote = await $('div[class = "quoteBig"]').text();
 		try {
-			image = "https://www.less-real.com" + (await $("img")[1].attribs.src);
-		} catch (err) {
-			image = "";
-		}
-		try {
-			tags = await $("img")[1].attribs.alt.split(",");
-			tags = tags.map((s) => s.trim());
-		} catch (err) {
-			tags = "";
-		}
+			let image;
+			let tags;
+			let found;
 
-		//Remove Less Real and comma
-		const final = title.toString().replace(/Less|Real|,/g, "");
+			// Some quotes on Less-Real are not working for some reason. This is why such random values are taken after trial and error.
+			var a = Math.floor(Math.random() * 7000) || Math.floor(Math.random() * (11267 - 10950 + 1) + 10950); //7001 to 10949 missing
 
-		//Quote New Line
-		var quoteFinal = quote.toString().replace("-", "\n\n-");
+			let link = `https://www.less-real.com/quotes/${a}`;
 
-		//Add space after comma
-		let tagSpace = `${Array.from(tags).join(`, `)}`;
+			//Fetching the HTML using axios
+			var { data } = await axios.get(link);
 
-		//Checks if quote
-		// if quote found = true;
-		if ((found = true)) {
-			let embed = new MessageEmbed()
-				.setColor("RANDOM")
-				.setTitle(final)
-				.setDescription(quoteFinal)
-				.setImage(image)
-				.setFooter(`Tags: ` + tagSpace);
+			//Using cheerio to load the HTML fetched
+			var $ = await cheerio.load(data);
 
-			message.channel.send(embed);
-		}
+			//Fetching the title of the site
+			var title = await $("title")[0].children[0].data.split("-");
 
-		//If quote false
-		if ((found = false)) {
-			var x = Math.floor(Math.random() * animequote.length);
-			let embed2 = new MessageEmbed()
-				.setColor("RANDOM")
-				.setTitle(`${quoteLocal(x).quotecharacter} - ${quoteLocal(x).quoteanime}`)
-				.setDescription(`**"${quoteLocal(x).quotesentence}"**`)
-				.setImage(quoteLocal(x).quoteimage)
-				.setFooter(`If you see this it means that there is no quote found from less real`);
+			//Gets the quote
+			var quote = await $('div[class = "quoteBig"]').text();
+			try {
+				image = "https://www.less-real.com" + (await $("img")[1].attribs.src);
+			} catch (err) {
+				image = "";
+			}
+			try {
+				tags = await $("img")[1].attribs.alt.split(",");
+				tags = tags.map((s) => s.trim());
+			} catch (err) {
+				tags = "";
+			}
 
-			message.channel.send(embed2);
+			//Remove Less Real and comma
+			const final = title.toString().replace(/Less|Real|,/g, "");
+
+			//Quote New Line
+			var quoteFinal = quote.toString().replace("-", "\n\n-");
+
+			//Add space after comma
+			let tagSpace = `${Array.from(tags).join(`, `)}`;
+
+			//Checks if quote
+			// if quote found = true;
+			if (found) {
+				let embed = new MessageEmbed()
+					.setColor("RANDOM")
+					.setTitle(final)
+					.setDescription(quoteFinal)
+					.setImage(image)
+					.setFooter(`Tags: ` + tagSpace);
+
+				return message.channel.send(embed);
+			} else {
+				return message.channel.send(quoteLocal());
+			}
+		} catch (error) {
+			return message.channel.send(quoteLocal());
 		}
 	}
 };
@@ -121,5 +110,13 @@ var animequote = [
 ];
 
 function quoteLocal(x) {
-	return animequote[x];
+	var x = Math.floor(Math.random() * animequote.length);
+	let embed2 = new MessageEmbed()
+		.setColor("RANDOM")
+		.setTitle(`${animequote[x].quotecharacter} - ${animequote[x].quoteanime}`)
+		.setDescription(`**"${animequote[x].quotesentence}"**`)
+		.setImage(animequote[x].quoteimage)
+		.setFooter(`If you see this it means that the bot fails to fetch\ndata from less real. Might be because less real is down.`);
+
+	return embed2;
 }

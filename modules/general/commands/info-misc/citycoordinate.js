@@ -1,87 +1,83 @@
 const { MessageEmbed } = require("discord.js");
-const { Command } = require('../../../../handler');
+const { Command } = require("../../../../handler");
 const { prefix } = require("../../../../config");
-const cities = require('all-the-cities');
-const ct = require('countries-and-timezones');
-
+const cities = require("all-the-cities");
+const ct = require("countries-and-timezones");
 
 module.exports = class extends Command {
-    constructor() {
-      super('citycoordinate', {
-        aliases: ['cc'],
-        categories: 'info-misc',
-        info: 'Get city coordinate using the [all-the-cities](https://www.npmjs.com/package/all-the-cities)',
-        usage: `${prefix}command/alias <link>`,
-        guildOnly: false,
-      });
-    }
-  
-    async run(message, args) {
-        if (!args[0]) {
-            return message.channel.send("Please enter a valid city name!");
-        } else {
-            var search = args.join(" ");
+	constructor() {
+		super("citycoordinate", {
+			aliases: ["cc"],
+			categories: "info-misc",
+			info: "Get city coordinate using the [all-the-cities](https://www.npmjs.com/package/all-the-cities)",
+			usage: `${prefix}command/alias <link>`,
+			guildOnly: false,
+		});
+	}
 
-            var result = []
-            result = cities.filter(city => city.name.match(capitalizeTheFirstLetterOfEachWord(search)));
+	async run(message, args) {
+		if (!args[0]) {
+			return message.channel.send("Please enter a valid city name!");
+		} else {
+			var search = args.join(" ");
 
-            if (result[0] == undefined){
-                let embed = new MessageEmbed()
-                .setDescription("Can't find the city, maybe you type it wrong?");
+			var result = [];
+			result = cities.filter((city) => city.name.match(capitalizeTheFirstLetterOfEachWord(search)));
 
+			if (result[0] == undefined) {
+				let embed = new MessageEmbed().setDescription("Can't find the city, maybe you type it wrong?");
 
-                message.channel.send(embed);
-            } else {
-                //Location
-                var location = [];
-                location = result[0].loc.coordinates; 
+				message.channel.send(embed);
+			} else {
+				//Location
+				var location = [];
+				location = result[0].loc.coordinates;
 
-                //Timezone
-                var timezones = [];
-                timezones = ct.getTimezonesForCountry(result[0].country);
-                var storedTZ = [];
+				//Timezone
+				var timezones = [];
+				timezones = ct.getTimezonesForCountry(result[0].country);
+				var storedTZ = [];
 
-                if (timezones == null){
-                    storedTZ = "Not found"
-                } else{
-                    for (var i = 0; i < timezones.length; i++){
-                        storedTZ[i] = `${timezones[i].name} [${timezones[i].utcOffsetStr}]` 
-                    }
-                }
-                var tzString = storedTZ.join("\n");
+				if (timezones == null) {
+					storedTZ = "Not found";
+				} else {
+					for (var i = 0; i < timezones.length; i++) {
+						storedTZ[i] = `${timezones[i].name} [${timezones[i].utcOffsetStr}]`;
+					}
+				}
+				var tzString = storedTZ.join("\n");
 
-                if (tzString.length > 1024) {
-                    tzString = tzString.substring(0, 1024)
-                } 
+				if (tzString.length > 1024) {
+					tzString = tzString.substring(0, 1024);
+				}
 
-                let embed = new MessageEmbed()
-                .setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ format: 'jpg', size: 2048 }))
-                .setTitle(`${result[0].name} [${result[0].country}]`)
-                .addField(`City ID`, result[0].cityId, true)
-                .addField(`Feature Code`, result[0].featureCode, true)
-                .addField(`Admin Code`, result[0].adminCode, true)
-                .addField(`Population`, result[0].population, false)
-                .addField(`Timezones in country [Might be cropped if it doesn't fit]`, `${tzString}`)
-                .addField(`Coordinates/${result[0].loc.type}`, `\`${location[1]} ${location[0]}\``, false)
-                .setTimestamp();
-                
-                message.channel.send(embed);
-            }
-        }
+				let embed = new MessageEmbed()
+					.setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL({ format: "jpg", size: 2048 }))
+					.setTitle(`${result[0].name} [${result[0].country}]`)
+					.addField(`City ID`, result[0].cityId, true)
+					.addField(`Feature Code`, result[0].featureCode, true)
+					.addField(`Admin Code`, result[0].adminCode, true)
+					.addField(`Population`, result[0].population, false)
+					.addField(`Timezones in country [Might be cropped if it doesn't fit]`, `${tzString}`)
+					.addField(`Coordinates/${result[0].loc.type}`, `\`${location[1]} ${location[0]}\``, false)
+					.setTimestamp();
 
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
+				message.channel.send(embed);
+			}
+		}
 
-        function capitalizeTheFirstLetterOfEachWord(words) {
-            var separateWord = words.toLowerCase().split(' ');
-            for (var i = 0; i < separateWord.length; i++) {
-               separateWord[i] = separateWord[i].charAt(0).toUpperCase() +
-               separateWord[i].substring(1);
-            }
-            return separateWord.join(' ');
-        }
-    }
+		function capitalizeFirstLetter(string) {
+			return string.charAt(0).toUpperCase() + string.slice(1);
+		}
+
+		function capitalizeTheFirstLetterOfEachWord(words) {
+			var separateWord = words.toLowerCase().split(" ");
+			for (var i = 0; i < separateWord.length; i++) {
+				separateWord[i] = separateWord[i].charAt(0).toUpperCase() + separateWord[i].substring(1);
+			}
+			return separateWord.join(" ");
+		}
+	}
 };
 
 /* Result example
