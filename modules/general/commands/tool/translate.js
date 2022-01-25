@@ -8,7 +8,7 @@ module.exports = class extends Command {
 		super("translate", {
 			aliases: ["tl"],
 			categories: "tool",
-			info: "Translate text using google translate. **Notes**\n[Click here to see full language code](https://developers.google.com/admin-sdk/directory/v1/languages)",
+			info: "Translate text using google translate.\n[Click here to see full language code](https://developers.google.com/admin-sdk/directory/v1/languages)",
 			usage: `${prefix}command/alias <source lang code> <destination lang code> <text to translate>`,
 			guildOnly: true,
 		});
