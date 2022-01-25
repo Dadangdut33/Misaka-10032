@@ -8,15 +8,15 @@ module.exports = class extends Command {
 		super("translate", {
 			aliases: ["tl"],
 			categories: "tool",
-			info: "Translate inputted text to english. The translation is bad, you shouldn't use it unless you have to. Why is it bad? you may ask... Well it's because money is needed to get a good translation API, but as you can guess I have neither the desire nor money to spend on things like this cause it's just a hobby.\nThis command uses [This](https://english.api.rakuten.net/systran/api/systran-io-translation-and-nlp/details) if you are interested",
-			usage: `${prefix}command/alias <text to translate>\`\`\`**Notes**\`\`\`Not all language works, Japan works tho, but the translation kinda sucks`,
+			info: "Translate text using google translate.",
+			usage: `${prefix}command/alias <source lang code> <destination lang code> <text to translate>\`\`\`**Notes**\`\`\`[Click here to see full language code](https://developers.google.com/admin-sdk/directory/v1/languages)`,
 			guildOnly: true,
 		});
 	}
 
 	async run(message, args) {
-		if (!args[0]) {
-			let embed = new MessageEmbed().setTitle(`Input Error`).setDescription(`Please enter a correct text!`);
+		if (args.length < 3) {
+			let embed = new MessageEmbed().setTitle(`Input Error`).setDescription(`Please input the correct format. Ex: \`\`\`${prefix}tl id en Selamat pagi!\`\`\``);
 
 			return message.channel.send(embed);
 		}
@@ -24,43 +24,27 @@ module.exports = class extends Command {
 
 		const options = {
 			method: "GET",
-			url: "https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/translation/text/translate",
-			params: { source: "auto", target: "en", input: `${args.join(" ")}` },
-			headers: {
-				"x-rapidapi-key": process.env.RapidKey,
-				"x-rapidapi-host": "systran-systran-platform-for-language-processing-v1.p.rapidapi.com",
-			},
+			url: `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${args[0]}&tl=${args[1]}&dt=t&q=${encodeURIComponent(args.slice(2).join(" "))}`,
 		};
 
-		axios
-			.request(options)
-			.then(function (response) {
-				var percent = response.data.outputs[0].detectedLanguageConfidence * 100;
-				msg.delete();
+		// get results
+		axios(options)
+			.then((res) => {
+				const data = res.data;
+				const result = data[0][0][0];
 
+				msg.delete();
 				let embed = new MessageEmbed()
 					.setAuthor(message.author.username, message.author.displayAvatarURL({ format: "jpg", size: 2048 }))
-					.setTitle(`${response.data.outputs[0].detectedLanguage} to English`)
-					.setDescription(response.data.outputs[0].output)
-					.setFooter(`Auto Detection Confidence: ${percent.toFixed(2)}%`);
+					.setTitle(`${args[0]} to ${args[1]}`)
+					.setDescription(result ? result : "Fail to fetch!")
+					.addField("Not correct?", `Check that the language code is correct first in [here](https://developers.google.com/admin-sdk/directory/v1/languages)`)
+					.setFooter(`Via Google Translate`);
 
 				return message.channel.send(embed);
 			})
-			.catch(function (error) {
-				console.log(error);
-
-				msg.edit(`**Loading Failed!**`);
-				if (error.response.status == 500) {
-					let embed = new MessageEmbed()
-						.setTitle(`Internal Server Error (${error.response.status})`)
-						.setDescription(`Language that you want to translate is not supported or the API just does not get it cause it's bad. That's probably the reason for this error`);
-
-					return message.channel.send(embed);
-				}
-
-				let embed = new MessageEmbed().setTitle(`Error (${error.response.status})`).setDescription(`Please try again later`);
-
-				return message.channel.send(embed);
+			.catch((err) => {
+				msg.edit(`Error: ${err.message}`);
 			});
 	}
 };
