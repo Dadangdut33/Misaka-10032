@@ -20,7 +20,11 @@ module.exports = class extends Command {
 			const msg = await message.channel.send(`**Searching...**`);
 			var timeMsStart = Date.now();
 
-			sec.google(args.join(" ")).then(function (result) {
+			const options = {
+				agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36",
+			};
+
+			sec.google(args.join(" "), options).then(function (result) {
 				if (result.error) {
 					msg.edit(`Error: ${result.error}`);
 					return;

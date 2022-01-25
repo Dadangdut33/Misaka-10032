@@ -19,9 +19,8 @@ module.exports = class extends Event {
 		//Log Table to Console and login to console
 		table("notable");
 		console.log(
-			`Logged in as ${client.user.tag} at ${Moment(client.readyAt).tz("Asia/Jakarta").format("dddd DD MMMM YYYY HH:mm:ss")}\nManaging ${client.guilds.cache.size} Guilds, ${
-				client.channels.cache.size
-			} Channels, and ${client.users.cache.size} Members`
+			`Logged in as ${client.user.tag} at ${Moment(client.readyAt).tz("Asia/Jakarta").format("dddd DD MMMM YYYY HH:mm:ss")}\nManaging ${client.guilds.cache.size} Guilds, 
+			${client.channels.cache.size} Channels, and ${client.users.cache.size} Members`
 		);
 
 		// Presence at start
