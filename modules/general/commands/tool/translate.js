@@ -9,7 +9,7 @@ module.exports = class extends Command {
 			aliases: ["tl"],
 			categories: "tool",
 			info: "Translate text using google translate.",
-			usage: `${prefix}command/alias <source lang code> <destination lang code> <text to translate>\`\`\`**Notes**\`\`\`[Click here to see full language code](https://developers.google.com/admin-sdk/directory/v1/languages)`,
+			usage: `${prefix}command/alias <source lang code> <destination lang code> <text to translate>\`\`\`**Notes**\n[Click here to see full language code](https://developers.google.com/admin-sdk/directory/v1/languages)`,
 			guildOnly: true,
 		});
 	}
