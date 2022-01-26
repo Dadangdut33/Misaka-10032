@@ -10,8 +10,9 @@ module.exports = (client, guild_ID, highlightChannel) => {
 
 	client.on("messageReactionAdd", async (reaction, user) => {
 		try {
+			const msg = await reaction.message.channel.messages.fetch(reaction.message.id);
 			// make sure user is not bot
-			if (user.bot) return;
+			if (user.bot || msg.author.bot) return;
 
 			// make sure it is in the same guild
 			if (reaction.message.guild.id !== guild.id) return;
@@ -34,12 +35,11 @@ module.exports = (client, guild_ID, highlightChannel) => {
 				// insert to db
 				insert_DB_One("spotlighted_message", data);
 
-				const msg = await reaction.message.channel.messages.fetch(reaction.message.id);
 				const attachment = msg.attachments.first() ? msg.attachments.first().proxyURL : "";
 
 				const embed = new MessageEmbed()
 					.setColor("RANDOM")
-					.setAuthor(user.username, user.displayAvatarURL({ format: "jpg", size: 2048 }))
+					.setAuthor(msg.author.username, msg.author.displayAvatarURL({ format: "jpg", size: 2048 }))
 					.setDescription(msg ? msg : "-")
 					.setImage(attachment)
 					.addField(`Source`, `[Jump](https://discord.com/channels/${guild_ID}/${reaction.message.channel.id}/${reaction.message.id})`)
@@ -56,4 +56,6 @@ module.exports = (client, guild_ID, highlightChannel) => {
 			channel.send(`**Error**\n${e}`);
 		}
 	});
+
+	console.log(`Module: Message Spotlight Module Loaded | Guild: ${guild.name}`);
 };

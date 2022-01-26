@@ -59,7 +59,7 @@ module.exports = class extends Event {
 
 		// Message Listener
 		listenToMessage(client); // meme react, haiku, anime, manga, crosspost news
-		messageSpotlight(client, personalGuildID, channel_Spotlight_id); // message spotlight
+		messageSpotlight(client, "651015913080094721", "651015913080094724"); // message spotlight
 
 		// Membercount
 		membercount(client, personalGuildID, vc_label_id); // update member count
