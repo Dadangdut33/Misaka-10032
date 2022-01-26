@@ -134,7 +134,8 @@ class Random {
 		let content = {
 			embed: {
 				color: "RANDOM",
-				title: `Search Source :arrow_down:`,
+				title: `Via Nekos.life`,
+				url: `https://nekos.life/`,
 				description: `[SauceNAO](https://saucenao.com/search.php?db=999&url=${mat.url.replace(/[:/]/g, (m) => chars[m])})`,
 				image: { url: mat.url },
 			},

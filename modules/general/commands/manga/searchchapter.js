@@ -3,8 +3,6 @@ const { Command } = require("../../../../handler");
 const { prefix } = require("../../../../config");
 const { promptMessage, paginationEmbed } = require("../../../../local_dependencies/functions.js");
 const chooseArr = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣"];
-const { Mangadex } = require("mangadex-api");
-const client = new Mangadex();
 const Moment = require("moment-timezone");
 
 module.exports = class extends Command {
@@ -19,6 +17,8 @@ module.exports = class extends Command {
 	}
 
 	async run(message, args) {
+		return message.channel.send("Disabled for the time being");
+
 		if (!args[0]) {
 			return message.channel.send(info());
 		} else {
