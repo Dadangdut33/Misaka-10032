@@ -87,7 +87,7 @@ module.exports = class extends Command {
 				embed
 					.setTitle("")
 					.setColor("F75136")
-					.setAuthor(`${manga.titles.english ? manga.titles.english : capitalizeTheFirstLetterOfEachWord(search)} | ${manga.mangaType}`, manga.posterImage.original, `https://kitsu.io/manga/${manga.id}`)
+					.setAuthor(`${manga.titles.english ? manga.titles.english : capitalizeTheFirstLetterOfEachWord(args.join(" "))} | ${manga.mangaType}`, manga.posterImage.original, `https://kitsu.io/manga/${manga.id}`)
 					.setDescription(manga.synopsis)
 					.addField(`Japanese Name`, `${manga.titles.romaji ? `${manga.titles.romaji} (${manga.titles.japanese})` : "-"}`, false)
 					.addField(`Synonyms`, `${synon.join(", ")}`, false)
@@ -124,7 +124,7 @@ module.exports = class extends Command {
 			})
 			.catch((err) => {
 				console.log(err); //cathing error
-				return message.channel.send(`No results found for **${search}**!`);
+				return message.channel.send(`Error searching **${search}**!\nDetails: ${err}`);
 			});
 
 		function capitalizeTheFirstLetterOfEachWord(words) {

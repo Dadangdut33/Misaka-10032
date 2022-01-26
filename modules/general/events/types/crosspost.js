@@ -12,5 +12,5 @@ module.exports = (client) => {
 		}
 	});
 
-	console.log(`Module: msgListener Loaded | Loaded from local modules | Now seeking for haiku and geh content...`);
+	console.log(`Module: crossposter Loaded | Loaded from local modules | Will crosspost news automatically.`);
 };

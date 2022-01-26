@@ -22,7 +22,9 @@ module.exports = class extends Command {
 		}
 		const msg = await message.channel.send(`Searching for \`${args.join(" ")}\`...`);
 
-		malScraper.search
+		const malSearcher = malScraper.search;
+
+		malSearcher
 			.search("manga", {
 				maxResults: 5, // not working for some reason
 				term: args.join(" "), // search term
@@ -86,7 +88,7 @@ module.exports = class extends Command {
 						{
 							name: "❯\u2000Search Online",
 							// prettier-ignore
-							value: `•\u2000\[Mangadex](https://mangadex.org/titles?q=${args.join("+")})\n\•\u2000\[MangaNato](https://manganato.com/search/story/${args.join("_")})\n\•\u2000\[MangaKakalot](https://mangakakalot.com/search/story/${args.join("_")})`,
+							value: `•\u2000\[Mangadex](https://mangadex.org/titles?q=${manga.title.replace(/ /g, "+")})\n\•\u2000\[MangaNato](https://manganato.com/search/story/${manga.title.replace(/ /g, "_")})\n\•\u2000\[MangaKakalot](https://mangakakalot.com/search/story/${manga.title.replace(/ /g, "_")})`,
 							inline: true,
 						},
 						{
@@ -109,7 +111,7 @@ module.exports = class extends Command {
 			})
 			.catch((error) => {
 				console.log(error);
-				return message.channel.send(`No results found for **${mangaToSearch}**!`);
+				return message.channel.send(`Error searching **${mangaToSearch}**!\nDetails: ${error}`);
 			});
 		// Below is the function to get the results of the reaction
 		function getResult(me) {
