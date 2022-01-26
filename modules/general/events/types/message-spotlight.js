@@ -38,18 +38,17 @@ module.exports = (client, guild_ID, highlightChannel) => {
 				const attachment = msg.attachments.first() ? msg.attachments.first().proxyURL : "";
 
 				const embed = new MessageEmbed()
-					.setColor("RANDOM")
+					.setColor("YELLOW")
 					.setAuthor(msg.author.username, msg.author.displayAvatarURL({ format: "jpg", size: 2048 }))
 					.setDescription(msg ? msg : "-")
 					.setImage(attachment)
 					.addField(`Source`, `[Jump](https://discord.com/channels/${guild_ID}/${reaction.message.channel.id}/${reaction.message.id})`)
-					.setFooter(`Spotlighted`)
+					.setFooter(`Starred`)
 					.setTimestamp();
 
 				if (attachment !== "") embed.addField(`Attachment`, `[Link](${attachment})`);
 
-				channel.send(`<#${reaction.message.channel.id}>`);
-				channel.send(embed);
+				channel.send(`<#${reaction.message.channel.id}>`, { embed: embed });
 			}
 		} catch (e) {
 			console.log(e);
