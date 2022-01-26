@@ -22,21 +22,13 @@ module.exports = class extends Command {
 		}
 		const msg = await message.channel.send(`Searching for \`${args.join(" ")}\`...`);
 
-		//main part
-		const search = malScraper.search;
-
-		const type = "manga";
-
-		var mangaToSearch = message.content.split(/\s+/g).slice(1).join(" ");
-
-		search
-			.search(type, {
-				maxResults: 5,
-				term: mangaToSearch, // search term
+		malScraper.search
+			.search("manga", {
+				maxResults: 5, // not working for some reason
+				term: args.join(" "), // search term
 			})
 			.then(async (data) => {
 				msg.edit(`**Manga Found!**`);
-				// console.log(data);
 
 				var options = [];
 				var limit = data.length;
@@ -79,29 +71,22 @@ module.exports = class extends Command {
 
 				var manga = data[reaction];
 
-				var vid;
-				if (manga.video == null) {
-					vid = `No PV available`;
-				} else {
-					vid = `[Click Here](${manga.video})`;
-				}
-
 				embed
-					.setTitle("")
 					.setColor("2E51A2")
 					.setAuthor(`${manga.title} | ${manga.type}`, manga.thumbnail, manga.url)
-					.setDescription(manga.shortDescription)
-					.addField(`Type`, `${manga.type}`, true)
-					.addField(`Volumes`, `${manga.vols}`, true)
-					.addField(`Chapters`, `${manga.nbChapters}`, true)
-					.addField(`Scores`, `${manga.score}`, true)
-					.addField(`Start Date`, `${manga.startDate}`, true)
-					.addField(`End Date`, `${manga.endDate}`, true)
-					.addField(`Members`, `${manga.members}`, false)
+					.setDescription(manga.shortDescription ? manga.shortDescription : "-")
+					.addField(`Type`, `${manga.type ? manga.type : "-"}`, true)
+					.addField(`Volumes`, `${manga.vols ? manga.vols : "-"}`, true)
+					.addField(`Chapters`, `${manga.nbChapters ? manga.nbChapters : "-"}`, true)
+					.addField(`Scores`, `${manga.score ? manga.score : "-"}`, true)
+					.addField(`Start Date`, `${manga.startDate ? manga.startDate : "-"}`, true)
+					.addField(`End Date`, `${manga.endDate ? manga.endDate : "-"}`, true)
+					.addField(`Members`, `${manga.members ? manga.members : "-"}`, false)
 					.addFields(
 						{
 							name: "❯\u2000Search Online",
-							value: `•\u2000\[Mangadex](https://mangadex.org/search?title=${args.join("+")})\n\•\u2000\[Manganelo](https://m.manganelo.com/search/${args.join("_")})`,
+							// prettier-ignore
+							value: `•\u2000\[Mangadex](https://mangadex.org/titles?q=${args.join("+")})\n\•\u2000\[MangaNato](https://manganato.com/search/story/${args.join("_")})\n\•\u2000\[MangaKakalot](https://mangakakalot.com/search/story/${args.join("_")})`,
 							inline: true,
 						},
 						{
@@ -111,7 +96,7 @@ module.exports = class extends Command {
 						},
 						{
 							name: "❯\u2000PV",
-							value: `${vid}`,
+							value: `${manga.video ? `[Click Here](${manga.video})` : "No PV available"}`,
 							inline: true,
 						}
 					)

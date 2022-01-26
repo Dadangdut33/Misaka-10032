@@ -24,12 +24,11 @@ module.exports = class extends Command {
 		const msg = await message.channel.send(`Searching for \`${args.join(" ")}\`...`);
 
 		//main part
-		var search = message.content.split(/\s+/g).slice(1).join(" ");
 		kitsu
-			.searchManga(search)
+			.searchManga(args.join(" "))
 			.then(async (result) => {
 				if (result.length === 0) {
-					return message.channel.send(`No results found for **${search}**!`);
+					return message.channel.send(`No results found for **${args.join(" ")}**!`);
 				}
 				msg.edit(`**Manga Found!**`);
 
@@ -104,7 +103,8 @@ module.exports = class extends Command {
 					.addFields(
 						{
 							name: "❯\u2000Search Online",
-							value: `•\u2000\[Mangadex](https://mangadex.org/search?title=${args.join("+")})\n\•\u2000\[Manganelo](https://m.manganelo.com/search/${args.join("_")})`,
+							// prettier-ignore
+							value: `•\u2000\[Mangadex](https://mangadex.org/titles?q=${args.join("+")})\n\•\u2000\[MangaNato](https://manganato.com/search/story/${args.join("_")})\n•\u2000\[MangaKakalot](https://mangakakalot.com/search/story/${args.join("_")})`,
 							inline: true,
 						},
 						{

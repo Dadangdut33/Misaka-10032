@@ -101,9 +101,8 @@ module.exports = class extends Command {
 							.addFields(
 								{
 									name: "❯\u2000Search Online",
-									value: `•\u2000\[Gogoanime](https://gogoanime.sh//search.html?keyword=${args.join("%20").replace(/\[kitsu\]/i, "")})\n•\u2000\[4Anime](https://4anime.to/?s=${args
-										.join("+")
-										.replace(/\[kitsu\]/i, "")})\n•\u2000\[9Anime](https://9anime.ru/search?keyword=${args.join("+").replace(/\[kitsu\]/i, "")})`,
+									// prettier-ignore
+									value: `•\u2000\[Gogoanime](https://www1.gogoanime.pe//search.html?keyword=${data.title.replace(/ /g, "%20")})\n•\u2000\[AnimixPlay](https://animixplay.to/?q=${data.title.replace(/ /g,"%20")})`,
 									inline: true,
 								},
 								{
