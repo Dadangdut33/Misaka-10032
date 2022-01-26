@@ -39,7 +39,7 @@ module.exports = (client, guild_ID, highlightChannel) => {
 
 				const embed = new MessageEmbed()
 					.setColor("YELLOW")
-					.setAuthor(msg.author.username, msg.author.displayAvatarURL({ format: "jpg", size: 2048 }))
+					.setAuthor(msg.author.username, msg.author.displayAvatarURL({ format: "jpg", size: 2048 }), `https://discord.com/channels/${guild_ID}/${reaction.message.channel.id}/${reaction.message.id}`)
 					.setDescription(msg ? msg : "-")
 					.setImage(attachment)
 					.addField(`Source`, `[Jump](https://discord.com/channels/${guild_ID}/${reaction.message.channel.id}/${reaction.message.id})`)
