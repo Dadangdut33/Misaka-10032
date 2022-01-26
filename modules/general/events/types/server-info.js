@@ -104,13 +104,13 @@ module.exports = (client, guildID, channelID, rulesChannelID, modRolesID, server
 								guild.name
 							}! This embed contains some information of the server. Before you start participating please read the rules first in <#${rulesChannelID}>. If you have any questions feel free to ask the owner (<@${
 								guild.ownerID
-							}>) or <@&${modRolesID}>. Once again welcome, have fun, & please enjoy your stay ^^\n\n[Get Server Icon](${guild.iconURL({ format: "jpg", size: 2048 })})`
+							}>) or <@&${modRolesID}>. Once again welcome, have fun, & please enjoy your stay ^^\n\n[[Get Server Icon]](${guild.iconURL({ format: "jpg", size: 2048 })})`
 						)
 						.setThumbnail(guild.iconURL({ format: "jpg", size: 2048 }))
-						.addField("Server Owner", `<@${guild.ownerID}>`, false)
-						.addField(`Rules & Guides Channel`, `<#${rulesChannelID}>`, false)
+						.addField("Server Owner", `<@${guild.ownerID}>`, true)
+						.addField(`Rules & Guides Channel`, `<#${rulesChannelID}>`, true)
 						.addField("Server Age", `${prettyMS(age)}`, true)
-						.addField("Server Permanent Link", `${process.env.Server_invite}`, true)
+						.addField("Server Permanent Link", `${process.env.Server_invite}`, false)
 						.addField("Server Created At", `${Moment(guild.createdAt).tz("Asia/Jakarta").format("dddd DD MMMM YYYY HH:mm:ss")} GMT+0700`, false)
 						.addField(`Server Region`, guild.region, true)
 						.addField("Default Notification", guild.defaultMessageNotifications, true)
