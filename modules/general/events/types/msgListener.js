@@ -4,8 +4,10 @@ const { prefix } = require("../../../../config");
 const { capitalizeFirstLetter, hasNumber } = require("../../../../local_dependencies/functions");
 const { detect, format } = require("./detect-haiku/detect-haiku");
 const malScraper = require("mal-scraper");
+const Moment = require("moment-timezone");
 
 module.exports = (client) => {
+	var time = Moment.tz("Asia/Jakarta").format("HH:mm:ss");
 	const checkGeh = (message) => {
 		if (!message.content.startsWith(prefix) && message.channel.type !== "dm") {
 			if (message.content.includes("!geh")) {
@@ -245,12 +247,23 @@ module.exports = (client) => {
 		}
 	};
 
+	const crosspost = (message) => {
+		const { channel } = message;
+
+		if (channel.type === "news") {
+			// crosspost automatically
+			message.crosspost();
+			console.log(`News Published at ${time}`);
+		}
+	};
+
 	client.on(`message`, (message) => {
 		checkGeh(message);
 		detectHaiku(message);
 		detectAnimeSearch(message);
 		detectMangaSearch(message);
+		crosspost(message);
 	}); // Listen
 
-	console.log(`Module: msgListener Loaded | Loaded from local modules | Now seeking for haiku, geh content, anime, and manga...`);
+	console.log(`Module: msgListener Loaded | Loaded from local modules | Now seeking for haiku, geh content, anime, manga, and news to crosspost...`);
 };

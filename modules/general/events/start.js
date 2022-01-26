@@ -7,7 +7,7 @@ const table = require("./types/start-table");
 const Auditlog = require("./types/audit");
 const listenToMessage = require("./types/msgListener");
 const serverInfo = require("./types/server-info");
-const crosspost = require("./types/crosspost");
+const messageSpotlight = require("./types/message-spotlight");
 // const dailyMessage = require('./types/daily-message');
 
 module.exports = class extends Event {
@@ -44,41 +44,41 @@ module.exports = class extends Event {
 		}, 900000); //900000 -> every 15 minutes
 		console.log(`${"=".repeat(30)}\nModule: Random Bot activity loaded (${activityRand().actLen}) | Loaded from local modules | Bot's presence will change every 15 minutes.`);
 
+		// events
+		const personalGuildID = "640790707082231834",
+			vc_label_id = "798031042954919957",
+			channel_Spotlight_id = "935898723735728148";
+
 		// Some Auditlog
 		Auditlog(client, {
-			//
-			"640790707082231834": {
-				// For PPW
+			personalServerID: {
 				auditlog: "mod-log",
 				auditmsg: "mod-log",
 			},
 		});
 
-		// Crosspost
-		crosspost(client);
-
 		// Message Listener
-		listenToMessage(client);
+		listenToMessage(client); // meme react, haiku, anime, manga, crosspost news
+		messageSpotlight(client, personalGuildID, channel_Spotlight_id); // message spotlight
 
 		// Membercount
-		membercount(client, "640790707082231834", "798031042954919957");
+		membercount(client, personalGuildID, vc_label_id); // update member count
 
 		// Serverinfo
 		serverInfo(
 			client,
-			"640790707082231834",
-			"820964768067878922",
-			"640825665310031882",
-			"645494894613233665",
-			"820964895767265280",
-			"821170444509380639",
-			"821170482945458196",
-			"821205412795383871",
-			"821206531730571274",
-			"https://discord.com/channels/640790707082231834/820964768067878922/820964895767265280",
-			"640790708155842575",
-			"640790708155842587",
-			"827086299051196426"
+			personalGuildID,
+			"820964768067878922", // channelID
+			"640825665310031882", // rulesChannelID
+			"645494894613233665", // modRolesID
+			"820964895767265280", // serverInfoID
+			"821170444509380639", // emojisInfoID1
+			"821170482945458196", // emojisInfoID2
+			"821205412795383871", // memberInfoID
+			"821206531730571274", // jumpChannelID
+			"640790708155842575", // jumpToGeneral
+			"640790708155842587", // vcGeneral
+			"827086299051196426" // publicStage
 		); // Updated every 15 minutes
 	}
 };

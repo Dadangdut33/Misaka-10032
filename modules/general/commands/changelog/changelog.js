@@ -20,7 +20,7 @@ module.exports = class extends Command {
 	async run(message, args) {
 		var pages = [];
 
-		for (let i = 0; i < 3; i++) {
+		for (let i = 0; i < 4; i++) {
 			let path = `./local_dependencies/changelog/changelog${i + 1}.txt`;
 			let content = fs.readFileSync(path, "utf-8");
 			let page = new MessageEmbed().setAuthor(`${message.client.user.username} Ver. ${build}`, `${message.client.user.displayAvatarURL()}`, Repo_Link).setTitle(`Changelog`).setDescription(content).setTimestamp();

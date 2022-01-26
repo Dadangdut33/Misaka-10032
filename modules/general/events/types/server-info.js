@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const Moment = require("moment-timezone");
 const prettyMS = require("pretty-ms");
 
-module.exports = (client, guildID, channelID, rulesChannelID, modRolesID, serverInfoID, emojisInfoID1, emojisInfoID2, memberInfoID, jumpChannelID, goToTop, jumpToGeneral, vcGeneral, publicStage) => {
+module.exports = (client, guildID, channelID, rulesChannelID, modRolesID, serverInfoID, emojisInfoID1, emojisInfoID2, memberInfoID, jumpChannelID, jumpToGeneral, vcGeneral, publicStage) => {
 	// Client, channel id is the id of the channel for all the embed location
 	const guild = client.guilds.cache.get(guildID); // Server ID
 	if (!guild) return console.log("Invalid guild id for server info!");
@@ -83,8 +83,9 @@ module.exports = (client, guildID, channelID, rulesChannelID, modRolesID, server
 			client.channels.fetch(channelID).then((channel) => {
 				// First fetch channel from client
 				channel.messages.fetch(jumpChannelID).then((msg) => {
+					var goTop = `https://discord.com/channels/${guildID}/${channelID}/${serverInfoID}`;
 					// Then fetch the message
-					let embed = new MessageEmbed().setTitle("Quick Links").setDescription(`[\[Go To The Top\]](${goToTop}) | <#${jumpToGeneral}> | <#${vcGeneral}> | <#${publicStage}>`).setColor("RANDOM");
+					let embed = new MessageEmbed().setTitle("Quick Links").setDescription(`[\[Go To The Top\]](${goTop}) | <#${jumpToGeneral}> | <#${vcGeneral}> | <#${publicStage}>`).setColor("RANDOM");
 
 					msg.edit(embed);
 				});

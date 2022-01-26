@@ -18,8 +18,8 @@ const { Client } = require("discord.js");
 const { Handler } = require("./handler");
 require("dotenv").config();
 
-const client = new Client({ disableEveryone: true });
-const handler = new Handler(client, "!");
+const client = new Client({ disableEveryone: false, partials: ["MESSAGE", "CHANNEL", "REACTION", "USER", "GUILD_MEMBER"] }); // partials is for cache
+const handler = new Handler(client);
 const mongoose = require("mongoose");
 
 handler.load(path.join(__dirname, "./modules"), {
