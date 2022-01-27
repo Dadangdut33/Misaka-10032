@@ -60,7 +60,7 @@ module.exports = class extends Event {
 
 		// Some Auditlog
 		Auditlog(client, {
-			personalServerID: {
+			"640790707082231834": {
 				auditlog: "mod-log",
 				auditmsg: "mod-log",
 			},
