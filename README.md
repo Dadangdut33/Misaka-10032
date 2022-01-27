@@ -1,3 +1,6 @@
+<p align="center">
+</p>
+
 # Misaka-10032
 A Personal discord of me. I use it for my private discord server.
 Originally this bot repository was private but I opened it to public now cause why not ¯\\_(ツ)_/¯
