@@ -1,6 +1,5 @@
 # Misaka-10032
-A Personal discord of me. I use it for my private discord server.
-Originally this bot repository was private but I opened it to public now cause why not ¯\\_(ツ)_/¯
+A Personal discord bot i made. I use it for my private discord server. Originally this bot repository was private but I opened it to public now cause why not ¯\\_(ツ)_/¯
 
 Please note that i started making it when i have little experience in programming so the code might be a bit messy (I am trying to refactor it as much as i can when i have the free time now), but it still works tho... xD
 
