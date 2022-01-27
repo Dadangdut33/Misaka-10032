@@ -105,7 +105,7 @@ module.exports = class extends Command {
 							.addField(
 								`Search on`,
 								// prettier-ignore
-								`[MAL](https://myanimelist.net/manga.php?q=${title.replace(/ /g, "%20")}&cat=manga) | [AniList](https://anilist.co/search/manga?search=${title.replace(/ /g, "%20")}) | [MangaNato](https://manganato.com/search/story/${title.replace(/ /g, "_")}) | [MangaKakalot](https://mangakakalot.com/search/story/${title.replace(/ /g, "_")})`,
+								`[MAL](https://myanimelist.net/manga.php?q=${title.replace(/ /g, "%20")}&cat=manga) | [MangaNato](https://manganato.com/search/story/${title.replace(/ /g, "_")}) | [MangaKakalot](https://mangakakalot.com/search/story/${title.replace(/ /g, "_")})`,
 								true
 							)
 							.setFooter(`Page ${i + 1}/${pages.length} | Uploaded by ${uploader.username} | Scanlated by ${groupNames} | Via Mangadex.org`);
