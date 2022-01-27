@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
-const randomRes = require("./bot-response");
-const { prefix } = require("../../../../config");
-const { capitalizeFirstLetter, hasNumber } = require("../../../../local_dependencies/functions");
+const randomRes = require("./random-response/meme-response");
+const { prefix } = require("../../../../../config");
+const { capitalizeFirstLetter, hasNumber } = require("../../../../../local_dependencies/functions");
 const { detect, format } = require("./detect-haiku/detect-haiku");
 const malScraper = require("mal-scraper");
 const Moment = require("moment-timezone");

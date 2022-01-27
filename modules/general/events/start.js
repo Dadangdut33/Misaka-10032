@@ -1,14 +1,20 @@
 const { Event } = require("../../../handler");
 const { prefix } = require("../../../config");
 const Moment = require("moment-timezone");
-const membercount = require("./types/member-count");
-const activityRand = require("./types/bot-activity");
-const table = require("./types/start-table");
-const Auditlog = require("./types/audit");
-const listenToMessage = require("./types/msgListener");
-const serverInfo = require("./types/server-info");
-const messageSpotlight = require("./types/message-spotlight");
-// const dailyMessage = require('./types/daily-message');
+// public
+const table = require("./types/startup/start-table");
+const activityRand = require("./types/public/bot-activity");
+const listenToMessage = require("./types/public/msgListener");
+
+// personal private server
+const membercount = require("./types/private/member-count");
+const Auditlog = require("./types/private/audit");
+const serverInfo = require("./types/private/server-info");
+const messageSpotlight = require("./types/private/message-spotlight");
+// const dailyMessage = require('./types/private/daily-message');
+
+// slashes
+const slashCommands = require("./types/slash-commands/slasher");
 
 module.exports = class extends Event {
 	constructor() {
@@ -36,13 +42,16 @@ module.exports = class extends Event {
 
 		//Bot Activity
 		setInterval(() => {
-			var x = Math.floor(Math.random() * activityRand().actLen); //Now automatic
+			var x = Math.floor(Math.random() * activityRand().actLen);
 			client.user.setActivity({
 				type: `${activityRand(x).activity.type}`,
 				name: `${prefix}help | ${activityRand(x).activity.desc}`,
 			});
 		}, 900000); //900000 -> every 15 minutes
 		console.log(`${"=".repeat(30)}\nModule: Random Bot activity loaded (${activityRand().actLen}) | Loaded from local modules | Bot's presence will change every 15 minutes.`);
+
+		// register slash commands
+		slashCommands(client);
 
 		// events
 		const personalGuildID = "640790707082231834",

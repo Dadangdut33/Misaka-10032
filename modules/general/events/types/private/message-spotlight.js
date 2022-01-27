@@ -1,4 +1,4 @@
-const { insert_DB_One, find_DB_Return } = require("../../../../local_dependencies/functions");
+const { insert_DB_One, find_DB_Return } = require("../../../../../local_dependencies/functions");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = (client, guild_ID, highlightChannel) => {

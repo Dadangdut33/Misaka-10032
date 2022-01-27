@@ -9,7 +9,7 @@ module.exports = (option) => {
 		const commands = readdirSync(`./modules/general/commands/${dir}/`).filter((f) => f.endsWith(".js"));
 
 		for (let file of commands) {
-			let pull = require(`../../commands/${dir}/${file}`);
+			let pull = require(`../../../commands/${dir}/${file}`);
 
 			if (pull.name) {
 				table.addRow(file, "✅");
