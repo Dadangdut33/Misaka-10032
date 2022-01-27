@@ -8,7 +8,7 @@ module.exports = class extends Command {
 	constructor() {
 		super("punch", {
 			categories: "action",
-			aliases: ["No alias is set for this command"],
+			aliases: ["punches"],
 			info: "Punches others. Images are fetched from [Neko love API](https://nekos.life/)",
 			usage: `${prefix}command [tag] [message]`,
 			guildOnly: true,
@@ -16,21 +16,12 @@ module.exports = class extends Command {
 	}
 
 	async run(message, args) {
-		let User = message.mentions.members.first();
+		let data = await random.getAnimeImgURL("punch");
+		let embed = new MessageEmbed()
+			.setColor("RANDOM")
+			.setDescription(`${message.author.username} punches ${args.join(" ")}`)
+			.setImage(data);
 
-		if (!args[0]) {
-			let data = await random.getAnimeImgURL("punch");
-			let embed = new MessageEmbed().setColor("RANDOM").setDescription(`${message.author.username} punches`).setImage(data);
-
-			message.channel.send(embed);
-		} else {
-			let data = await random.getAnimeImgURL("punch");
-			let embed = new MessageEmbed()
-				.setColor("RANDOM")
-				.setDescription(`${message.author.username} punches ${args.join(" ")}`)
-				.setImage(data);
-
-			message.channel.send(embed);
-		}
+		message.channel.send(embed);
 	}
 };
