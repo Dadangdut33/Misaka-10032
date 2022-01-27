@@ -25,15 +25,15 @@ module.exports = {
 		return new Intl.DateTimeFormat("en-US").format(date);
 	},
 
-	find_DB: function (name, query, cb) {
-		mongoose.connection.db.collection(name, function (err, collection) {
+	find_DB: function (tablename, query, cb) {
+		mongoose.connection.db.collection(tablename, function (err, collection) {
 			collection.find(query).toArray(cb);
 		});
 	},
 
-	find_DB_Return: function (name, query) {
+	find_DB_Return: function (tablename, query) {
 		return new Promise((resolve, reject) => {
-			mongoose.connection.db.collection(name, function (err, collection) {
+			mongoose.connection.db.collection(tablename, function (err, collection) {
 				collection.find(query).toArray(function (err, result) {
 					if (err) reject(err);
 					resolve(result);
@@ -44,6 +44,14 @@ module.exports = {
 
 	insert_DB_One: function (tableName, data) {
 		mongoose.connection.db.collection(tableName).insertOne(data);
+	},
+
+	edit_DB_One: function (tableName, query, data) {
+		mongoose.connection.db.collection(tableName).updateOne(query, { $set: data });
+	},
+
+	delete_DB_One: function (tableName, query) {
+		mongoose.connection.db.collection(tableName).deleteOne(query);
 	},
 
 	promptMessage: async function (message, author, time, validReactions) {
