@@ -25,8 +25,8 @@ If you want to clone it and use it for your server, you gonna have to change som
    - Optional
      1. You should probably change the [about](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/commands/info-bot/about.js) info commands
      2. You can also changed the haiku detection settings in [msgListener.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/types/msgListener.js), i turned up the sensitivity cause it's not really working in the language that i use (Indonesia)
-     3. You can also change [this meme responses](https://img-comment-fun.9cache.com/media/aOv2bpN/axNG6q5j_700w_0.jpg). That are located in [bot-response.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/types/bot-response.js)
-     4. You can change the bot activity that changes every 15 minutes. You can customize the settting in [start.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/start.js). For the activity lists you can change it in [bot-activity.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/bot-activity.js)
+     3. You can also change [this meme responses](https://img-comment-fun.9cache.com/media/aOv2bpN/axNG6q5j_700w_0.jpg). That are located in [bot-response.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/types/public/random-response/meme-response.js)
+     4. You can change the bot activity that changes every 15 minutes. You can customize the settting in [start.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/start.js). For the activity lists you can change it in [bot-activity.js](https://github.com/Dadangdut33/Misaka-10032/blob/main/modules/general/events/types/public/bot-activity.js)
      
 ## Questions?
 Feel free to ask me in discussions if you have any questions
