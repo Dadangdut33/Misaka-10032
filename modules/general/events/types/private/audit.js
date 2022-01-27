@@ -59,7 +59,7 @@ ${message.attachments.map((x) => x.proxyURL)}
 			timestamp: new Date(),
 			footer: {
 				text: `
-            Deleted: `,
+            Deleted `,
 			},
 			author: {
 				name: `
