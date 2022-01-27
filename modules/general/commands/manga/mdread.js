@@ -97,6 +97,7 @@ module.exports = class extends Command {
 							)
 							.setImage(pages[i])
 							.setThumbnail(cover)
+							.setDescription(`[Click to look at the manga page on Mangadex](${link})\m**Manga Information**`)
 							.addField("Artist", artist, true)
 							.addField("Author", author, true)
 							.addField(`Chapter`, `${chapter.chapter} ${chapter.title ? `- ${chapter.title}` : ``}`, true)
@@ -126,7 +127,6 @@ module.exports = class extends Command {
 				} else {
 					// delete message
 					msg.edit(`**Loading finished!**`);
-					msg.delete({ timeout: 5000 });
 
 					// check offset
 					if (chapterNum !== chapter.chapter) {
@@ -139,13 +139,14 @@ module.exports = class extends Command {
 						.setAuthor(
 							`${title} - Chapter ${chapter.chapter} | ${originLang} - en`,
 							`https://media.discordapp.net/attachments/799595012005822484/936142797994590288/xbt_jW78_400x400.png`,
-							`https://mangadex.org/chapter/${chapter.id}/${i + 1}`
+							`https://mangadex.org/chapter/${chapter.id}/`
 						)
 						.setThumbnail(cover)
-						.setDescription(`**Manga Information**`)
+						.setDescription(`[Click to look at the manga page on Mangadex](${link})\n**Manga Information**`)
 						.addField("Artist", artist, true)
 						.addField("Author", author, true)
 						.addField(`Chapter`, `${chapter.chapter} ${chapter.title ? `- ${chapter.title}` : ``}`, true)
+						.addField(`Total Pages`, pages.length, true)
 						.addField(`Uploaded At (GMT+7)`, Moment(chapter.publishAt).tz("Asia/Jakarta").format("DD-MM-YY (HH:MM:SS)"), true)
 						.addField(
 							`Search on`,
@@ -156,10 +157,16 @@ module.exports = class extends Command {
 						.setFooter(`RAW Mode | Uploaded by ${uploader.username} | Scanlated by ${groupNames} | Via Mangadex.org`);
 
 					message.channel.send(embed);
+
 					// send raw
 					for (var i = 0; i < pages.length; i++) {
 						message.channel.send(pages[i]);
 					}
+
+					// embed go to top
+					const embedGoToTop = new MessageEmbed().setColor("#e6613e").setDescription(`[Click Here To Go To Top](https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${msg.id})`);
+
+					message.channel.send(embedGoToTop);
 				}
 			})
 			.catch((err) => {
