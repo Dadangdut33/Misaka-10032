@@ -1,11 +1,17 @@
-<p align="center">
-</p>
-
 # Misaka-10032
 A Personal discord of me. I use it for my private discord server.
 Originally this bot repository was private but I opened it to public now cause why not ¯\\_(ツ)_/¯
 
 Please note that i started making it when i have little experience in programming so the code might be a bit messy (I am trying to refactor it as much as i can when i have the free time now), but it still works tho... xD
+
+<details open>
+  <summary><b>Preview</b></summary>
+  <p align="center">
+    <img src="https://github.com/Dadangdut33/Misaka-10032/blob/main/preview.png?raw=true">
+  </p>
+</details>
+
+---
 
 ## Getting Started
 If you want to clone it and use it for your server, you gonna have to change some stuff.
