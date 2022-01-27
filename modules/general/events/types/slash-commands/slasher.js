@@ -3,7 +3,6 @@ const { prefix } = require("../../../../../config");
 module.exports = (client) => {
 	// loop through all guilds
 	client.guilds.cache.forEach((guild) => {
-		console.log(`${guild.name} | ${guild.id}`);
 		// register slash command
 		client.api
 			.applications(client.user.id)
