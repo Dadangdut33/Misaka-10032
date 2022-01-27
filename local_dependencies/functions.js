@@ -127,14 +127,21 @@ module.exports = {
 	},
 
 	// Paginator scrapped from https://github.com/saanuregh/discord.js-pagination. Modified by me personally
-	paginationEmbed: async function (msg, pages, emojiList = ["⏪", "⏩", "❌"], timeout = 120000) {
+	paginationEmbed: async function (msg, pages, emojiList = ["⏪", "⏩", "❌"], timeout = 120000, customFooter = false) {
 		try {
 			// Try
 			if (!msg && !msg.channel) throw new Error("Channel is inaccessible.");
 			if (!pages) throw new Error("Pages are not given.");
 			if (emojiList.length !== 3 || emojiList === false) emojiList = ["⏪", "⏩", "❌"];
 			let page = 0;
-			const curPage = await msg.channel.send(pages[page].setFooter(`Page ${page + 1} / ${pages.length}`));
+			var deleted = false;
+			var curPage;
+			if (!customFooter) {
+				curPage = await msg.channel.send(pages[page].setFooter(`Page ${page + 1} / ${pages.length}`));
+			} else {
+				curPage = await msg.channel.send(pages[page]);
+			}
+
 			for (const emoji of emojiList) await curPage.react(emoji);
 			const reactionCollector = curPage.createReactionCollector((reaction, user) => emojiList.includes(reaction.emoji.name) && !user.bot && user.id === msg.author.id, { time: timeout });
 			reactionCollector.on("collect", (reaction) => {
@@ -154,30 +161,38 @@ module.exports = {
 							.setTitle(`Embed Viewing Closed by Message Author`) // Title
 							.setDescription(`❌ ${msg.author} Closed the embed`) // Desc
 							.setURL(``) // Title URL
-							.setFooter(``, ``) // Footer, icon
 							.setImage(``) // Image
 							.setTimestamp(``) // Timestamp
+							.setFooter(``, ``) // Footer, icon
 							.setThumbnail(``).fields = []; // Thumbnail // Field
 
 						curPage.edit(pages[page]); // Edit it
 
+						deleted = true;
+
 						return; // So it end there, no error
-						break;
 					default:
 						break;
 				}
-				curPage.edit(pages[page].setFooter(`Page ${page + 1} / ${pages.length}`));
+				if (!customFooter) curPage.edit(pages[page].setFooter(`Page ${page + 1} / ${pages.length}`));
+				else curPage.edit(pages[page]);
 			});
 			reactionCollector.on("end", () => {
-				if (!curPage.deleted) {
-					// If curpage is still there
-					if (pages[page].footer.text !== "") {
-						// If it's not closed by author
+				if (!customFooter) {
+					if (!deleted) {
+						// If curpage is still there
+						if (pages[page].footer.text !== "") {
+							// If it's not closed by author
+							curPage.reactions.removeAll();
+
+							pages[page].setFooter(`Page ${page + 1} / ${pages.length} | Pages switching removed due to timeout`);
+
+							curPage.edit(pages[page]);
+						}
+					}
+				} else {
+					if (!deleted) {
 						curPage.reactions.removeAll();
-
-						pages[page].setFooter(`Page ${page + 1} / ${pages.length} | Pages switching removed due to timeout`);
-
-						curPage.edit(pages[page]);
 					}
 				}
 			});
