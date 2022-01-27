@@ -97,7 +97,7 @@ module.exports = class extends Command {
 							)
 							.setImage(pages[i])
 							.setThumbnail(cover)
-							.setDescription(`[Click to look at the manga page on Mangadex](${link})\m**Manga Information**`)
+							.setDescription(`[Click to look at the manga page on Mangadex](${link})\n**Manga Information**`)
 							.addField("Artist", artist, true)
 							.addField("Author", author, true)
 							.addField(`Chapter`, `${chapter.chapter} ${chapter.title ? `- ${chapter.title}` : ``}`, true)
