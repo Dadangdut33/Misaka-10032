@@ -10,8 +10,8 @@ module.exports = class extends Command {
 		super("mdread", {
 			categories: "manga",
 			aliases: ["rc", "mangaread", "readchapter"],
-			info: "Read manga from [mangadex](https://mangadex.org/) by inputting chapter to read and the manga name. Please note that there might be offset of data.\n\nCommand possible by using [mangadex-full-api](https://www.npmjs.com/package/mangadex-full-api) which created an easy way to use [Mangadex API](https://api.mangadex.org/docs.html)",
-			usage: `${prefix}command/alias <chapter (number)> <mangaName>`,
+			info: "**This command is only available in a certain guild**\nRead manga from [mangadex](https://mangadex.org/) by inputting chapter to read and the manga name. \n\n**Notes:** that there might be offset of data and if you want faster reading/loading you can add [RAW] to the arguments, this will make the bot sends the image without embed.\n\nCommand possible by using [mangadex-full-api](https://www.npmjs.com/package/mangadex-full-api) which created an easy way to use [Mangadex API](https://api.mangadex.org/docs.html)",
+			usage: `${prefix}command/alias <chapter (number)> <mangaName> [[RAW]]`,
 			guildOnly: true,
 		});
 	}
@@ -91,7 +91,7 @@ module.exports = class extends Command {
 						embedChaptersReader[i] = new MessageEmbed()
 							.setColor("#e6613e")
 							.setAuthor(
-								`${title} - Chapter ${chapterNum} | ${originLang} - en`,
+								`${title} - Chapter ${chapter.chapter} | ${originLang} - en`,
 								`https://media.discordapp.net/attachments/799595012005822484/936142797994590288/xbt_jW78_400x400.png`,
 								`https://mangadex.org/chapter/${chapter.id}/${i + 1}`
 							)
@@ -115,6 +115,12 @@ module.exports = class extends Command {
 					msg.edit(`**Loading finished!**`);
 					msg.delete({ timeout: 5000 });
 
+					// check offset
+					if (chapterNum !== chapter.chapter) {
+						// send message telling offset
+						message.channel.send(`**Offset detected!** There seems to be an offset of ${chapterNum - chapter.chapter} chapter(s), between the searched chapter and the result received from the API.`);
+					}
+
 					// send embed
 					paginationEmbed(message, embedChaptersReader, false, 1500000, true); // 25 minutes
 				} else {
@@ -122,6 +128,34 @@ module.exports = class extends Command {
 					msg.edit(`**Loading finished!**`);
 					msg.delete({ timeout: 5000 });
 
+					// check offset
+					if (chapterNum !== chapter.chapter) {
+						// send message telling offset
+						message.channel.send(`**Offset detected!** There seems to be an offset of ${chapterNum - chapter.chapter} chapter(s), between the searched chapter and the result received from the API.`);
+					}
+
+					let embed = new MessageEmbed()
+						.setColor("#e6613e")
+						.setAuthor(
+							`${title} - Chapter ${chapter.chapter} | ${originLang} - en`,
+							`https://media.discordapp.net/attachments/799595012005822484/936142797994590288/xbt_jW78_400x400.png`,
+							`https://mangadex.org/chapter/${chapter.id}/${i + 1}`
+						)
+						.setThumbnail(cover)
+						.setDescription(`**Manga Information**`)
+						.addField("Artist", artist, true)
+						.addField("Author", author, true)
+						.addField(`Chapter`, `${chapter.chapter} ${chapter.title ? `- ${chapter.title}` : ``}`, true)
+						.addField(`Uploaded At (GMT+7)`, Moment(chapter.publishAt).tz("Asia/Jakarta").format("DD-MM-YY (HH:MM:SS)"), true)
+						.addField(
+							`Search on`,
+							// prettier-ignore
+							`[MAL](https://myanimelist.net/manga.php?q=${title.replace(/ /g, "%20")}&cat=manga) | [MangaNato](https://manganato.com/search/story/${title.replace(/ /g, "_")}) | [MangaKakalot](https://mangakakalot.com/search/story/${title.replace(/ /g, "_")})`,
+							true
+						)
+						.setFooter(`RAW Mode | Uploaded by ${uploader.username} | Scanlated by ${groupNames} | Via Mangadex.org`);
+
+					message.channel.send(embed);
 					// send raw
 					for (var i = 0; i < pages.length; i++) {
 						message.channel.send(pages[i]);
