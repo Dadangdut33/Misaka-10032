@@ -99,7 +99,7 @@ module.exports = class extends Command {
 							.setThumbnail(cover)
 							.addField("Artist", artist, true)
 							.addField("Author", author, true)
-							.addField(`Chapter`, `${chapter.chapter} - ${chapter.title}`, true)
+							.addField(`Chapter`, `${chapter.chapter} ${chapter.title ? `- ${chapter.title}` : ``}`, true)
 							.addField(`Uploaded At (GMT+7)`, Moment(chapter.publishAt).tz("Asia/Jakarta").format("DD-MM-YY (HH:MM:SS)"), true)
 							.addField(`Raw`, `[Click here](${pages[i]})`, true)
 							.addField(
