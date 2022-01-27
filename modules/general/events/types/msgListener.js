@@ -257,12 +257,24 @@ module.exports = (client) => {
 		}
 	};
 
+	const botIsMentioned = (message) => {
+		// if mention everyone return
+		if (message.mentions.everyone) return;
+
+		// check if message mentions bot and it's not a command and also not from a bot
+		if (message.mentions.has(client.user) && !message.author.bot && !message.content.startsWith(prefix)) {
+			// reply with hello and prefix
+			message.channel.send(`Hello there! My prefix is \`${prefix}\``);
+		}
+	};
+
 	client.on(`message`, (message) => {
 		checkGeh(message);
 		detectHaiku(message);
 		detectAnimeSearch(message);
 		detectMangaSearch(message);
 		crosspost(message);
+		botIsMentioned(message);
 	}); // Listen
 
 	console.log(`Module: msgListener Loaded | Loaded from local modules | Now seeking for haiku, geh content, anime, manga, and news to crosspost...`);
