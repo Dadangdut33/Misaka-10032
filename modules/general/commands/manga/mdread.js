@@ -10,7 +10,7 @@ module.exports = class extends Command {
 		super("mdread", {
 			categories: "manga",
 			aliases: ["rc", "mangaread", "readchapter"],
-			info: "**This command is only available in a certain guild**\nRead manga from [mangadex](https://mangadex.org/) by inputting chapter to read and the manga name. \n\n**Notes:** that there might be offset of data and if you want faster reading/loading you can add [RAW] to the arguments, this will make the bot sends the image without embed.\n\nCommand possible by using [mangadex-full-api](https://www.npmjs.com/package/mangadex-full-api) which created an easy way to use [Mangadex API](https://api.mangadex.org/docs.html)",
+			info: "**This command is only available in a certain guild**\nRead manga from [mangadex](https://mangadex.org/) by inputting chapter to read and the manga name. \n\n**Notes:** There might be offset of data and if you want faster reading/loading you can add [RAW] to the arguments, this will make the bot sends the image without embed.\n\nCommand possible by using [mangadex-full-api](https://www.npmjs.com/package/mangadex-full-api) which created an easy way to use [Mangadex API](https://api.mangadex.org/docs.html)",
 			usage: `${prefix}command/alias <chapter (number)> <mangaName> [[RAW]]`,
 			guildOnly: true,
 		});
