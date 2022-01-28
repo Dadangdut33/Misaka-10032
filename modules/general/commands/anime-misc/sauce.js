@@ -62,8 +62,8 @@ module.exports = class extends Command {
 		// Using cheerio to load the HTML fetched
 		var $ = cheerio.load(data);
 
-		// get all the elements with class "resultcontentcolumn"
-		var results = $(".resultcontentcolumn");
+		// get all the elements with class "resulttablecontent"
+		var results = $(".resulttablecontent");
 
 		var limit = results.length;
 		if (limit > 10) {
@@ -72,13 +72,15 @@ module.exports = class extends Command {
 
 		// get top 5 results and store in array, after that remove element that is from the same source
 		var results_array = [],
-			imgLink;
+			imgLink,
+			similarityPercentage;
 		for (var i = 0; i < limit; i++) {
-			imgLink = $(results[i]).find("a").attr("href");
+			imgLink = $(results[i]).find(".resultcontentcolumn").find("a").attr("href");
+			similarityPercentage = $(results[i]).find(".resultsimilarityinfo").text();
 
 			// result is in <a></a>
 			try {
-				results_array.push([getDomainName(imgLink), imgLink]);
+				results_array.push([getDomainName(imgLink), imgLink, similarityPercentage]);
 			} catch (e) {} // ignored
 		}
 
@@ -87,6 +89,9 @@ module.exports = class extends Command {
 
 		// remove furaffinity => shit
 		results_array = results_array.filter((v, i, a) => v[0] !== "furaffinity.net");
+
+		// remove if percentage is less than 70
+		results_array = results_array.filter((v, i, a) => parseInt(v[2].split("%")[0]) > 69);
 
 		// if no result found
 		if (results_array.length == 0) {
@@ -104,16 +109,18 @@ module.exports = class extends Command {
 				.setFooter(`Via SauceNao.com | Use top result for accurate result.`);
 
 			if (results_array.length > 1) {
-				embed.addField(`Top Result`, `[${results_array[0][0]}](${results_array[0][1]})`);
+				embed.addField(`Top Result (${results_array[0][2]})`, `[${results_array[0][0]}](${results_array[0][1]})`);
 				embed.addField(
 					`Other Results (Might not be accurate)`,
 					results_array
 						.slice(1, results_array.length)
-						.map((v, i) => `[${v[0]}](${v[1]})`)
+						.map((v, i) => `[${v[0]} (${v[2]})](${v[1]})`)
 						.join(" | ")
 				);
+			} else if (results_array.length == 0) {
+				embed.addField(`No Result found`, `Results found has less than 70% similarity. You can check full result for more info.`);
 			} else {
-				embed.addField("Top Result", `[${results_array[0][0]}](${results_array[0][1]})`);
+				embed.addField(`Top Result (${results_array[0][2]})`, `[${results_array[0][0]}](${results_array[0][1]})`);
 			}
 
 			// send embed
