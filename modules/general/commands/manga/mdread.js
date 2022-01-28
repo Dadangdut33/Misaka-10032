@@ -10,7 +10,7 @@ module.exports = class extends Command {
 		super("mdread", {
 			categories: "manga",
 			aliases: ["rc", "mangaread", "readchapter"],
-			info: "**This command is only available in a certain guild**\nRead manga from [mangadex](https://mangadex.org/) by inputting chapter to read and the manga name. \n\n**Notes:** There might be offset of data and if you want faster reading/loading you can add [RAW] to the arguments, this will make the bot sends the image without embed.\n\nCommand possible by using [mangadex-full-api](https://www.npmjs.com/package/mangadex-full-api) which created an easy way to use [Mangadex API](https://api.mangadex.org/docs.html)",
+			info: "**This command is only available in a certain guild**\nRead manga from [mangadex](https://mangadex.org/) by inputting chapter to read and the manga name. \n\n**Notes:** There might be offset of data which you can counter by getting the correct chapter from the `mdchapter` command and if you want faster reading/loading you can add [RAW] to the arguments, this will make the bot sends the image without embed.\n\nCommand possible by using [mangadex-full-api](https://www.npmjs.com/package/mangadex-full-api) which created an easy way to use [Mangadex API](https://api.mangadex.org/docs.html)",
 			usage: `${prefix}command/alias <chapter (number)> <mangaName> [[RAW]]`,
 			guildOnly: true,
 		});
@@ -20,7 +20,7 @@ module.exports = class extends Command {
 		// check guild, only allow if in 640790707082231834 or 651015913080094721
 		if (message.guild.id !== "640790707082231834" && message.guild.id !== "651015913080094721") return message.channel.send("This command is only available in a certain server!");
 
-		if (args.length < 2) return message.channel.send(`Please input a correct manga name and chapter to read`);
+		if (args.length < 2) return message.channel.send(invalidArgs());
 
 		// verify that the chapter is a number
 		if (isNaN(args[0]) || parseInt(args[0]) < 1) return message.channel.send(notACorrectNumber());
@@ -119,7 +119,11 @@ module.exports = class extends Command {
 					// check offset
 					if (chapterNum !== chapter.chapter) {
 						// send message telling offset
-						message.channel.send(`**Offset detected!** There seems to be an offset of ${chapterNum - chapter.chapter} chapter(s), between the searched chapter and the result received from the API.`);
+						message.channel.send(
+							`**Offset detected!** There seems to be an offset of ${
+								chapterNum - chapter.chapter
+							} chapter(s), between the searched chapter and the result received from the API. **Please use \`mdchapter\` command to get chapter lists and read the correct chapter**`
+						);
 					}
 
 					// send embed
@@ -131,7 +135,11 @@ module.exports = class extends Command {
 					// check offset
 					if (chapterNum !== chapter.chapter) {
 						// send message telling offset
-						message.channel.send(`**Offset detected!** There seems to be an offset of ${chapterNum - chapter.chapter} chapter(s), between the searched chapter and the result received from the API.`);
+						message.channel.send(
+							`**Offset detected!** There seems to be an offset of ${
+								chapterNum - chapter.chapter
+							} chapter(s), between the searched chapter and the result received from the API.**Please use \`mdchapter\` command to get chapter lists and read the correct chapter**`
+						);
 					}
 
 					let embed = new MessageEmbed()
@@ -176,34 +184,45 @@ module.exports = class extends Command {
 				console.log(err);
 				message.channel.send(err);
 			});
+
+		function noMangaFound(q) {
+			let embed = new MessageEmbed()
+				.setTitle("No Manga Found!")
+				.setDescription(`There is no result found for \`${q}\``)
+				.addField("Suggestion", "Check if the manga exist or not on mangadex. If it exist but still doesn't work, then there might be a problem with the bot or the API.");
+			return embed;
+		}
+
+		function noChapterFound(q) {
+			let embed = new MessageEmbed()
+				.setTitle("No Chapter Found!")
+				.setDescription(`There is no result found for \`${q}\``)
+				.addField(
+					"Suggestion",
+					"Check for available english chapter directly at mangadex or use `mdchapter` command to list all chapters . If it exist but still doesn't work, then there might be a problem with the bot or the API."
+				);
+			return embed;
+		}
+
+		function chapterOutOfBound(chapterNum, maxChapter) {
+			let embed = new MessageEmbed()
+				.setTitle("Chapter Out of Bound!")
+				.setDescription(`The chapter number \`${chapterNum}\` is out of bound. The maximum chapter is \`${maxChapter}\``)
+				.addField(
+					"Suggestion",
+					"Check for available chapter directly at mangadex or use `mdchapter` command to list all chapters . If it exist but still doesn't work, then there might be a problem with the bot or the API."
+				);
+			return embed;
+		}
+
+		function notACorrectNumber() {
+			let embed = new MessageEmbed().setTitle("Invalid Chapter inputted!").setDescription(`Chapter must be a positive integer number`);
+			return embed;
+		}
+
+		function invalidArgs() {
+			let embed = new MessageEmbed().setTitle(`Error! Please input a correct manga name and chapter to read`).setDescription(`\`**Command usage:**\n${this.usage}\``);
+			return embed;
+		}
 	}
 };
-
-function noMangaFound(q) {
-	let embed = new MessageEmbed()
-		.setTitle("No Manga Found!")
-		.setDescription(`There is no result found for \`${q}\``)
-		.addField("Suggestion", "Check if the manga exist or not on mangadex. If it exist but still doesn't work, then there might be a problem with the bot or the API.");
-	return embed;
-}
-
-function noChapterFound(q) {
-	let embed = new MessageEmbed()
-		.setTitle("No Chapter Found!")
-		.setDescription(`There is no result found for \`${q}\``)
-		.addField("Suggestion", "Check for available english chapter directly at mangadex. If it exist but still doesn't work, then there might be a problem with the bot or the API.");
-	return embed;
-}
-
-function chapterOutOfBound(chapterNum, maxChapter) {
-	let embed = new MessageEmbed()
-		.setTitle("Chapter Out of Bound!")
-		.setDescription(`The chapter number \`${chapterNum}\` is out of bound. The maximum chapter is \`${maxChapter}\``)
-		.addField("Suggestion", "Check for available chapter directly at mangadex. If it exist but still doesn't work, then there might be a problem with the bot or the API.");
-	return embed;
-}
-
-function notACorrectNumber() {
-	let embed = new MessageEmbed().setTitle("Invalid Chapter inputted!").setDescription(`Chapter must be a positive integer number`);
-	return embed;
-}
