@@ -61,8 +61,14 @@ module.exports = class extends Event {
 		// Some Auditlog
 		Auditlog(client, {
 			"640790707082231834": {
+				//ppw
 				auditlog: "mod-log",
 				auditmsg: "mod-log",
+			},
+			"913987561922396190": {
+				// ole
+				auditlog: "moderator-only",
+				auditmsg: "moderator-only",
 			},
 		});
 
