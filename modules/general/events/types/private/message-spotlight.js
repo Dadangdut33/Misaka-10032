@@ -10,6 +10,7 @@ module.exports = (client, guild_ID, highlightChannel) => {
 
 	client.on("messageReactionAdd", async (reaction, user) => {
 		try {
+			let count = 0;
 			const msg = await reaction.message.channel.messages.fetch(reaction.message.id);
 			// make sure user is not bot
 			if (user.bot || msg.author.bot) return;
@@ -20,8 +21,12 @@ module.exports = (client, guild_ID, highlightChannel) => {
 			// make sure reaction is not in news channel or dm also make sure raction is not in same channel as highlightChannel
 			if (reaction.message.channel.type === "news" || reaction.message.channel.type === "dm" || reaction.message.channel === channel) return;
 
+			reaction.message.reactions.cache.map(async (reaction) => {
+				count = count + reaction.count;
+			});
+
 			// if reactions >= 3, send it to the highlightChannel
-			if (reaction.message.reactions.cache.size >= 3) {
+			if (count >= 3) {
 				var data = {
 					guildID: guild_ID,
 					channelID: reaction.message.channel.id,

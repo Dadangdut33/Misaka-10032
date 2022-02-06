@@ -2,7 +2,7 @@ const { Event } = require("../../../handler");
 const { prefix } = require("../../../config");
 const Moment = require("moment-timezone");
 // public
-const table = require("./types/startup/start-table");
+// const table = require("./types/startup/start-table");
 const activityRand = require("./types/public/bot-activity");
 const listenToMessage = require("./types/public/msgListener");
 
