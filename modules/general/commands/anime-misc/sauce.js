@@ -46,7 +46,8 @@ module.exports = class extends Command {
 				url_or_attachment = message.attachments.first().proxyURL;
 			}
 			// check if attachment is empty
-			if (!url_or_attachment || url_or_attachment.match(/\.(jpeg|jpg|gif|png)$/) == null) return message.channel.send(`**Please input a valid image url or reply to a message that has an image.**`);
+			if (!url_or_attachment || url_or_attachment.match(/\.(jpeg|jpg|gif|png)$/) == null)
+				return message.channel.send(`**Please input a valid image url or reply to a message that has an image.**`);
 
 			link = `https://saucenao.com/search.php?db=999&url=${url_or_attachment.replace(/[:/]/g, (m) => chars[m])}`;
 		} else {
@@ -99,6 +100,9 @@ module.exports = class extends Command {
 			return message.channel.send(`**No result found.**`);
 		} else {
 			msgLoading.edit("**Loading Finished!**");
+			msgLoading.delete({
+				timeout: 1000,
+			});
 			// create embed
 			// prettier-ignore
 			const embed = new MessageEmbed()
