@@ -122,7 +122,7 @@ module.exports = class extends Command {
 						message.channel.send(
 							`**Offset detected!** There seems to be an offset of ${
 								chapterNum - chapter.chapter
-							} chapter(s), between the searched chapter and the result received from the API. **Please use \`mdchapter\` command to get chapter lists and read the correct chapter**`
+							} chapter(s), between the searched chapter and the result received from the API.\n**Please use \`mdchapter\` command to get chapter lists and read the correct chapter**`
 						);
 					}
 
@@ -130,7 +130,7 @@ module.exports = class extends Command {
 					paginationEmbed(message, embedChaptersReader, false, 1500000, true); // 25 minutes
 				} else {
 					// delete message
-					msg.edit(`**Loading finished!**`);
+					msg.edit(`**Loading finished! Please wait for all the raw chapter to be send**`);
 
 					// check offset
 					if (chapterNum !== chapter.chapter) {
@@ -138,7 +138,7 @@ module.exports = class extends Command {
 						message.channel.send(
 							`**Offset detected!** There seems to be an offset of ${
 								chapterNum - chapter.chapter
-							} chapter(s), between the searched chapter and the result received from the API.**Please use \`mdchapter\` command to get chapter lists and read the correct chapter**`
+							} chapter(s), between the searched chapter and the result received from the API.\n**Please use \`mdchapter\` command to get chapter lists and read the correct chapter**`
 						);
 					}
 
@@ -167,12 +167,15 @@ module.exports = class extends Command {
 					message.channel.send(embed);
 
 					// send raw
-					for (var i = 0; i < pages.length; i++) {
-						message.channel.send(pages[i]);
+					// max image in 1 message is 10, so get how much loop first
+					var loop = Math.ceil(pages.length / 10);
+					for (let i = 0; i < loop; i++) {
+						await message.channel.send({ files: pages.slice(i * 10, (i + 1) * 10) });
 					}
 
-					// embed go to top
-					const embedGoToTop = new MessageEmbed().setColor("#e6613e").setDescription(`[Click Here To Go To Top](https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${msg.id})`);
+					const embedGoToTop = new MessageEmbed()
+						.setColor("#e6613e")
+						.setDescription(`[Click Here To Go To Top](https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${msg.id})`);
 
 					message.channel.send(embedGoToTop);
 				}
