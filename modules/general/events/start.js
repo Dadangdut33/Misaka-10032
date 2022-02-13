@@ -12,6 +12,7 @@ const Auditlog = require("./types/private/audit");
 const serverInfo = require("./types/private/server-info");
 const messageSpotlight = require("./types/private/message-spotlight");
 // const dailyMessage = require('./types/private/daily-message');
+const welcomeMsg = require("./types/private/welcome-message");
 
 // slashes
 const slashCommands = require("./types/slash-commands/slasher");
@@ -33,9 +34,9 @@ module.exports = class extends Event {
 		client.user.setPresence({
 			status: "online",
 			activity: {
-				name: `${prefix}help | ${Moment(client.readyAt).tz("Asia/Jakarta").format("HH:mm:ss")} Booting up... Managing ${client.guilds.cache.size} Guilds, ${client.channels.cache.size} Channels, and ${
-					client.users.cache.size
-				} Members`,
+				name: `${prefix}help | ${Moment(client.readyAt).tz("Asia/Jakarta").format("HH:mm:ss")} Booting up... Managing ${client.guilds.cache.size} Guilds, ${
+					client.channels.cache.size
+				} Channels, and ${client.users.cache.size} Members`,
 				type: "PLAYING",
 			},
 		});
@@ -71,6 +72,9 @@ module.exports = class extends Event {
 				auditmsg: "moderator-only",
 			},
 		});
+
+		// welcome message
+		welcomeMsg(client, "913987561922396190", "913987561922396193");
 
 		// Message Listener
 		listenToMessage(client); // meme react, haiku, anime, manga, crosspost news
