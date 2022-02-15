@@ -1,12 +1,12 @@
 {
   "name": "misaka-10032-bot",
   "version": "3.0.0",
-  "description": "From the previously Da-dang bot, now Misaka 10032 bot comes with lots of new features",
+  "description": "A once private discord bot repository",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "adhan": "^4.0.1",
     "all-the-cities": "^3.1.0",

@@ -42,12 +42,9 @@ module.exports = class extends Command {
 
 			return message.channel.send(embed);
 		} catch (e) {
-			if (e) {
-				// Put it in if so it stops in the return
-				let embed = new MessageEmbed().setTitle(`Error`).setDescription(`Invalid arguments provided, for more info please check using the help commands!`);
+			let embed = new MessageEmbed().setTitle(`Error`).setDescription(`Invalid arguments provided, for more info please check using the help commands!\n\n**Error**\`\`\`${e}\`\`\``);
 
-				return message.channel.send(embed);
-			}
+			return message.channel.send(embed);
 		}
 	}
 };

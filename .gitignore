@@ -1,6 +1,4 @@
 *.env
-*api.json
 Notes/
 .vs/
-*invitelink.json
 node_modules/

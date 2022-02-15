@@ -21,21 +21,9 @@ module.exports = class extends Command {
 		message.author.send(`Thanks for reporting the bug. It will be reviewed as soon as possible`);
 		message.delete();
 
-		var attachmentName = message.attachments.map((attachment) => attachment.name);
+		var attachmentName = message.attachments.map((attachment) => attachment.name) !== "" ? message.attachments.map((attachment) => attachment.name) : `No Attachment`;
 
-		var attachmentURL = message.attachments.map((attachment) => attachment.proxyURL);
-
-		if (attachmentName == "") {
-			attachmentName = "No Attachment";
-		} else {
-			attachmentName = `${attachmentName}`;
-		}
-
-		if (attachmentURL == "") {
-			attachmentURL = "";
-		} else {
-			attachmentURL = `[Click Here for The Attachment](${attachmentURL})`;
-		}
+		var attachmentURL = message.attachments.map((attachment) => attachment.proxyURL) !== "" ? `[Click Here for The Attachment](${attachmentURL})` : ``;
 
 		let embed = new MessageEmbed()
 			.setAuthor(message.author.username, message.author.displayAvatarURL({ format: "jpg", size: 2048 }))
@@ -48,6 +36,6 @@ module.exports = class extends Command {
 			.setFooter("Time in GMT + 7")
 			.setTimestamp();
 
-		message.client.channels.cache.get("817652855166074900").send(embed); // This get sends to bug reported channel in ppw
+		message.client.channels.cache.get("817652855166074900").send(embed); // Channel id of the bug report channel
 	}
 };
