@@ -29,12 +29,15 @@ module.exports = (client, guildID, channelID) => {
 	if (!personalGuild) return console.log("Invalid guild for welcome message");
 	try {
 		const theID = channelID;
-		const updateMembers = (guild) => {
+		const sendWelcomeMessage = (member) => {
 			try {
+				const guild = member.guild;
+				const tagUser = `<@${member.user.id}>`;
+
 				const channel = guild.channels.cache.get(theID);
 				const randomImg = responseImg_ole[Math.floor(Math.random() * responseImg_ole.length)];
 				const randomTxt = responseTxt_ole[Math.floor(Math.random() * responseTxt_ole.length)];
-				if (channel) channel.send({ files: [randomImg], content: randomTxt });
+				if (channel) channel.send({ files: [randomImg], content: tagUser + " " + randomTxt });
 			} catch (error) {
 				console.log(error);
 			}
@@ -42,7 +45,7 @@ module.exports = (client, guildID, channelID) => {
 
 		client.on("guildMemberAdd", (member) => {
 			// check if the guild is the personal guild
-			if (member.guild === personalGuild) updateMembers(member.guild);
+			if (member.guild === personalGuild) sendWelcomeMessage(member);
 		});
 
 		console.log(`Module: Welcome-message Loaded | Loaded from local module | For guild ${personalGuild.name}`);
