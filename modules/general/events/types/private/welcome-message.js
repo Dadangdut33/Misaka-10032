@@ -22,6 +22,7 @@ const responseTxt_ole = [
 	"Selamat datang, Jadi gini … iya gitu",
 	"Welcome , Welcome , welcome",
 	"Selamat datang, semoga hari mu menyenangkan",
+	"😂👆",
 ];
 
 module.exports = (client, guildID, channelID) => {
