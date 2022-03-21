@@ -59,9 +59,8 @@ module.exports = class extends Event {
 		// events
 		const personalGuildID = "640790707082231834",
 			vc_label_id = "798031042954919957",
-			channel_Spotlight_id = "935898723735728148";
-
-		const oleGuildID = "913987561922396190",
+			channel_Spotlight_id = "935898723735728148",
+			oleGuildID = "913987561922396190",
 			ole_hall_of_fame = "955133343094165594",
 			ole_welcome_msg = "913987561922396193";
 

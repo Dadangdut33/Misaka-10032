@@ -43,13 +43,22 @@ module.exports = class extends Command {
 		// get the guild
 		const guild = message.guild;
 
-		// loop member of the guild and remove their roles
-		guild.members.cache.forEach((member) => {
-			// loop through the tagged roles
-			taggedRoles.forEach((role) => {
-				// remove the role from the member
-				member.roles.remove(role);
+		// send msg
+		const msg = await message.channel.send("Resetting roles...");
+
+		try {
+			// loop member of the guild and remove their roles
+			guild.members.cache.forEach((member) => {
+				// loop through the tagged roles
+				taggedRoles.forEach((role) => {
+					// remove the role from the member
+					member.roles.remove(role);
+				});
 			});
-		});
+			msg.edit("__**Roles has been sucesfully reseted!**__ Might take a while to see the changes.");
+		} catch (error) {
+			console.log(error);
+			msg.edit("__**Something went wrong!**__\n```js\n" + error + "```");
+		}
 	}
 };
