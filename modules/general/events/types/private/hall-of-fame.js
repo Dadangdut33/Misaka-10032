@@ -10,6 +10,7 @@ module.exports = (client, guild_ID, hallOfFame) => {
 
 	client.on("messageReactionAdd", async (reaction, user) => {
 		try {
+			const reactor = reaction.message.guild.members.cache.get(user.id);
 			const msg = await reaction.message.channel.messages.fetch(reaction.message.id);
 			// make sure user is not bot
 			if (user.bot || msg.author.bot) return;
@@ -17,8 +18,8 @@ module.exports = (client, guild_ID, hallOfFame) => {
 			// make sure it is in the same guild
 			if (reaction.message.guild.id !== guild.id) return;
 
-			// make sure user is admin
-			if (!msg.member.hasPermission("ADMINISTRATOR")) return;
+			// make sure reactor is admin
+			if (!reactor.hasPermission("ADMINISTRATOR")) return;
 
 			// check reaction content
 			if (!reaction.emoji.name.includes("SETUJUBANH")) return;
