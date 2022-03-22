@@ -23,7 +23,8 @@ module.exports = function (bot, options) {
 	if (options && options.debugmode === true) debugmode = true;
 
 	const DiscordJSversion = require("discord.js").version;
-	if (DiscordJSversion.substring(0, 2) !== "12") console.error('This version of discord-lobby only run on DiscordJS V12 and up, please run "npm i discord-auditlog@discord.js-v11" to install an older version');
+	if (DiscordJSversion.substring(0, 2) !== "12")
+		console.error('This version of discord-lobby only run on DiscordJS V12 and up, please run "npm i discord-auditlog@discord.js-v11" to install an older version');
 	if (DiscordJSversion.substring(0, 2) !== "12") return;
 
 	/*
@@ -37,7 +38,7 @@ module.exports = function (bot, options) {
 	// Deleted image
 	// Only if the message contains image V12
 	bot.on("messageDelete", (message) => {
-		if (message.author.bot === true) return;
+		if (message.author) if (message.author.bot === true) return;
 		if (message.channel.type !== "text") return;
 		if (message.attachments.map((x) => x.proxyURL).length == 0) return;
 		// if (message)
