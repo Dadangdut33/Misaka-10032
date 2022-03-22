@@ -69,8 +69,10 @@ module.exports = (client, guild_ID, hallOfFame) => {
 
 			if (extraEmbedSend) return; // extra embed already send
 
-			// last check through the embeded content in message
-			if (msg.embeds[0].type === "video") channel.send(msg.embeds[0].url);
+			if (msg.embeds[0])
+				if (msg.embeds[0].type === "video")
+					// last check through the embeded content in message
+					channel.send(msg.embeds[0].url);
 		} catch (e) {
 			console.log(e);
 			channel.send(`**Error**\n${e}`);
