@@ -1,3 +1,5 @@
+# Project moved to <https://github.com/Dadangdut33/Misaka-10032-ts>
+
 # Misaka-10032
 A Personal discord bot i made. I use it for my private discord server. Originally this bot repository was private but I opened it to public now cause why not ¯\\_(ツ)_/¯
 
